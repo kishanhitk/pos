@@ -13,7 +13,7 @@ public class EmployeeServiceTest extends AbstractUnitTest {
 	private EmployeeService service;
 
 	@Test
-	public void testAdd() {
+	public void testAdd() throws ApiException {
 		EmployeePojo p = new EmployeePojo();
 		p.setName(" Romil Jain ");
 		service.add(p);

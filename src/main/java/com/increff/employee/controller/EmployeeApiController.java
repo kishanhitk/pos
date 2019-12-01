@@ -28,7 +28,7 @@ public class EmployeeApiController {
 
 	@ApiOperation(value = "Adds an employee")
 	@RequestMapping(path = "/api/employee", method = RequestMethod.POST)
-	public void add(@RequestBody EmployeeForm form) {
+	public void add(@RequestBody EmployeeForm form) throws ApiException {
 		EmployeePojo p = convert(form);
 		service.add(p);
 	}

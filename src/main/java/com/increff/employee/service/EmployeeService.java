@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.increff.employee.dao.EmployeeDao;
 import com.increff.employee.pojo.EmployeePojo;
+import com.increff.employee.util.StringUtil;
 
 @Service
 public class EmployeeService {
@@ -16,9 +17,12 @@ public class EmployeeService {
 	@Autowired
 	private EmployeeDao dao;
 
-	@Transactional
-	public void add(EmployeePojo p) {
+	@Transactional(rollbackOn = ApiException.class)
+	public void add(EmployeePojo p) throws ApiException {
 		normalize(p);
+		if(StringUtil.isEmpty(p.getName())) {
+			throw new ApiException("name cannot be empty");
+		}
 		dao.insert(p);
 	}
 
@@ -56,6 +60,6 @@ public class EmployeeService {
 	}
 
 	protected static void normalize(EmployeePojo p) {
-		p.setName(p.getName().toLowerCase().trim());
+		p.setName(StringUtil.toLowerCase(p.getName()));
 	}
 }
