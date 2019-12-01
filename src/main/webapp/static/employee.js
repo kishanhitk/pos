@@ -86,10 +86,6 @@ var processCount = 0;
 
 
 function processData(){
-	processCount = 0;
-	fileData = [];
-	errorData = [];
-	
 	var file = $('#employeeFile')[0].files[0];
 	readFileData(file, readFileDataCallback);
 }
@@ -100,19 +96,21 @@ function readFileDataCallback(results){
 }
 
 function uploadRows(){
-	$('#processCount').html("" + processCount);
-	$('#rowCount').html("" + fileData.length);
-	$('#errorCount').html("" + errorData.length);
+	//Update progress
+	updateUploadDialog();
+	//If everything processed then return
 	if(processCount==fileData.length){
 		return;
 	}
 	
+	//Process next row
 	var row = fileData[processCount];
 	processCount++;
 	
 	var json = JSON.stringify(row);
 	var url = getEmployeeUrl();
 
+	//Make ajax call
 	$.ajax({
 	   url: url,
 	   type: 'POST',
@@ -139,7 +137,6 @@ function downloadErrors(){
 //UI DISPLAY METHODS
 
 function displayEmployeeList(data){
-	console.log('Printing employee data');
 	var $tbody = $('#employee-table').find('tbody');
 	$tbody.empty();
 	for(var i in data){
@@ -168,7 +165,33 @@ function displayEditEmployee(id){
 	});	
 }
 
+function resetUploadDialog(){
+	//Reset file name
+	var $file = $('#employeeFile');
+	$file.val('');
+	$('#employeeFileName').html("Choose File");
+	//Reset various counts
+	processCount = 0;
+	fileData = [];
+	errorData = [];
+	//Update counts	
+	updateUploadDialog();
+}
+
+function updateUploadDialog(){
+	$('#rowCount').html("" + fileData.length);
+	$('#processCount').html("" + processCount);
+	$('#errorCount').html("" + errorData.length);
+}
+
+function updateFileName(){
+	var $file = $('#employeeFile');
+	var fileName = $file.val();
+	$('#employeeFileName').html(fileName);
+}
+
 function displayUploadData(){
+ 	resetUploadDialog(); 	
 	$('#upload-employee-modal').modal('toggle');
 }
 
@@ -188,6 +211,7 @@ function init(){
 	$('#upload-data').click(displayUploadData);
 	$('#process-data').click(processData);
 	$('#download-errors').click(downloadErrors);
+    $('#employeeFile').on('change', updateFileName)
 }
 
 $(document).ready(init);
