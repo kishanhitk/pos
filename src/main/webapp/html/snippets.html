@@ -60,11 +60,11 @@
     
     <ul class="navbar-nav ml-auto">
 	    <li class="navbar-text">
-	    	useremail
-	    	&nbsp;
+	    	[[${info.getEmail()}]]
+	    	&nbsp;&gt;&nbsp;
 	    </li>
 	    <li class="nav-item">
-	    	<a class="btn link" th:href="@{/session/logout}">Logout</a>
+	    	<a class="nav-link" th:href="@{/session/logout}">Logout</a>
 	    </li>
     </ul>
     

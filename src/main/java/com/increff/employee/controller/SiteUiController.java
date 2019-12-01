@@ -9,14 +9,13 @@ public class SiteUiController extends AbstractUiController {
 
 	// WEBSITE PAGES
 	@RequestMapping(value = "")
-	public String index() {
-		return "index.html";
+	public ModelAndView index() {
+		return mav("index.html");
 	}
 
 	@RequestMapping(value = "/site/login")
 	public ModelAndView login() {
-		ModelAndView mav  = mav("login.html");
-		return mav;
+		return mav("login.html");
 	}
 
 	@RequestMapping(value = "/site/logout")
@@ -33,7 +32,5 @@ public class SiteUiController extends AbstractUiController {
 	public ModelAndView features() {
 		return mav("features.html");
 	}
-	
-	
 
 }
