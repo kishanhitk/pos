@@ -9,8 +9,12 @@ function toJson($form){
         data[serialized[s]['name']] = serialized[s]['value']
     }
     var json = JSON.stringify(data);
-    console.log(json);
     return json;
 }
 
+
+function handleAjaxError(response){
+	var response = JSON.parse(response.responseText);
+	alert(response.message);
+}
 

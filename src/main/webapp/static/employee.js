@@ -19,12 +19,9 @@ function addEmployee(event){
        	'Content-Type': 'application/json'
        },	   
 	   success: function(response) {
-	   		console.log("Employee created");	
-	   		getEmployeeList();     //...
+	   		getEmployeeList();  
 	   },
-	   error: function(){
-	   		alert("An error has occurred");
-	   }
+	   error: handleAjaxError
 	});
 
 	return false;
@@ -48,12 +45,9 @@ function updateEmployee(event){
        	'Content-Type': 'application/json'
        },	   
 	   success: function(response) {
-	   		console.log("Employee update");	
-	   		getEmployeeList();     //...
+	   		getEmployeeList();   
 	   },
-	   error: function(){
-	   		alert("An error has occurred");
-	   }
+	   error: handleAjaxError
 	});
 
 	return false;
@@ -66,13 +60,9 @@ function getEmployeeList(){
 	   url: url,
 	   type: 'GET',
 	   success: function(data) {
-	   		console.log("Employee data fetched");
-	   		console.log(data);	
-	   		displayEmployeeList(data);     //...
+	   		displayEmployeeList(data);  
 	   },
-	   error: function(){
-	   		alert("An error has occurred");
-	   }
+	   error: handleAjaxError
 	});
 }
 
@@ -83,12 +73,9 @@ function deleteEmployee(id){
 	   url: url,
 	   type: 'DELETE',
 	   success: function(data) {
-	   		console.log("Employee deleted");
-	   		getEmployeeList();     //...
+	   		getEmployeeList();  
 	   },
-	   error: function(){
-	   		alert("An error has occurred");
-	   }
+	   error: handleAjaxError
 	});
 }
 
@@ -118,13 +105,9 @@ function displayEditEmployee(id){
 	   url: url,
 	   type: 'GET',
 	   success: function(data) {
-	   		console.log("Employee data fetched");
-	   		console.log(data);	
-	   		displayEmployee(data);     //...
+	   		displayEmployee(data);   
 	   },
-	   error: function(){
-	   		alert("An error has occurred");
-	   }
+	   error: handleAjaxError
 	});	
 }
 

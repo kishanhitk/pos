@@ -14,16 +14,16 @@ public abstract class AbstractUiController {
 
 	@Autowired
 	private InfoData info;
-	
+
 	@Value("${app.baseUrl}")
 	private String baseUrl;
 
 	protected ModelAndView mav(String page) {
-		//Get current user
+		// Get current user
 		UserPrincipal principal = SecurityUtil.getPrincipal();
-		info.setEmail(principal==null ? "" : principal.getEmail());
+		info.setEmail(principal == null ? "" : principal.getEmail());
 
-		//Set info
+		// Set info
 		ModelAndView mav = new ModelAndView(page);
 		mav.addObject("info", info);
 		mav.addObject("baseUrl", baseUrl);

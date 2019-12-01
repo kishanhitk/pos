@@ -19,12 +19,9 @@ function addUser(event){
        	'Content-Type': 'application/json'
        },	   
 	   success: function(response) {
-	   		console.log("User created");	
-	   		getUserList();     //...
+	   		getUserList();    
 	   },
-	   error: function(){
-	   		alert("An error has occurred");
-	   }
+	   error: handleAjaxError
 	});
 
 	return false;
@@ -36,13 +33,9 @@ function getUserList(){
 	   url: url,
 	   type: 'GET',
 	   success: function(data) {
-	   		console.log("User data fetched");
-	   		console.log(data);	
-	   		displayUserList(data);     //...
+	   		displayUserList(data);   
 	   },
-	   error: function(){
-	   		alert("An error has occurred");
-	   }
+	   error: handleAjaxError
 	});
 }
 
@@ -53,12 +46,9 @@ function deleteUser(id){
 	   url: url,
 	   type: 'DELETE',
 	   success: function(data) {
-	   		console.log("User deleted");
-	   		getUserList();     //...
+	   		getUserList();    
 	   },
-	   error: function(){
-	   		alert("An error has occurred");
-	   }
+	   error: handleAjaxError
 	});
 }
 
