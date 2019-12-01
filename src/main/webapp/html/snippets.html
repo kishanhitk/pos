@@ -1,0 +1,44 @@
+<head th:fragment="name_head">
+
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="baseUrl" th:attr="content=${baseUrl}">
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" th:href="@{/static/app.css}">
+
+</head>
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="name_navbar">
+  <a class="navbar-brand" th:href="@{/ui/home}">
+    <img th:src="@{/static/logo.jpg}" class="d-inline-block align-top" alt="">
+  </a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/ui/features}">Features</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/ui/pricing}">Pricing</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<footer class="footer" th:fragment="name_footer">
+	Copyright Increff 2019
+	&nbsp;
+	[[${info.getMessage()}]]
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<script th:src="@{/static/app.js}"/></script>
+	
+</footer>
+
+
