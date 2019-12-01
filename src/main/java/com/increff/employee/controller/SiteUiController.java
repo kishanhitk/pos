@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.increff.employee.model.InfoData;
 
 @Controller
-public class UIController {
+public class SiteUiController {
 
 	@Value("${app.baseUrl}")
 	private String baseUrl;
@@ -32,17 +32,6 @@ public class UIController {
 	@RequestMapping(value = "/ui/pricing")
 	public ModelAndView pricing() {
 		return mav("pricing.html");
-	}
-
-	// POST LOGIN PAGES
-	@RequestMapping(value = "/ui/home")
-	public ModelAndView home() {
-		return mav("home.html");
-	}
-
-	@RequestMapping(value = "/ui/users")
-	public ModelAndView users() {
-		return mav("users.html");
 	}
 
 	private ModelAndView mav(String page) {

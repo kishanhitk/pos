@@ -17,18 +17,33 @@ public class UserService {
 	private UserDao dao;
 
 	@Transactional
-	public void add(UserPojo p) {
+	public void add(UserPojo p) throws ApiException {
+		normalize(p);
+		UserPojo existing = dao.select(p.getEmail());
+		if (existing != null) {
+			throw new ApiException("User with given email already exists");
+		}
 		dao.insert(p);
 	}
 
 	@Transactional(rollbackOn = ApiException.class)
 	public boolean verify(String email, String password) throws ApiException {
 		UserPojo p = dao.select(email);
-		return p!=null && (p.getPassword().equals(password));
+		return p != null && (p.getPassword().equals(password));
 	}
 
 	@Transactional
 	public List<UserPojo> getAll() {
 		return dao.selectAll();
+	}
+
+	@Transactional
+	public void delete(int id) {
+		dao.delete(id);
+	}
+
+	protected static void normalize(UserPojo p) {
+		p.setEmail(p.getEmail().toLowerCase().trim());
+		p.setRole(p.getRole().toLowerCase().trim());
 	}
 }

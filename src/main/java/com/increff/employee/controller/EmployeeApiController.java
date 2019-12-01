@@ -21,7 +21,7 @@ import io.swagger.annotations.ApiOperation;
 
 @Api
 @RestController
-public class EmployeeController {
+public class EmployeeApiController {
 
 	@Autowired
 	private EmployeeService service;

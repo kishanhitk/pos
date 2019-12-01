@@ -2,17 +2,11 @@
 
 <html lang="en">
 
-<head>
-
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-</head>
+<head th:replace="snippets.html :: name_head"></head>
 
 <body>
+
+<nav th:replace="snippets.html :: name_app_navbar"></nav>
 
 
 <div class="jumbotron">
@@ -22,6 +16,8 @@
   <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
   <a class="btn btn-primary btn-lg" href="./ui/login" role="button">Login</a>
 </div>
+
+<footer th:replace="snippets.html :: name_footer"></footer>
 
 </body>
 

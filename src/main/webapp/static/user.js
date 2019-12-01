@@ -1,15 +1,15 @@
 
-function getEmployeeUrl(){
+function getAdminUrl(){
 	var baseUrl = $("meta[name=baseUrl]").attr("content")
-	return baseUrl + "/api/employee";
+	return baseUrl + "/api/admin";
 }
 
 //BUTTON ACTIONS
-function addEmployee(event){
+function addUser(event){
 	//Set the values to update
-	var $form = $("#employee-form");
+	var $form = $("#user-form");
 	var json = toJson($form);
-	var url = getEmployeeUrl();
+	var url = getAdminUrl();
 
 	$.ajax({
 	   url: url,
@@ -19,8 +19,8 @@ function addEmployee(event){
        	'Content-Type': 'application/json'
        },	   
 	   success: function(response) {
-	   		console.log("Employee created");	
-	   		getEmployeeList();     //...
+	   		console.log("User created");	
+	   		getUserList();     //...
 	   },
 	   error: function(){
 	   		alert("An error has occurred");
@@ -30,14 +30,14 @@ function addEmployee(event){
 	return false;
 }
 
-function updateEmployee(event){
-	$('#edit-employee-modal').modal('toggle');
+function updateUser(event){
+	$('#edit-user-modal').modal('toggle');
 	//Get the ID
-	var id = $("#employee-edit-form input[name=id]").val();	
-	var url = getEmployeeUrl() + "/" + id;
+	var id = $("#user-edit-form input[name=id]").val();	
+	var url = getUserUrl() + "/" + id;
 
 	//Set the values to update
-	var $form = $("#employee-edit-form");
+	var $form = $("#user-edit-form");
 	var json = toJson($form);
 
 	$.ajax({
@@ -48,8 +48,8 @@ function updateEmployee(event){
        	'Content-Type': 'application/json'
        },	   
 	   success: function(response) {
-	   		console.log("Employee update");	
-	   		getEmployeeList();     //...
+	   		console.log("User update");	
+	   		getUserList();     //...
 	   },
 	   error: function(){
 	   		alert("An error has occurred");
@@ -60,15 +60,15 @@ function updateEmployee(event){
 }
 
 
-function getEmployeeList(){
-	var url = getEmployeeUrl();
+function getUserList(){
+	var url = getUserUrl();
 	$.ajax({
 	   url: url,
 	   type: 'GET',
 	   success: function(data) {
-	   		console.log("Employee data fetched");
+	   		console.log("User data fetched");
 	   		console.log(data);	
-	   		displayEmployeeList(data);     //...
+	   		displayUserList(data);     //...
 	   },
 	   error: function(){
 	   		alert("An error has occurred");
@@ -76,15 +76,15 @@ function getEmployeeList(){
 	});
 }
 
-function deleteEmployee(id){
-	var url = getEmployeeUrl() + "/" + id;
+function deleteUser(id){
+	var url = getUserUrl() + "/" + id;
 
 	$.ajax({
 	   url: url,
 	   type: 'DELETE',
 	   success: function(data) {
-	   		console.log("Employee deleted");
-	   		getEmployeeList();     //...
+	   		console.log("User deleted");
+	   		getUserList();     //...
 	   },
 	   error: function(){
 	   		alert("An error has occurred");
@@ -94,33 +94,32 @@ function deleteEmployee(id){
 
 //UI DISPLAY METHODS
 
-function displayEmployeeList(data){
-	console.log('Printing employee data');
-	var $tbody = $('#employee-table').find('tbody');
+function displayUserList(data){
+	console.log('Printing user data');
+	var $tbody = $('#user-table').find('tbody');
 	$tbody.empty();
 	for(var i in data){
 		var e = data[i];
-		var buttonHtml = '<button onclick="deleteEmployee(' + e.id + ')">delete</button>'
-		buttonHtml += ' <button onclick="displayEditEmployee(' + e.id + ')">edit</button>'
+		var buttonHtml = '<button onclick="deleteUser(' + e.id + ')">delete</button>'
+		buttonHtml += ' <button onclick="displayEditUser(' + e.id + ')">edit</button>'
 		var row = '<tr>'
 		+ '<td>' + e.id + '</td>'
-		+ '<td>' + e.name + '</td>'
-		+ '<td>'  + e.age + '</td>'
+		+ '<td>' + e.email + '</td>'
 		+ '<td>' + buttonHtml + '</td>'
 		+ '</tr>';
         $tbody.append(row);
 	}
 }
 
-function displayEditEmployee(id){
-	var url = getEmployeeUrl() + "/" + id;
+function displayEditUser(id){
+	var url = getUserUrl() + "/" + id;
 	$.ajax({
 	   url: url,
 	   type: 'GET',
 	   success: function(data) {
-	   		console.log("Employee data fetched");
+	   		console.log("User data fetched");
 	   		console.log(data);	
-	   		displayEmployee(data);     //...
+	   		displayUser(data);     //...
 	   },
 	   error: function(){
 	   		alert("An error has occurred");
@@ -128,22 +127,20 @@ function displayEditEmployee(id){
 	});	
 }
 
-function displayEmployee(data){
-	$("#employee-edit-form input[name=name]").val(data.name);	
-	$("#employee-edit-form input[name=age]").val(data.age);	
-	$("#employee-edit-form input[name=id]").val(data.id);	
-	$('#edit-employee-modal').modal('toggle');
+function displayUser(data){
+	$("#user-edit-form input[name=email]").val(data.email);	
+	$('#edit-user-modal').modal('toggle');
 }
 
 
 
 //INITIALIZATION CODE
 function init(){
-	$('#add-employee').click(addEmployee);
-	$('#update-employee').click(updateEmployee);
-	$('#refresh-data').click(getEmployeeList);
+	$('#add-user').click(addUser);
+	$('#update-user').click(updateUser);
+	$('#refresh-data').click(getUserList);
 }
 
 $(document).ready(init);
-$(document).ready(getEmployeeList);
+$(document).ready(getUserList);
 

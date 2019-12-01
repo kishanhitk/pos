@@ -13,7 +13,7 @@ import io.swagger.annotations.ApiOperation;
 
 @Api
 @RestController
-public class AboutAppController {
+public class AboutApiController {
 
 	@Autowired
 	private AboutAppService service;

@@ -43,7 +43,7 @@ public class EmployeeService {
 		EmployeePojo ex = getCheck(id);
 		ex.setAge(p.getAge());
 		ex.setName(p.getName());
-		dao.update(p);
+		dao.update(ex);
 	}
 
 	@Transactional
