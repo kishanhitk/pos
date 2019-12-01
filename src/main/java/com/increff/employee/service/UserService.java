@@ -27,9 +27,8 @@ public class UserService {
 	}
 
 	@Transactional(rollbackOn = ApiException.class)
-	public boolean verify(String email, String password) throws ApiException {
-		UserPojo p = dao.select(email);
-		return p != null && (p.getPassword().equals(password));
+	public UserPojo get(String email) throws ApiException {
+		return dao.select(email);
 	}
 
 	@Transactional
