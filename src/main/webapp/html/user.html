@@ -27,6 +27,12 @@
 			      <input type="text" class="form-control" name="password" id="inputPassword" placeholder="enter password">
 			    </div>
 			  </div>
+			  <div class="form-group">
+			    <label for="inputRole" class="col-sm-2 col-form-label">Role</label>
+			    <div class="col-sm-10">
+			      <input type="text" class="form-control" name="role" id="inputRole" placeholder="enter role">
+			    </div>
+			  </div>
 			  <button type="button" class="btn btn-primary" id="add-user">Add</button>
 			  &nbsp;
 			  <button type="button" class="btn btn-primary" id="refresh-data">Refresh</button>
@@ -48,6 +54,7 @@
 	    <tr>
 	      <th scope="col">ID</th>
 	      <th scope="col">Email</th>
+	      <th scope="col">Romil</th>
 	      <th scope="col">Actions</th>
 	    </tr>
 	  </thead>
@@ -55,16 +62,19 @@
 	    <tr>
 	      <td>1</td>
 	      <td>Romil Jain</td>
+	      <td>role1</td>
 	      <td>Edit | Delete</td>
 	    </tr>
 	    <tr>
 	      <td>2</td>
 	      <td>Rajul Jain</td>
+	      <td>role2</td>
 	      <td>Edit | Delete</td>
 	    </tr>
 	    <tr>
 	      <td>3</td>
 	      <td>Anaisha Jain</td>
+	      <td>role3</td>
 	      <td>Edit | Delete</td>
 	    </tr>
 	  </tbody>
@@ -73,40 +83,6 @@
 </div>
 </div>
 
-<!-- Employee Edit Modal -->
-<div class="modal" tabindex="-1" role="dialog" id="edit-user-modal">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Edit User</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-			<form class="form-inline" id="user-edit-form">
-			  <div class="form-group">
-			    <label for="inputName" class="col-sm-2 col-form-label">Email</label>
-			    <div class="col-sm-10">
-			      <input type="text" readonly class="form-control-plaintext" name="email" placeholder="enter email">
-			    </div>
-			  </div>
-			  <div class="form-group">
-			    <label for="inputAge" class="col-sm-2 col-form-label">Password</label>
-			    <div class="col-sm-10">
-			      <input type="text" class="form-control" name="password" placeholder="enter password">
-			    </div>
-			  </div>
- 	        <input type="hidden" name="id" >
-			</form>        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" id="update-user">Update</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 </div> <!-- Container end-->
 

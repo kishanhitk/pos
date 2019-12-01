@@ -5,10 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.increff.employee.model.InfoData;
-
 @Controller
-public class AppUiController {
+public class AppUiController extends AbstractUiController {
 
 	@Value("${app.baseUrl}")
 	private String baseUrl;
@@ -23,17 +21,9 @@ public class AppUiController {
 		return mav("employee.html");
 	}
 
-	
-	@RequestMapping(value = "/ui/user")
-	public ModelAndView user() {
+	@RequestMapping(value = "/ui/admin")
+	public ModelAndView admin() {
 		return mav("user.html");
-	}
-
-	private ModelAndView mav(String page) {
-		ModelAndView mav = new ModelAndView(page);
-		mav.addObject("info", new InfoData());
-		mav.addObject("baseUrl", baseUrl);
-		return mav;
 	}
 
 }

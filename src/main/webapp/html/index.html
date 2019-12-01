@@ -6,16 +6,23 @@
 
 <body>
 
-<nav th:replace="snippets.html :: name_app_navbar"></nav>
+<nav th:replace="snippets.html :: name_site_navbar"></nav>
 
-
+<div class="container">
+<div class="row">
+<div class="col-6">
+ 
 <div class="jumbotron">
   <h1 class="display-4">Hello, world!</h1>
-  <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+  <p class="lead">Welcome to Increff Spring Tutorial</p>
   <hr class="my-4">
-  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-  <a class="btn btn-primary btn-lg" href="./ui/login" role="button">Login</a>
+  <p>This application teaches you Spring concepts and creating awesome web applications</p>
+  <a class="btn btn-primary btn-lg" th:href="@{/site/login}" role="button">Get Started</a>
 </div>
+
+</div>
+</div>
+</div> <!--Container-->
 
 <footer th:replace="snippets.html :: name_footer"></footer>
 

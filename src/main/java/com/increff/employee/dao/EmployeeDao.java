@@ -34,21 +34,19 @@ public class EmployeeDao extends AbstractDao {
 	}
 
 	public EmployeePojo select(int id) {
-		TypedQuery<EmployeePojo> query = getQuery(select_id);
+		TypedQuery<EmployeePojo> query = getQuery(select_id, EmployeePojo.class);
 		query.setParameter("id", id);
-		return query.getSingleResult();
+		return getSingle(query);
 	}
 
 	public List<EmployeePojo> selectAll() {
-		TypedQuery<EmployeePojo> query = getQuery(select_all);
+		TypedQuery<EmployeePojo> query = getQuery(select_all, EmployeePojo.class);
 		return query.getResultList();
 	}
 
 	public void update(EmployeePojo p) {
 	}
 
-	TypedQuery<EmployeePojo> getQuery(String jpql) {
-		return em.createQuery(jpql, EmployeePojo.class);
-	}
+
 
 }

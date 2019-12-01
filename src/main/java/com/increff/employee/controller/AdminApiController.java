@@ -28,20 +28,20 @@ public class AdminApiController {
 
 	@ApiOperation(value = "Adds a user")
 	@RequestMapping(path = "/api/admin/user", method = RequestMethod.POST)
-	public void add(@RequestBody UserForm form) throws ApiException {
+	public void addUser(@RequestBody UserForm form) throws ApiException {
 		UserPojo p = convert(form);
 		service.add(p);
 	}
 
 	@ApiOperation(value = "Deletes a user")
 	@RequestMapping(path = "/api/admin/user/{id}", method = RequestMethod.DELETE)
-	public void delete(@PathVariable int id) {
+	public void deleteUser(@PathVariable int id) {
 		service.delete(id);
 	}
 
 	@ApiOperation(value = "Gets list of all users")
 	@RequestMapping(path = "/api/admin/user", method = RequestMethod.GET)
-	public List<UserData> getAll() {
+	public List<UserData> getAllUser() {
 		List<UserPojo> list = service.getAll();
 		List<UserData> list2 = new ArrayList<UserData>();
 		for (UserPojo p : list) {
@@ -62,6 +62,7 @@ public class AdminApiController {
 		UserPojo p = new UserPojo();
 		p.setEmail(f.getEmail());
 		p.setRole(f.getRole());
+		p.setPassword(f.getPassword());
 		return p;
 	}
 

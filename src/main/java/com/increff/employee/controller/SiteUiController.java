@@ -1,17 +1,11 @@
 package com.increff.employee.controller;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.increff.employee.model.InfoData;
-
 @Controller
-public class SiteUiController {
-
-	@Value("${app.baseUrl}")
-	private String baseUrl;
+public class SiteUiController extends AbstractUiController {
 
 	// WEBSITE PAGES
 	@RequestMapping(value = "")
@@ -19,26 +13,27 @@ public class SiteUiController {
 		return "index.html";
 	}
 
-	@RequestMapping(value = "/ui/login")
+	@RequestMapping(value = "/site/login")
 	public ModelAndView login() {
-		return mav("login.html");
+		ModelAndView mav  = mav("login.html");
+		return mav;
 	}
 
-	@RequestMapping(value = "/ui/logout")
+	@RequestMapping(value = "/site/logout")
 	public ModelAndView logout() {
 		return mav("logout.html");
 	}
 
-	@RequestMapping(value = "/ui/pricing")
+	@RequestMapping(value = "/site/pricing")
 	public ModelAndView pricing() {
 		return mav("pricing.html");
 	}
 
-	private ModelAndView mav(String page) {
-		ModelAndView mav = new ModelAndView(page);
-		mav.addObject("info", new InfoData());
-		mav.addObject("baseUrl", baseUrl);
-		return mav;
+	@RequestMapping(value = "/site/features")
+	public ModelAndView features() {
+		return mav("features.html");
 	}
+	
+	
 
 }
