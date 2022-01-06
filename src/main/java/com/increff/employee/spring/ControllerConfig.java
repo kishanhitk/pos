@@ -26,13 +26,12 @@ public class ControllerConfig extends WebMvcConfigurerAdapter {
 
 	public static final String PACKAGE_CONTROLLER = "com.increff.employee.controller";
 
-
 	private ApplicationContext applicationContext;
 
 	public void setApplicationContext(ApplicationContext applicationContext) {
 		this.applicationContext = applicationContext;
 	}
-	
+
 	@Bean
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2)//
@@ -70,7 +69,7 @@ public class ControllerConfig extends WebMvcConfigurerAdapter {
 		resolver.setCharacterEncoding("UTF-8");
 		return resolver;
 	}
-	
+
 	@Bean
 	public ITemplateResolver templateResolver() {
 		SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();

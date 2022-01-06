@@ -9,11 +9,20 @@ import javax.persistence.Table;
 @Entity()
 @Table(name = "BrandCategory")
 public class BrandCategoryPojo {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String brand;
     private String category;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getCategory() {
         return category;
