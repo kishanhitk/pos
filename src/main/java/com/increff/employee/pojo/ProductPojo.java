@@ -1,5 +1,7 @@
 package com.increff.employee.pojo;
 
+import java.util.UUID;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,20 +10,38 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.GenericGenerator;
+
 @Entity()
-@Table(name = "Products", uniqueConstraints = @UniqueConstraint(columnNames = { "Barcode" }))
+@Table(name = "Products", uniqueConstraints = @UniqueConstraint(columnNames = { "barcode" }))
 public class ProductPojo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    // TODO Add unique Constraint
-    @Column(name = "Barcode")
+
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "barcode", updatable = false)
     private String barcode;
+
     private String name;
+
     private Double mrp;
+
     private int brandCategory;
 
-    @Column(name = "Barcode")
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    // TODO Generate UUID for barcode
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "barcode", updatable = false)
     public String getBarcode() {
         return barcode;
     }
