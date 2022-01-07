@@ -25,4 +25,19 @@ public class ProductService {
         return dao.selectAll();
     }
 
+    @Transactional
+    public ProductPojo get(int id) {
+        return dao.select(id);
+    }
+
+    @Transactional
+    public void update(ProductPojo p) {
+        dao.update(p);
+    }
+
+    @Transactional
+    public void delete(int id) {
+        dao.delete(id);
+    }
+
 }
