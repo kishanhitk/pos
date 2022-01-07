@@ -2,6 +2,7 @@ package com.increff.employee.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import com.increff.employee.model.ProductData;
 import com.increff.employee.model.ProductForm;
@@ -48,6 +49,7 @@ public class ProductApiController {
         p.setBrandCategory(form.getBrandCategory());
         p.setName(form.getName());
         p.setMrp(form.getMrp());
+        p.setBarcode(UUID.randomUUID().toString());
         return p;
     }
 
@@ -57,6 +59,7 @@ public class ProductApiController {
         d.setName(p.getName());
         d.setMrp(p.getMrp());
         d.setId(p.getId());
+        d.setBarcode(p.getBarcode());
         return d;
     }
 }

@@ -1,16 +1,11 @@
 package com.increff.employee.pojo;
 
-import java.util.UUID;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity()
 @Table(name = "Products", uniqueConstraints = @UniqueConstraint(columnNames = { "barcode" }))
@@ -19,9 +14,6 @@ public class ProductPojo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "barcode", updatable = false)
     private String barcode;
 
     private String name;
@@ -39,9 +31,6 @@ public class ProductPojo {
     }
 
     // TODO Generate UUID for barcode
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "barcode", updatable = false)
     public String getBarcode() {
         return barcode;
     }
