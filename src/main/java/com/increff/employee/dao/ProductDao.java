@@ -41,6 +41,7 @@ public class ProductDao extends AbstractDao {
         return query.getResultList();
     }
 
+    @Transactional
     public void update(ProductPojo p) {
         em.merge(p);
     }
