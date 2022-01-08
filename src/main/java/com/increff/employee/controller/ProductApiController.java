@@ -61,6 +61,7 @@ public class ProductApiController {
     @RequestMapping(path = "/api/product/{id}", method = RequestMethod.PUT)
     public void update(int id, @RequestBody ProductForm form) throws ApiException {
         ProductPojo p = convert(form);
+
         p.setId(id);
         service.update(p);
     }
