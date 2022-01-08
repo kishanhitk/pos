@@ -1,22 +1,13 @@
 package com.increff.employee.model;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
 public class BrandCategoryForm {
     private String brand;
     private String category;
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
 }

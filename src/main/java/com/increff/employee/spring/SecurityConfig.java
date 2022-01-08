@@ -22,7 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			// Match only these URLs
 				.requestMatchers()//
 				// Remove Auth for testing
-				.antMatchers("/api/**")//
+				// .antMatchers("/api/**")//
 				.antMatchers("/ui/**")//
 				.and().authorizeRequests()//
 				.antMatchers("/api/admin/**").hasAuthority("admin")//

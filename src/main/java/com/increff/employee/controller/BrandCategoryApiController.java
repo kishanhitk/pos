@@ -10,6 +10,7 @@ import com.increff.employee.service.ApiException;
 import com.increff.employee.service.BrandCategoryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,6 +44,23 @@ public class BrandCategoryApiController {
         return list2;
     }
 
+    @ApiOperation(value = "Get brand category by ID")
+    @RequestMapping(path = "/api/brandcategory/{id}", method = RequestMethod.GET)
+    public BrandCategoryData getById(@PathVariable Integer id) throws ApiException {
+        BrandCategoryPojo p = service.get(id);
+        BrandCategoryData d = convert(p);
+        return d;
+    }
+
+    @ApiOperation(value = "Update Brand Details")
+    @RequestMapping(path = "/api/brandcategory/{id}", method = RequestMethod.PUT)
+    public BrandCategoryData update(@PathVariable int id, @RequestBody BrandCategoryForm f) throws ApiException {
+        BrandCategoryPojo p = convert(f);
+        BrandCategoryPojo updated = service.update(id, p);
+        BrandCategoryData uf = convert(updated);
+        return uf;
+    }
+
     private static BrandCategoryPojo convert(BrandCategoryForm form) {
         BrandCategoryPojo p = new BrandCategoryPojo();
         p.setBrand(form.getBrand());
@@ -55,6 +73,8 @@ public class BrandCategoryApiController {
         d.setBrand(p.getBrand());
         d.setCategory(p.getCategory());
         d.setId(p.getId());
+        d.setCreatedAt(p.getCreatedAt());
+        d.setUpdatedAt(p.getUpdatedAt());
         return d;
     }
 
