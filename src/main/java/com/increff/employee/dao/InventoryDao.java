@@ -10,7 +10,6 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import com.increff.employee.pojo.InventoryPojo;
-import com.increff.employee.pojo.ProductPojo;
 
 @Repository
 public class InventoryDao extends AbstractDao {
@@ -29,7 +28,6 @@ public class InventoryDao extends AbstractDao {
 
     public InventoryPojo select(int id) {
         return em.find(InventoryPojo.class, id);
-
     }
 
     public List<InventoryPojo> selectAll() {
@@ -37,7 +35,12 @@ public class InventoryDao extends AbstractDao {
         return query.getResultList();
     }
 
-    public void update(ProductPojo p) {
+    public void update(InventoryPojo p) {
+        TypedQuery<InventoryPojo> query = getQuery("select p from InventoryPojo p where productId=:productId",
+                InventoryPojo.class);
+        query.setParameter("productId", p.getId());
+        InventoryPojo inventory = getSingle(query);
+        inventory.setQuantity(p.getQuantity());
+        em.merge(inventory);
     }
-
 }

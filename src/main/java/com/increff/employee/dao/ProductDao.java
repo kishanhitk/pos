@@ -23,6 +23,7 @@ public class ProductDao extends AbstractDao {
         em.persist(p);
     }
 
+    @Transactional
     public int delete(int id) {
         Query query = em.createQuery("delete from ProductPojo p where id=:id");
         query.setParameter("id", id);
@@ -42,8 +43,17 @@ public class ProductDao extends AbstractDao {
     }
 
     @Transactional
-    public void update(ProductPojo p) {
-        em.merge(p);
+    public ProductPojo update(ProductPojo p) {
+        TypedQuery<ProductPojo> query = getQuery("select p from ProductPojo p where id=:id",
+                ProductPojo.class);
+        query.setParameter("id", p.getId());
+        ProductPojo product = getSingle(query);
+        if (p.getName() != null)
+            product.setName(p.getName());
+        if (p.getMrp() != null)
+            product.setMrp(p.getMrp());
+        if (p.getBrandCategory() != null)
+            product.setBrandCategory(p.getBrandCategory());
+        return em.merge(product);
     }
-
 }
