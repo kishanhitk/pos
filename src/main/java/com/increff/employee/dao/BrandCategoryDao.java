@@ -56,6 +56,14 @@ public class BrandCategoryDao extends AbstractDao {
 
     @Transactional
     public BrandCategoryPojo update(BrandCategoryPojo p) {
-        return em.merge(p);
+        TypedQuery<BrandCategoryPojo> query = getQuery("select p from BrandCategoryPojo p where id=:id",
+                BrandCategoryPojo.class);
+        query.setParameter("id", p.getId());
+        BrandCategoryPojo old = getSingle(query);
+        if (p.getBrand() != null)
+            old.setBrand(p.getBrand());
+        if (p.getCategory() != null)
+            old.setCategory(p.getCategory());
+        return em.merge(old);
     }
 }
