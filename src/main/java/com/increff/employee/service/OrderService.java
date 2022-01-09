@@ -35,6 +35,9 @@ public class OrderService {
         orderDao.insert(order);
         for (OrderItemForm orderItem : orderItems) {
             ProductPojo product = productService.getProductByBarcode(orderItem.getBarcode());
+            if (product == null) {
+                throw new ApiException("Product with barcode " + orderItem.getBarcode() + " not found");
+            }
             OrderItemPojo orderItemPojo = convertUtil.convert(orderItem);
             orderItemPojo.setOrderID(order.getId());
             orderItemPojo.setProductId(product.getId());
