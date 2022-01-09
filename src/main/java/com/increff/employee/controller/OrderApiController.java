@@ -1,10 +1,9 @@
 package com.increff.employee.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.increff.employee.model.OrderItemForm;
-import com.increff.employee.pojo.OrderItemPojo;
+import com.increff.employee.service.ApiException;
 import com.increff.employee.service.OrderService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,18 +24,7 @@ public class OrderApiController {
 
     @ApiOperation(value = "Create an order")
     @RequestMapping(path = "/api/order", method = RequestMethod.POST)
-    public void add(@RequestBody List<OrderItemForm> orderItems) {
-        List<OrderItemPojo> list = new ArrayList<OrderItemPojo>();
-        for (OrderItemForm o : orderItems) {
-            list.add(convert(o));
-        }
-        service.add(list);
-    }
-
-    private OrderItemPojo convert(OrderItemForm form) {
-        OrderItemPojo pojo = new OrderItemPojo();
-        pojo.setProductId(form.getProductId());
-        pojo.setQuantity(form.getQuantity());
-        return pojo;
+    public void add(@RequestBody List<OrderItemForm> orderItems) throws ApiException {
+        service.add(orderItems);
     }
 }

@@ -32,8 +32,7 @@ public class OrderItemDao extends AbstractDao {
     }
 
     @Transactional
-    public void delete(int id) {
-        em.remove(select(id));
+    public void update(OrderItemPojo p) {
+        em.merge(p);
     }
-
 }

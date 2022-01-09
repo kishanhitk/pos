@@ -1,22 +1,14 @@
 package com.increff.employee.model;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
 public class OrderItemForm {
-    private int productId;
-    private int quantity;
-
-    public int getProductId() {
-        return productId;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public void setProductId(int productId) {
-        this.productId = productId;
-    }
+    private Integer quantity;
+    private String barcode;
+    private Double sellingPrice;
 }

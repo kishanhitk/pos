@@ -30,6 +30,18 @@ public class ProductDao extends AbstractDao {
         return query.executeUpdate();
     }
 
+    @Transactional
+    public ProductPojo getProductByBarcode(String barcode) {
+        TypedQuery<ProductPojo> query = em.createQuery("select p from ProductPojo p where barcode=:barcode",
+                ProductPojo.class);
+        query.setParameter("barcode", barcode);
+        List<ProductPojo> list = query.getResultList();
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list.get(0);
+    }
+
     public ProductPojo select(Integer id) {
         TypedQuery<ProductPojo> query = getQuery("select p from ProductPojo p where id=:id",
                 ProductPojo.class);

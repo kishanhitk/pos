@@ -42,6 +42,11 @@ public class ProductService {
         return getCheck(id);
     }
 
+    @Transactional(rollbackOn = ApiException.class)
+    public ProductPojo getProductByBarcode(String barcode) throws ApiException {
+        return productDao.getProductByBarcode(barcode);
+    }
+
     @Transactional
     public List<ProductPojo> getAll() {
         return productDao.selectAll();

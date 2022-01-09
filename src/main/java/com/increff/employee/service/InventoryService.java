@@ -26,6 +26,17 @@ public class InventoryService {
         return dao.selectAll();
     }
 
+    // Reduce inventory quantity
+    @Transactional(rollbackOn = ApiException.class)
+    public void reduce(int id, int quantity) throws ApiException {
+        InventoryPojo ex = getCheck(id);
+        if (ex.getQuantity() < quantity) {
+            throw new ApiException("Quantity not available for product, id:" + id);
+        }
+        ex.setQuantity(ex.getQuantity() - quantity);
+        dao.update(ex);
+    }
+
     public InventoryPojo get(Integer id) throws ApiException {
         return getCheck(id);
     }
