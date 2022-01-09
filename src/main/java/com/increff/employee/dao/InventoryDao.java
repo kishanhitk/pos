@@ -35,12 +35,8 @@ public class InventoryDao extends AbstractDao {
         return query.getResultList();
     }
 
+    @Transactional
     public void update(InventoryPojo p) {
-        TypedQuery<InventoryPojo> query = getQuery("select p from InventoryPojo p where productId=:productId",
-                InventoryPojo.class);
-        query.setParameter("productId", p.getId());
-        InventoryPojo inventory = getSingle(query);
-        inventory.setQuantity(p.getQuantity());
-        em.merge(inventory);
+        em.merge(p);
     }
 }

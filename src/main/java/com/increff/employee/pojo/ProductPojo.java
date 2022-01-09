@@ -16,7 +16,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity()
 @Table(name = "Products")
-public class ProductPojo {
+public class ProductPojo extends AbstractPojo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

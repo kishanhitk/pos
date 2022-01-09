@@ -32,7 +32,7 @@ public class ProductService {
         // Set inventory quantity to 0
         productDao.insert(p);
         InventoryPojo inventory = new InventoryPojo();
-        inventory.setProductId(p.getId());
+        inventory.setId(p.getId());
         inventory.setQuantity(0);
         inventoryService.add(inventory);
     }
