@@ -15,7 +15,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity()
 @Table(name = "OrderItem")
-public class OrderItemPojo {
+public class OrderItemPojo extends AbstractPojo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

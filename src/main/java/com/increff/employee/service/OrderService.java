@@ -6,6 +6,7 @@ import javax.transaction.Transactional;
 
 import com.increff.employee.dao.OrderDao;
 import com.increff.employee.dao.OrderItemDao;
+import com.increff.employee.model.OrderData;
 import com.increff.employee.model.OrderItemForm;
 import com.increff.employee.pojo.OrderItemPojo;
 import com.increff.employee.pojo.OrderPojo;
@@ -43,13 +44,21 @@ public class OrderService {
     }
 
     public List<OrderPojo> getAll() {
-        // TODO Auto-generated method stub
-        return null;
+        return orderDao.selectAll();
     }
 
-    public OrderPojo get(int id) {
-        // TODO Auto-generated method stub
-        return null;
+    public OrderData getOrderDetails(int id) throws ApiException {
+        OrderPojo orderItemPojo = getCheck(id);
+        List<OrderItemPojo> orderItems = orderItemDao.selectByOrderId(id);
+        return new OrderData(orderItemPojo, orderItems);
+    }
+
+    private OrderPojo getCheck(int id) throws ApiException {
+        OrderPojo order = orderDao.select(id);
+        if (order == null) {
+            throw new ApiException("Order with given id not found");
+        }
+        return order;
     }
 
     public void update(OrderPojo p) {

@@ -31,6 +31,13 @@ public class OrderItemDao extends AbstractDao {
         return query.getResultList();
     }
 
+    public List<OrderItemPojo> selectByOrderId(int orderId) {
+        TypedQuery<OrderItemPojo> query = getQuery("select p from OrderItemPojo p where orderId=:orderId",
+                OrderItemPojo.class);
+        query.setParameter("orderId", orderId);
+        return query.getResultList();
+    }
+
     @Transactional
     public void update(OrderItemPojo p) {
         em.merge(p);
