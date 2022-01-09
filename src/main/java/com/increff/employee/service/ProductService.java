@@ -37,24 +37,39 @@ public class ProductService {
         inventoryService.add(inventory);
     }
 
+    @Transactional(rollbackOn = ApiException.class)
+    public ProductPojo get(Integer id) throws ApiException {
+        return getCheck(id);
+    }
+
     @Transactional
     public List<ProductPojo> getAll() {
         return productDao.selectAll();
     }
 
-    @Transactional
-    public ProductPojo get(int id) {
-        return productDao.select(id);
+    @Transactional(rollbackOn = ApiException.class)
+    public void update(int id, ProductPojo p) throws ApiException {
+        normalize(p);
+        ProductPojo ex = getCheck(id);
+        if (p.getName() != null) {
+            ex.setName(p.getName());
+        }
+        if (p.getBrandCategory() != null) {
+            ex.setBrandCategory(p.getBrandCategory());
+        }
+        if (p.getMrp() != null) {
+            ex.setMrp(p.getMrp());
+        }
+        productDao.update(ex);
     }
 
     @Transactional
-    public void update(ProductPojo p) {
-        productDao.update(p);
-    }
-
-    @Transactional
-    public void delete(int id) {
-        productDao.delete(id);
+    public ProductPojo getCheck(Integer id) throws ApiException {
+        ProductPojo p = productDao.select(id);
+        if (p == null) {
+            throw new ApiException("Product with given ID does not exit, id: " + id);
+        }
+        return p;
     }
 
     private void normalize(ProductPojo p) {

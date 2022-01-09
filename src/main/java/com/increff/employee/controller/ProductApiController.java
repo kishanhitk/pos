@@ -11,6 +11,7 @@ import com.increff.employee.service.ApiException;
 import com.increff.employee.service.ProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -46,24 +47,16 @@ public class ProductApiController {
 
     @ApiOperation(value = "Get product by id")
     @RequestMapping(path = "/api/product/{id}", method = RequestMethod.GET)
-    public ProductData get(int id) throws ApiException {
+    public ProductData get(@PathVariable Integer id) throws ApiException {
         ProductPojo p = service.get(id);
         return convert(p);
     }
 
-    @ApiOperation(value = "Delete a product by id")
-    @RequestMapping(path = "/api/product/{id}", method = RequestMethod.DELETE)
-    public void delete(int id) throws ApiException {
-        service.delete(id);
-    }
-
     @ApiOperation(value = "Update product by id")
     @RequestMapping(path = "/api/product/{id}", method = RequestMethod.PUT)
-    public void update(int id, @RequestBody ProductForm form) throws ApiException {
+    public void update(@PathVariable Integer id, @RequestBody ProductForm form) throws ApiException {
         ProductPojo p = convert(form);
-
-        p.setId(id);
-        service.update(p);
+        service.update(id, p);
     }
 
     private static ProductPojo convert(ProductForm form) {
