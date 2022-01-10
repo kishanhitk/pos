@@ -6,25 +6,26 @@
 
 <body>
 
-<nav th:replace="snippets.html :: name_site_navbar"></nav>
+  <nav th:replace="snippets.html :: name_site_navbar"></nav>
 
-<div class="container">
-<div class="row">
-<div class="col-6">
- 
-<div class="jumbotron">
-  <h1 class="display-4">Hello, world!</h1>
-  <p class="lead">Welcome to Increff Spring Tutorial</p>
-  <hr class="my-4">
-  <p>This application teaches you Spring concepts and creating awesome web applications</p>
-  <a class="btn btn-primary btn-lg" th:href="@{/site/login}" role="button">Get Started</a>
-</div>
+  <div class="container">
+    <div class="row">
+      <div class="col-6">
 
-</div>
-</div>
-</div> <!--Container-->
+        <div class="jumbotron">
+          <h1 class="display-4">Hello, world!</h1>
+          <p class="lead">Welcome to Increff Spring Tutorial</p>
+          <hr class="my-4">
+          <p>This application teaches you Spring concepts and creating awesome web applications</p>
+          <a class="btn btn-primary btn-lg" th:href="@{/site/login}" role="button">Get Started</a>
+        </div>
 
-<footer th:replace="snippets.html :: name_footer"></footer>
+      </div>
+    </div>
+  </div>
+  <!--Container-->
+
+  <footer th:replace="snippets.html :: name_footer"></footer>
 
 </body>
 
