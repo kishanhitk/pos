@@ -144,8 +144,6 @@ function displayBrandCategoryList(data) {
   for (var i in data) {
     var e = data[i];
     var buttonHtml =
-      '<button onclick="deleteBrandCategory(' + e.id + ')">delete</button>';
-    buttonHtml +=
       ' <button onclick="displayEditBrandCategory(' + e.id + ')">edit</button>';
     var row =
       "<tr>" +
