@@ -201,11 +201,47 @@ function displayUploadData() {
   $("#upload-product-modal").modal("toggle");
 }
 
+function getBrandCategoryUrl() {
+  var baseUrl = $("meta[name=baseUrl]").attr("content");
+  return baseUrl + "/api/brandcategories";
+}
+
 function displayProduct(data) {
   $("#product-edit-form input[name=name]").val(data.name);
   $("#product-edit-form input[name=mrp]").val(data.mrp);
   $("#product-edit-form input[name=id]").val(data.id);
   $("#edit-product-modal").modal("toggle");
+}
+
+function addDataToBrandCategoryDropdown(data, formId) {
+  var $brand = $(`${formId} select[name=brandCategory]`);
+  $brand.empty();
+  $brand.append('<option value="">Select Brand</option>');
+  for (var i in data) {
+    var e = data[i];
+    var option =
+      '<option value="' +
+      e.id +
+      '">' +
+      e.brand +
+      "-" +
+      e.category +
+      "</option>";
+    $brand.append(option);
+  }
+}
+
+function populateBrandCategoryDropDown() {
+  var url = getBrandCategoryUrl();
+  $.ajax({
+    url: url,
+    type: "GET",
+    success: function (data) {
+      addDataToBrandCategoryDropdown(data, "#product-form");
+      addDataToBrandCategoryDropdown(data, "#product-edit-form");
+    },
+    error: handleAjaxError,
+  });
 }
 
 //INITIALIZATION CODE
@@ -221,3 +257,4 @@ function init() {
 
 $(document).ready(init);
 $(document).ready(getProductList);
+$(document).ready(populateBrandCategoryDropDown);

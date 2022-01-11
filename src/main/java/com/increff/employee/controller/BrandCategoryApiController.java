@@ -27,14 +27,14 @@ public class BrandCategoryApiController {
     private BrandCategoryService service;
 
     @ApiOperation(value = "Adds a brand category")
-    @RequestMapping(path = "/api/brandcategory", method = RequestMethod.POST)
+    @RequestMapping(path = "/api/brandcategories", method = RequestMethod.POST)
     public void add(@RequestBody BrandCategoryForm form) throws ApiException {
         BrandCategoryPojo p = convert(form);
         service.add(p);
     }
 
     @ApiOperation(value = "Get all brand categories")
-    @RequestMapping(path = "/api/brandcategory", method = RequestMethod.GET)
+    @RequestMapping(path = "/api/brandcategories", method = RequestMethod.GET)
     public List<BrandCategoryData> getAll() {
         List<BrandCategoryPojo> list = service.getAll();
         List<BrandCategoryData> list2 = new ArrayList<BrandCategoryData>();
@@ -45,7 +45,7 @@ public class BrandCategoryApiController {
     }
 
     @ApiOperation(value = "Get brand category by ID")
-    @RequestMapping(path = "/api/brandcategory/{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/api/brandcategories/{id}", method = RequestMethod.GET)
     public BrandCategoryData getById(@PathVariable Integer id) throws ApiException {
         BrandCategoryPojo p = service.get(id);
         BrandCategoryData d = convert(p);
@@ -53,7 +53,7 @@ public class BrandCategoryApiController {
     }
 
     @ApiOperation(value = "Update Brand Details")
-    @RequestMapping(path = "/api/brandcategory/{id}", method = RequestMethod.PUT)
+    @RequestMapping(path = "/api/brandcategories/{id}", method = RequestMethod.PUT)
     public BrandCategoryData update(@PathVariable int id, @RequestBody BrandCategoryForm f) throws ApiException {
         BrandCategoryPojo p = convert(f);
         BrandCategoryPojo updated = service.update(id, p);
