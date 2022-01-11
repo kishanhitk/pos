@@ -28,14 +28,14 @@ public class ProductApiController {
     private ProductService service;
 
     @ApiOperation(value = "Adds a product")
-    @RequestMapping(path = "/api/product", method = RequestMethod.POST)
+    @RequestMapping(path = "/api/products", method = RequestMethod.POST)
     public void add(@RequestBody ProductForm form) throws ApiException {
         ProductPojo p = convert(form);
         service.add(p);
     }
 
     @ApiOperation(value = "Get all products")
-    @RequestMapping(path = "/api/product", method = RequestMethod.GET)
+    @RequestMapping(path = "/api/products", method = RequestMethod.GET)
     public List<ProductData> getAll() {
         List<ProductPojo> list = service.getAll();
         List<ProductData> list2 = new ArrayList<ProductData>();
@@ -46,14 +46,14 @@ public class ProductApiController {
     }
 
     @ApiOperation(value = "Get product by id")
-    @RequestMapping(path = "/api/product/{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/api/products/{id}", method = RequestMethod.GET)
     public ProductData get(@PathVariable Integer id) throws ApiException {
         ProductPojo p = service.get(id);
         return convert(p);
     }
 
     @ApiOperation(value = "Update product by id")
-    @RequestMapping(path = "/api/product/{id}", method = RequestMethod.PUT)
+    @RequestMapping(path = "/api/products/{id}", method = RequestMethod.PUT)
     public void update(@PathVariable Integer id, @RequestBody ProductForm form) throws ApiException {
         ProductPojo p = convert(form);
         service.update(id, p);
