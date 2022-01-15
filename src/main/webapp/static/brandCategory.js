@@ -1,4 +1,4 @@
-function getBrandCategoryUrl() {
+function getInventoryReportUrl() {
   var baseUrl = $("meta[name=baseUrl]").attr("content");
   return baseUrl + "/api/brandcategories";
 }
@@ -8,7 +8,7 @@ function addBrandCategory(event) {
   //Set the values to update
   var $form = $("#brandCategory-form");
   var json = toJson($form);
-  var url = getBrandCategoryUrl();
+  var url = getInventoryReportUrl();
 
   $.ajax({
     url: url,
@@ -18,7 +18,7 @@ function addBrandCategory(event) {
       "Content-Type": "application/json",
     },
     success: function (response) {
-      getBrandCategoryList();
+      getInventoryReport();
     },
     error: (resp) => {
       console.log(resp);
@@ -33,7 +33,7 @@ function updateBrandCategory(event) {
   $("#edit-brandCategory-modal").modal("toggle");
   //Get the ID
   var id = $("#brandCategory-edit-form input[name=id]").val();
-  var url = getBrandCategoryUrl() + "/" + id;
+  var url = getInventoryReportUrl() + "/" + id;
 
   //Set the values to update
   var $form = $("#brandCategory-edit-form");
@@ -47,7 +47,7 @@ function updateBrandCategory(event) {
       "Content-Type": "application/json",
     },
     success: function (response) {
-      getBrandCategoryList();
+      getInventoryReport();
     },
     error: (response) => {
       console.log(response);
@@ -58,26 +58,26 @@ function updateBrandCategory(event) {
   return false;
 }
 
-function getBrandCategoryList() {
-  var url = getBrandCategoryUrl();
+function getInventoryReport() {
+  var url = getInventoryReportUrl();
   $.ajax({
     url: url,
     type: "GET",
     success: function (data) {
-      displayBrandCategoryList(data);
+      displayInventoryReportList(data);
     },
     error: handleAjaxError,
   });
 }
 
 function deleteBrandCategory(id) {
-  var url = getBrandCategoryUrl() + "/" + id;
+  var url = getInventoryReportUrl() + "/" + id;
 
   $.ajax({
     url: url,
     type: "DELETE",
     success: function (data) {
-      getBrandCategoryList();
+      getInventoryReport();
     },
     error: handleAjaxError,
   });
@@ -111,7 +111,7 @@ function uploadRows() {
   processCount++;
 
   var json = JSON.stringify(row);
-  var url = getBrandCategoryUrl();
+  var url = getInventoryReportUrl();
 
   //Make ajax call
   $.ajax({
@@ -138,7 +138,7 @@ function downloadErrors() {
 
 //UI DISPLAY METHODS
 
-function displayBrandCategoryList(data) {
+function displayInventoryReportList(data) {
   var $tbody = $("#brandCategory-table").find("tbody");
   $tbody.empty();
   for (var i in data) {
@@ -165,7 +165,7 @@ function displayBrandCategoryList(data) {
 }
 
 function displayEditBrandCategory(id) {
-  var url = getBrandCategoryUrl() + "/" + id;
+  var url = getInventoryReportUrl() + "/" + id;
   $.ajax({
     url: url,
     type: "GET",
@@ -217,7 +217,7 @@ function displayBrandCategory(data) {
 function init() {
   $("#add-brandCategory").click(addBrandCategory);
   $("#update-brandCategory").click(updateBrandCategory);
-  $("#refresh-data").click(getBrandCategoryList);
+  $("#refresh-data").click(getInventoryReport);
   $("#upload-data").click(displayUploadData);
   $("#process-data").click(processData);
   $("#download-errors").click(downloadErrors);
@@ -225,4 +225,4 @@ function init() {
 }
 
 $(document).ready(init);
-$(document).ready(getBrandCategoryList);
+$(document).ready(getInventoryReport);
