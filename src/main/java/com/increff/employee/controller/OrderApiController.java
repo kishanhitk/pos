@@ -27,13 +27,13 @@ public class OrderApiController {
     private OrderService service;
 
     @ApiOperation(value = "Create an order")
-    @RequestMapping(path = "/api/order", method = RequestMethod.POST)
+    @RequestMapping(path = "/api/orders", method = RequestMethod.POST)
     public void add(@RequestBody List<OrderItemForm> orderItems) throws ApiException {
         service.add(orderItems);
     }
 
     @ApiOperation(value = "Get all orders")
-    @RequestMapping(path = "/api/order", method = RequestMethod.GET)
+    @RequestMapping(path = "/api/orders", method = RequestMethod.GET)
     public List<OrderData> getAll() {
         List<OrderPojo> list = service.getAll();
         List<OrderData> list2 = new ArrayList<OrderData>();
@@ -44,7 +44,7 @@ public class OrderApiController {
     }
 
     @ApiOperation(value = "Get order by id")
-    @RequestMapping(path = "/api/order/{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/api/orders/{id}", method = RequestMethod.GET)
     public OrderData getOrderDetails(@PathVariable int id) throws ApiException {
         return service.getOrderDetails(id);
     }

@@ -1,42 +1,81 @@
+function getOrderUrl() {
+  var baseUrl = $("meta[name=baseUrl]").attr("content");
+  return baseUrl + "/api/orders";
+}
+
 function addRow() {
   // grab form
   const id = Math.floor(Math.random() * 10000000);
-  $("#order-form-div")
-    .append(`<div class="form-row d-flex justify-content-between" id="row-${id}">
+  $("#order-form-div").append(`<div class="form-row" id="row-${id}">
   <div class="form-group col-4">
   <label for="inputBarcode${id}">Barcode</label>
-  <input type="text" class="form-control" required id="inputBarcode${id}"
+  <input type="text" class="form-control" required id="inputBarcode${id}" name="barcode"
   placeholder="Enter Product Barcode">
   </div>
   <div class="form-group col-3">
   <label for="inputQuantity${id}">Barcode</label>
-  <input type="number" class="form-control" required id="inputQuantity${id}" placeholder="Quantity">
+  <input type="number" class="form-control" required id="inputQuantity${id}" name="quantity" placeholder="Quantity">
   </div>
   <div class="form-group col-3">
   <label for="inputSellingPrice${id}">Barcode</label>
-  <input type="number" step="0.01" class="form-control"  required id="inputSellingPrice${id}"
+  <input type="number" step="0.01" class="form-control"  required id="inputSellingPrice${id}" name="sellingPrice"
   placeholder="Selling Price">
   </div>
   <button class="btn btn-danger delete-row col-1" type="button" id=${id}>X</button>
   </div>`);
   $(".delete-row").on("click", deleteRow);
 }
+function convertToOrderItems(data) {
+  const output = [];
+  const barcodes = [];
+  const quantities = [];
+  const sellingPrices = [];
+
+  data.forEach((entry) => {
+    if (entry.name === "barcode") {
+      barcodes.push(entry.value);
+    }
+    if (entry.name === "quantity") {
+      quantities.push(entry.value);
+    }
+    if (entry.name === "sellingPrice") {
+      sellingPrices.push(entry.value);
+    }
+  });
+  for (let i = 0; i < barcodes.length; i++) {
+    output.push({
+      barcode: barcodes[i],
+      quantity: quantities[i],
+      sellingPrice: sellingPrices[i],
+    });
+  }
+  return output;
+}
 
 function placeOrder(e) {
   e.preventDefault();
+  console.log("place order");
   var $form = $("#order-form");
-  var formData = $form.serializeArray();
-  var order = {};
-  console.log(formData);
-  formData.forEach(function (entry) {
-    order[entry.name] = entry.value;
+  var data = convertToOrderItems($form.serializeArray());
+  console.log(data);
+  $.ajax({
+    url: getOrderUrl(),
+    type: "POST",
+    data: JSON.stringify(data),
+    contentType: "application/json",
+    success: function (data) {
+      console.log(data);
+      alert("Order Placed Successfully");
+    },
+    error: function (data) {
+      console.log(data);
+      alert("Error Placing Order");
+    },
   });
-  console.log(order);
 }
 
 function deleteRow() {
   var id = $(this).attr("id");
-  console.log(id);
   $("#row-" + id).remove();
 }
 

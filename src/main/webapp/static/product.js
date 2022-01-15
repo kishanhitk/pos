@@ -1,4 +1,4 @@
-function getProductUrl() {
+function getOrderUrl() {
   var baseUrl = $("meta[name=baseUrl]").attr("content");
   return baseUrl + "/api/products";
 }
@@ -8,7 +8,7 @@ function addProduct(event) {
   //Set the values to update
   var $form = $("#product-form");
   var json = toJson($form);
-  var url = getProductUrl();
+  var url = getOrderUrl();
 
   $.ajax({
     url: url,
@@ -30,7 +30,7 @@ function updateProduct(event) {
   $("#edit-product-modal").modal("toggle");
   //Get the ID
   var id = $("#product-edit-form input[name=id]").val();
-  var url = getProductUrl() + "/" + id;
+  var url = getOrderUrl() + "/" + id;
 
   //Set the values to update
   var $form = $("#product-edit-form");
@@ -53,7 +53,7 @@ function updateProduct(event) {
 }
 
 function getProductList() {
-  var url = getProductUrl();
+  var url = getOrderUrl();
   $.ajax({
     url: url,
     type: "GET",
@@ -65,7 +65,7 @@ function getProductList() {
 }
 
 function deleteProduct(id) {
-  var url = getProductUrl() + "/" + id;
+  var url = getOrderUrl() + "/" + id;
 
   $.ajax({
     url: url,
@@ -106,7 +106,7 @@ function uploadRows() {
 
   var json = JSON.stringify(row);
   console.log(json);
-  var url = getProductUrl();
+  var url = getOrderUrl();
 
   //Make ajax call
   $.ajax({
@@ -152,6 +152,9 @@ function displayProductList(data) {
       e.mrp +
       "</td>" +
       "<td>" +
+      e.barcode +
+      "</td>" +
+      "<td>" +
       buttonHtml +
       "</td>" +
       "</tr>";
@@ -160,7 +163,7 @@ function displayProductList(data) {
 }
 
 function displayEditProduct(id) {
-  var url = getProductUrl() + "/" + id;
+  var url = getOrderUrl() + "/" + id;
   $.ajax({
     url: url,
     type: "GET",
