@@ -29,7 +29,7 @@ public class ReportApiController {
     }
 
     @ApiOperation(value = "Get brandcategory detail")
-    @RequestMapping(path = "api/reports/brandcategory", method = RequestMethod.GET)
+    @RequestMapping(path = "api/reports/brand", method = RequestMethod.GET)
     public List<BrandCategoryPojo> getBrandCategoryReport() throws ApiException {
         return service.getBrandCategoryReport();
     }
