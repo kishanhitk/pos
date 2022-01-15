@@ -47,6 +47,16 @@ public class ProductService {
         return productDao.getProductByBarcode(barcode);
     }
 
+    // Get product by brand Category id
+    @Transactional(rollbackOn = ApiException.class)
+    public List<ProductPojo> getProductByBrandCategory(Integer id) throws ApiException {
+        BrandCategoryPojo brandCategory = brandCategoryService.get(id);
+        if (brandCategory == null) {
+            throw new ApiException("BrandCategory not found");
+        }
+        return productDao.getProductByBrandCategory(id);
+    }
+
     @Transactional
     public List<ProductPojo> getAll() {
         return productDao.selectAll();

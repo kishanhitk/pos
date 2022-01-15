@@ -42,6 +42,16 @@ public class ProductDao extends AbstractDao {
         return list.get(0);
     }
 
+    // Get product by brand Category id
+    @Transactional()
+    public List<ProductPojo> getProductByBrandCategory(Integer id) {
+        TypedQuery<ProductPojo> query = em.createQuery("select p from ProductPojo p where brandCategory=:id",
+                ProductPojo.class);
+        query.setParameter("id", id);
+        List<ProductPojo> list = query.getResultList();
+        return list;
+    }
+
     public ProductPojo select(Integer id) {
         TypedQuery<ProductPojo> query = getQuery("select p from ProductPojo p where id=:id",
                 ProductPojo.class);
