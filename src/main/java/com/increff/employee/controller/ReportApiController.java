@@ -3,6 +3,7 @@ package com.increff.employee.controller;
 import java.util.List;
 
 import com.increff.employee.model.InventoryReportData;
+import com.increff.employee.pojo.BrandCategoryPojo;
 import com.increff.employee.service.ApiException;
 import com.increff.employee.service.ReportService;
 
@@ -25,5 +26,11 @@ public class ReportApiController {
     @RequestMapping(path = "api/reports/inventory", method = RequestMethod.GET)
     public List<InventoryReportData> getInventoryReport() throws ApiException {
         return service.inventoryReport();
+    }
+
+    @ApiOperation(value = "Get brandcategory detail")
+    @RequestMapping(path = "api/reports/brandcategory", method = RequestMethod.GET)
+    public List<BrandCategoryPojo> getBrandCategoryReport() throws ApiException {
+        return service.getBrandCategoryReport();
     }
 }

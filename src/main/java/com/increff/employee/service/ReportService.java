@@ -3,6 +3,8 @@ package com.increff.employee.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import com.increff.employee.model.InventoryReportData;
 import com.increff.employee.pojo.BrandCategoryPojo;
 import com.increff.employee.pojo.InventoryPojo;
@@ -24,6 +26,7 @@ public class ReportService {
     private InventoryService inventoryService;
 
     // Get inventory detail of brandcategory
+    @Transactional
     public List<InventoryReportData> inventoryReport() throws ApiException {
         List<InventoryReportData> inventoryReportData = new ArrayList<InventoryReportData>();
         List<BrandCategoryPojo> brandCategoryList = brandCategoryService.getAll();
@@ -44,4 +47,11 @@ public class ReportService {
         return inventoryReportData;
     }
 
+    @Transactional
+    public List<BrandCategoryPojo> getBrandCategoryReport() throws ApiException {
+        List<BrandCategoryPojo> brandCategoryList = brandCategoryService.getAll();
+        return brandCategoryList;
+    }
+
+    
 }
