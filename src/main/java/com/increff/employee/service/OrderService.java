@@ -53,7 +53,11 @@ public class OrderService {
     public OrderData getOrderDetails(int id) throws ApiException {
         OrderPojo orderItemPojo = getCheck(id);
         List<OrderItemPojo> orderItems = orderItemDao.selectByOrderId(id);
-        return new OrderData(orderItemPojo, orderItems);
+        Double total = 0.0;
+        for (OrderItemPojo orderItem : orderItems) {
+            total += orderItem.getQuantity() * orderItem.getSellingPrice();
+        }
+        return new OrderData(orderItemPojo, orderItems, total);
     }
 
     private OrderPojo getCheck(int id) throws ApiException {

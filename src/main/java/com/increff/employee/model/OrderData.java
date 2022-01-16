@@ -32,6 +32,18 @@ public class OrderData {
         this.updatedAt = orderItemPojo.getUpdatedAt();
     }
 
+    public OrderData(OrderPojo orderItemPojo, List<OrderItemPojo> orderItems2, Double total) {
+        this.id = orderItemPojo.getId();
+        this.createdAt = orderItemPojo.getCreatedAt();
+        this.updatedAt = orderItemPojo.getUpdatedAt();
+        List<OrderItemData> orderItemDatas = new java.util.ArrayList<>();
+        for (OrderItemPojo orderItem : orderItems2) {
+            orderItemDatas.add(new OrderItemData(orderItem));
+        }
+        this.orderItems = orderItemDatas;
+        this.totalAmount = total;
+    }
+
     private int id;
     private Timestamp createdAt;
     private Timestamp updatedAt;
