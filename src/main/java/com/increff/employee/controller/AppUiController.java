@@ -38,7 +38,7 @@ public class AppUiController extends AbstractUiController {
 	}
 
 	@RequestMapping(value = "/ui/orders")
-	public ModelAndView orders(int id) {
+	public ModelAndView orders() {
 		return mav("orders.html");
 	}
 

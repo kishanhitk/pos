@@ -1,0 +1,30 @@
+<!doctype html>
+
+<html lang="en">
+
+<head th:replace="snippets.html :: name_head"></head>
+
+<body>
+
+    <nav th:replace="snippets.html :: name_app_navbar"></nav>
+
+    <div class="container">
+        <h3>Inventory Report</h3>
+        <!-- Blank Row -->
+        <div class="row">
+            &nbsp;
+        </div>
+        <div class="row">
+            <!-- Table -->
+            <div class="col-12">
+                <h1 th:text="${orderId}">Hello</h1>
+            </div>
+        </div>
+    </div> <!-- Container end-->
+
+    <footer th:replace="snippets.html :: name_footer"></footer>
+    </script>
+
+</body>
+
+</html>
