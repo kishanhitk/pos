@@ -8,6 +8,11 @@ function getBrandCategoryUrl() {
   return baseUrl + "/api/brandcategories";
 }
 
+function filterSalesReport(e) {
+  e.preventDefault();
+  getSalesReport();
+}
+
 function getSalesReport() {
   //   e.preventDefault();
   var $form = $("#filter-form");
@@ -54,14 +59,7 @@ function addDataToBrandCategoryDropdown(data, formId) {
   $brand.append('<option value="">Select Brand</option>');
   for (var i in data) {
     var e = data[i];
-    var option =
-      '<option value="' +
-      e.id +
-      '">' +
-      e.brand +
-      "-" +
-      e.category +
-      "</option>";
+    var option = '<option value="' + e.id + '">' + e.brand + "</option>";
     $brand.append(option);
   }
 }
@@ -87,9 +85,8 @@ function init() {
   $("#endingdatepicker").datepicker({
     uiLibrary: "bootstrap4",
   });
-  //   $("#filter-form").submit(getSalesReport);
+  $("#filter-form").submit(filterSalesReport);
 }
 
 $(document).ready(init);
-$(document).ready(getSalesReport);
 $(document).ready(populateBrandCategoryDropDown);
