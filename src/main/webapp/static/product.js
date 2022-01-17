@@ -3,6 +3,10 @@ function getProductUrl() {
   return baseUrl + "/api/products";
 }
 
+function getBrandCategoryUrl() {
+  var baseUrl = $("meta[name=baseUrl]").attr("content");
+  return baseUrl + "/api/brandcategories";
+}
 //BUTTON ACTIONS
 function addProduct(event) {
   //Set the values to update
@@ -202,11 +206,6 @@ function updateFileName() {
 function displayUploadData() {
   resetUploadDialog();
   $("#upload-product-modal").modal("toggle");
-}
-
-function getBrandCategoryUrl() {
-  var baseUrl = $("meta[name=baseUrl]").attr("content");
-  return baseUrl + "/api/brandcategories";
 }
 
 function displayProduct(data) {
