@@ -1,5 +1,6 @@
 package com.increff.employee.service;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -76,6 +77,14 @@ public class OrderService {
     public void delete(int id) {
         // TODO Auto-generated method stub
 
+    }
+
+    public List<OrderPojo> getAllBetween(Date startingDate, Date endingDate) {
+        return orderDao.selectAllBetween(startingDate, endingDate);
+    }
+
+    public List<OrderItemPojo> getOrderItemByOrder(int id) {
+        return orderItemDao.selectByOrderId(id);
     }
 
 }

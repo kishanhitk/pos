@@ -66,4 +66,11 @@ public class BrandCategoryDao extends AbstractDao {
             old.setCategory(p.getCategory());
         return em.merge(old);
     }
+
+    public List<BrandCategoryPojo> getByBrandName(String brand) {
+        TypedQuery<BrandCategoryPojo> query = em.createQuery(
+                "select p from BrandCategoryPojo p where p.brand=:brand", BrandCategoryPojo.class);
+        query.setParameter("brand", brand);
+        return query.getResultList();
+    }
 }

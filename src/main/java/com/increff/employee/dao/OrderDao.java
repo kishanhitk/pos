@@ -1,5 +1,6 @@
 package com.increff.employee.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -33,6 +34,14 @@ public class OrderDao extends AbstractDao {
 
     public void update(OrderPojo p) {
         em.merge(p);
+    }
+
+    public List<OrderPojo> selectAllBetween(Date startingDate, Date endingDate) {
+        TypedQuery<OrderPojo> query = getQuery(
+                "select p from OrderPojo p where p.createdAt between :startingDate and :endingDate", OrderPojo.class);
+        query.setParameter("startingDate", startingDate);
+        query.setParameter("endingDate", endingDate);
+        return query.getResultList();
     }
 
 }

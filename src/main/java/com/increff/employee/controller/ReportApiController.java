@@ -3,6 +3,7 @@ package com.increff.employee.controller;
 import java.util.List;
 
 import com.increff.employee.model.InventoryReportData;
+import com.increff.employee.model.SalesReportData;
 import com.increff.employee.pojo.BrandCategoryPojo;
 import com.increff.employee.service.ApiException;
 import com.increff.employee.service.ReportService;
@@ -10,6 +11,7 @@ import com.increff.employee.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
@@ -32,5 +34,16 @@ public class ReportApiController {
     @RequestMapping(path = "api/reports/brand", method = RequestMethod.GET)
     public List<BrandCategoryPojo> getBrandCategoryReport() throws ApiException {
         return service.getBrandCategoryReport();
+    }
+
+    @ApiOperation(value = "Get sales detail of brandcategory")
+    @RequestMapping(path = "api/reports/sales", method = RequestMethod.GET)
+    public List<SalesReportData> getSalesReport(
+            @RequestParam(value = "brand", required = false) String brand,
+            @RequestParam(value = "startDate", required = false) String startDate,
+            @RequestParam(value = "endDate", required = false) String endDate) throws ApiException
+
+    {
+        return service.getCategoryWiseSalesReport(brand, startDate, endDate);
     }
 }

@@ -70,4 +70,8 @@ public class BrandCategoryService {
         p.setBrand(StringUtil.toLowerCase(p.getBrand()));
         p.setCategory(StringUtil.toLowerCase(p.getCategory()));
     }
+
+    public List<BrandCategoryPojo> getByBrandName(String brand) {
+        return dao.getByBrandName(brand);
+    }
 }
