@@ -140,7 +140,9 @@ function displayInventoryList(data) {
   for (var i in data) {
     var e = data[i];
     var buttonHtml =
-      ' <button onclick="displayEditInventory(' + e.id + ')">edit</button>';
+      ' <button type="button" class="btn btn-outline-primary" onclick="displayEditInventory(' +
+      e.id +
+      ')">Edit</button>';
     var row =
       "<tr>" +
       "<td>" +

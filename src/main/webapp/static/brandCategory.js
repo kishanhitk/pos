@@ -144,7 +144,9 @@ function displayInventoryReportList(data) {
   for (var i in data) {
     var e = data[i];
     var buttonHtml =
-      ' <button onclick="displayEditBrandCategory(' + e.id + ')">edit</button>';
+      ' <button type="button" class="btn btn-outline-primary" onclick="displayEditBrandCategory(' +
+      e.id +
+      ')">Edit</button>';
     var row =
       "<tr>" +
       "<td>" +
