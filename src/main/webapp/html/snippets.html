@@ -56,20 +56,37 @@
       <li class="nav-item">
         <a class="nav-link" th:href="@{/ui/home}">Home</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/ui/employee}">Employees</a>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Admin Section
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" th:href="@{/ui/employee}">Employees</a>
+          <a class="dropdown-item" th:href="@{/ui/admin}">Admin</a>
+        </div>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/ui/admin}">Admin</a>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Manage Store
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" th:href="@{/ui/brand-category}">Brand Categories</a>
+          <a class="dropdown-item" th:href="@{/ui/products}">Products</a>
+          <a class="dropdown-item" th:href="@{/ui/inventory}">Inventory</a>
+        </div>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/ui/brand-category}">Brand Categories</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/ui/products}">Products</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/ui/inventory}">Inventory</a>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Reports
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a th:href="@{/ui/reports/inventory}" class="dropdown-item">Inventory Report</a>
+          <a th:href="@{/ui/reports/brand}" class="dropdown-item">Brand Report</a>
+          <a th:href="@{/ui/reports/sales}" class="dropdown-item">Sales Report</a>
+        </div>
       </li>
     </ul>
 
