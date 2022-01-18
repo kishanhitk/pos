@@ -143,7 +143,9 @@ function displayProductList(data) {
   for (var i in data) {
     var e = data[i];
     var buttonHtml =
-      ' <button onclick="displayEditProduct(' + e.id + ')">edit</button>';
+      ' <button type="button" class="btn btn-outline-primary" onclick="displayEditProduct(' +
+      e.id +
+      ')">Edit</button>';
     var row =
       "<tr>" +
       "<td>" +
