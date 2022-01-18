@@ -1,5 +1,6 @@
 package com.increff.employee.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import javax.transaction.Transactional;
 
 import com.increff.employee.dao.OrderDao;
 import com.increff.employee.dao.OrderItemDao;
+import com.increff.employee.model.InvoiceData;
 import com.increff.employee.model.OrderData;
 import com.increff.employee.model.OrderItemForm;
 import com.increff.employee.pojo.OrderItemPojo;
@@ -31,9 +33,10 @@ public class OrderService {
     private ProductService productService;
 
     @Transactional(rollbackOn = ApiException.class)
-    public void add(List<OrderItemForm> orderItems) throws ApiException {
+    public List<InvoiceData> add(List<OrderItemForm> orderItems) throws ApiException {
         OrderPojo order = new OrderPojo();
         orderDao.insert(order);
+        List<OrderItemPojo> orderItemList = new ArrayList<OrderItemPojo>();
         for (OrderItemForm orderItem : orderItems) {
             ProductPojo product = productService.getProductByBarcode(orderItem.getBarcode());
             if (product == null) {
@@ -43,8 +46,23 @@ public class OrderService {
             orderItemPojo.setOrderID(order.getId());
             orderItemPojo.setProductId(product.getId());
             orderItemDao.insert(orderItemPojo);
+            orderItemList.add(orderItemPojo);
             inventoryService.reduce(orderItemPojo.getProductId(), orderItemPojo.getQuantity());
         }
+        List<InvoiceData> bill = new ArrayList<InvoiceData>();
+        int i = 1;
+        // Convert OrderItemPojo to BillData
+        for (OrderItemPojo o : orderItemList) {
+            ProductPojo p = productService.get(o.getProductId());
+            InvoiceData item = new InvoiceData();
+            item.setId(i);
+            item.setName(p.getName());
+            item.setQuantity(o.getQuantity());
+            item.setMrp(o.getSellingPrice());
+            i++;
+            bill.add(item);
+        }
+        return bill;
     }
 
     public List<OrderPojo> getAll() {

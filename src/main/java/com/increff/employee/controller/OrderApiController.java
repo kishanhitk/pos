@@ -1,14 +1,23 @@
 package com.increff.employee.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+
+import com.increff.employee.model.InvoiceData;
 import com.increff.employee.model.OrderData;
 import com.increff.employee.model.OrderItemForm;
 import com.increff.employee.pojo.OrderPojo;
 import com.increff.employee.service.ApiException;
 import com.increff.employee.service.OrderService;
+import com.increff.employee.util.PDFUtil;
+import com.increff.employee.util.XMLUtil;
 
+import org.apache.fop.apps.FOPException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,8 +37,12 @@ public class OrderApiController {
 
     @ApiOperation(value = "Create an order")
     @RequestMapping(path = "/api/orders", method = RequestMethod.POST)
-    public void add(@RequestBody List<OrderItemForm> orderItems) throws ApiException {
-        service.add(orderItems);
+    public void add(@RequestBody List<OrderItemForm> orderItems, HttpServletResponse response)
+            throws ApiException, ParserConfigurationException, TransformerException, IOException, FOPException {
+        List<InvoiceData> list = service.add(orderItems);
+        XMLUtil.createXml(list);
+        byte[] encodedBytes = PDFUtil.createPDF();
+        PDFUtil.createResponse(response, encodedBytes);
     }
 
     @ApiOperation(value = "Get all orders")
