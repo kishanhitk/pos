@@ -65,11 +65,10 @@ function placeOrder(e) {
     contentType: "application/json",
     success: function (data) {
       console.log(data);
-      alert("Order Placed Successfully");
+      $.notify("Order Placed Successfully", "success");
     },
     error: function (data) {
-      console.log(data);
-      alert("Error Placing Order");
+      handleAjaxError(data);
     },
   });
 }

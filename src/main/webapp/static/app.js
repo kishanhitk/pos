@@ -13,7 +13,7 @@ function toJson($form) {
 
 function handleAjaxError(response) {
   var response = JSON.parse(response.responseText);
-  alert(response.message);
+  $.notify(response.message, "error");
 }
 
 function readFileData(file, callback) {
@@ -24,7 +24,7 @@ function readFileData(file, callback) {
     complete: function (results) {
       //Check that file length should not be greater than 5000
       if (results.data.length > 5000) {
-        alert("File size exceeds 5000 rows");
+        $.notify("File size exceeds 5000 rows", "error");
         return;
       }
       callback(results);
