@@ -16,6 +16,7 @@ public class OrderItemData extends OrderItemForm {
     private int id;
     private Timestamp createdAt;
     private Timestamp updatedAt;
+    private int productId;
 
     public OrderItemData(OrderItemForm form) {
         this.setQuantity(form.getQuantity());
@@ -29,5 +30,6 @@ public class OrderItemData extends OrderItemForm {
         this.setSellingPrice(orderItem.getSellingPrice());
         this.setCreatedAt(orderItem.getCreatedAt());
         this.setUpdatedAt(orderItem.getUpdatedAt());
+        this.setProductId(orderItem.getProductId());
     }
 }

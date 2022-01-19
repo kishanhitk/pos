@@ -48,13 +48,11 @@ function displayOrderList(data) {
   $tbody.empty();
   for (var i in data) {
     var e = data[i];
-    var orderDate = new Date(e.createdAt);
-    // Convert the date to string and format it.
-    var orderDateStr = orderDate.toLocaleDateString();
+    var orderDateStr = convertTimeStampToDateTime(e.createdAt);
     var buttonHtml =
-      ' <button class="btn btn-primary" onclick="displayEditOrder(' +
+      ' <button class="btn btn-primary" onclick="displayOrderDetails(' +
       e.id +
-      ')">Details</button>';
+      ')">Details</button> ';
     var row =
       "<tr>" +
       "<td>" +
@@ -71,22 +69,53 @@ function displayOrderList(data) {
   }
 }
 
-function displayEditOrder(id) {
+function displayOrderDetails(id) {
   var url = getOrderUrl() + "/" + id;
   $.ajax({
     url: url,
     type: "GET",
     success: function (data) {
       displayOrder(data);
+      console.log(data);
     },
     error: handleAjaxError,
   });
 }
 
 function displayOrder(data) {
-  $("#order-edit-form input[name=name]").val(data.name);
-  $("#order-edit-form input[name=mrp]").val(data.mrp);
-  $("#order-edit-form input[name=id]").val(data.id);
+  const orderItems = data.orderItems;
+  const orderDateStr = convertTimeStampToDateTime(data.createdAt);
+  const orderId = data.id;
+  $("#order-id").text(orderId);
+  $("#order-date").text(orderDateStr);
+  //Display list of order items
+  const $orderItemsTable = $("#order-items-table");
+  $orderItemsTable.find("tbody").empty();
+  for (let i = 0; i < orderItems.length; i++) {
+    const orderItem = orderItems[i];
+    const productId = orderItem.productId;
+    const quantity = orderItem.quantity;
+    const sellingPrice = orderItem.sellingPrice;
+    const totalPrice = quantity * sellingPrice;
+    const totalPriceStr = totalPrice.toFixed(2);
+    const row =
+      "<tr>" +
+      "<td>" +
+      productId +
+      "</td>" +
+      "<td>" +
+      quantity +
+      "</td>" +
+      "<td>" +
+      sellingPrice +
+      "</td>" +
+      "<td>" +
+      totalPriceStr +
+      "</td>" +
+      "</tr>";
+    $orderItemsTable.find("tbody").append(row);
+  }
+
   $("#edit-order-modal").modal("toggle");
 }
 
