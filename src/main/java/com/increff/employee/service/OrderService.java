@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import com.increff.employee.dao.OrderDao;
 import com.increff.employee.dao.OrderItemDao;
 import com.increff.employee.model.OrderData;
+import com.increff.employee.model.OrderItemData;
 import com.increff.employee.model.OrderItemForm;
 import com.increff.employee.pojo.OrderItemPojo;
 import com.increff.employee.pojo.OrderPojo;
@@ -25,6 +26,8 @@ public class OrderService {
     private OrderDao orderDao;
     @Autowired
     private OrderItemDao orderItemDao;
+    @Autowired
+    private OrderItemService orderItemService;
     @Autowired
     private InventoryService inventoryService;
     @Autowired
@@ -53,9 +56,9 @@ public class OrderService {
 
     public OrderData getOrderDetails(int id) throws ApiException {
         OrderPojo orderItemPojo = getCheck(id);
-        List<OrderItemPojo> orderItems = orderItemDao.selectByOrderId(id);
+        List<OrderItemData> orderItems = orderItemService.get(id);
         Double total = 0.0;
-        for (OrderItemPojo orderItem : orderItems) {
+        for (OrderItemData orderItem : orderItems) {
             total += orderItem.getQuantity() * orderItem.getSellingPrice();
         }
         return new OrderData(orderItemPojo, orderItems, total);

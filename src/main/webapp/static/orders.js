@@ -52,7 +52,9 @@ function displayOrderList(data) {
     var buttonHtml =
       ' <button class="btn btn-primary" onclick="displayOrderDetails(' +
       e.id +
-      ')">Details</button> ';
+      ')">Details</button> <button class="btn btn-outline-primary" onclick="displayEditOrderForm(' +
+      e.id +
+      ')">Edit</button> ';
     var row =
       "<tr>" +
       "<td>" +
@@ -67,6 +69,65 @@ function displayOrderList(data) {
       "</tr>";
     $tbody.append(row);
   }
+}
+
+function displayEditOrderForm(id) {
+  var url = getOrderUrl() + "/" + id;
+  $.ajax({
+    url: url,
+    type: "GET",
+    success: function (data) {
+      populateEditOrderModalForm(data);
+    },
+    error: handleAjaxError,
+  });
+}
+
+function populateEditOrderModalForm(data) {
+  const orderItems = data.orderItems;
+  const orderDateStr = convertTimeStampToDateTime(data.createdAt);
+  const orderId = data.id;
+  $("#order-id").text(orderId);
+  $("#order-date").text(orderDateStr);
+  const $form = $("#edit-order-form-div");
+  $form.empty();
+  for (let i = 0; i < orderItems.length; i++) {
+    const orderItem = orderItems[i];
+    const rowId = orderItem.id;
+    const row =
+      '<div id="row-' +
+      rowId +
+      '" class="row">' +
+      '<div class="col-3">' +
+      '<input type="text" class="form-control" name="barcode" value="' +
+      orderItem.barcode +
+      '" readonly>' +
+      "</div>" +
+      '<div class="col-3">' +
+      '<input type="text" class="form-control" name="quantity" value="' +
+      orderItem.quantity +
+      '" readonly>' +
+      "</div>" +
+      '<div class="col-3">' +
+      '<input type="text" class="form-control" name="sellingPrice" value="' +
+      orderItem.sellingPrice +
+      '" readonly>' +
+      "</div>" +
+      '<div class="col-3">' +
+      '<button class="btn btn-danger delete-row" onclick="deleteRow(' +
+      orderItem.id +
+      ')" type="button" id="' +
+      rowId +
+      '">X</button>' +
+      "</div>" +
+      "</div>";
+    $form.append(row);
+  }
+  $("#edit-order-modal").modal("toggle");
+}
+
+function deleteRow(id) {
+  $("#row-" + id).remove();
 }
 
 function displayOrderDetails(id) {
@@ -115,8 +176,7 @@ function displayOrder(data) {
       "</tr>";
     $orderItemsTable.find("tbody").append(row);
   }
-
-  $("#edit-order-modal").modal("toggle");
+  $("#order-details-modal").modal("toggle");
 }
 
 //INITIALIZATION CODE

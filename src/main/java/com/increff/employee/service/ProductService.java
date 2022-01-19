@@ -38,8 +38,8 @@ public class ProductService {
     }
 
     @Transactional(rollbackOn = ApiException.class)
-    public ProductPojo get(Integer id) throws ApiException {
-        return getCheck(id);
+    public ProductPojo get(Integer id) {
+        return productDao.select(id);
     }
 
     @Transactional(rollbackOn = ApiException.class)

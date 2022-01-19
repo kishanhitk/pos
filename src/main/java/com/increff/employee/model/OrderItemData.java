@@ -17,6 +17,8 @@ public class OrderItemData extends OrderItemForm {
     private Timestamp createdAt;
     private Timestamp updatedAt;
     private int productId;
+    private int orderId;
+    private String barcode;
 
     public OrderItemData(OrderItemForm form) {
         this.setQuantity(form.getQuantity());

@@ -3,7 +3,6 @@ package com.increff.employee.model;
 import java.sql.Timestamp;
 import java.util.List;
 
-import com.increff.employee.pojo.OrderItemPojo;
 import com.increff.employee.pojo.OrderPojo;
 
 import lombok.Getter;
@@ -15,15 +14,11 @@ import lombok.Setter;
 @NoArgsConstructor
 public class OrderData {
 
-    public OrderData(OrderPojo orderItemPojo, List<OrderItemPojo> orderItemPojos) {
+    public OrderData(OrderPojo orderItemPojo, List<OrderItemData> orderItemData) {
         this.id = orderItemPojo.getId();
         this.createdAt = orderItemPojo.getCreatedAt();
         this.updatedAt = orderItemPojo.getUpdatedAt();
-        List<OrderItemData> orderItemDatas = new java.util.ArrayList<>();
-        for (OrderItemPojo orderItem : orderItemPojos) {
-            orderItemDatas.add(new OrderItemData(orderItem));
-        }
-        this.orderItems = orderItemDatas;
+        this.orderItems = orderItemData;
     }
 
     public OrderData(OrderPojo orderItemPojo) {
@@ -32,16 +27,13 @@ public class OrderData {
         this.updatedAt = orderItemPojo.getUpdatedAt();
     }
 
-    public OrderData(OrderPojo orderItemPojo, List<OrderItemPojo> orderItems2, Double total) {
+    public OrderData(OrderPojo orderItemPojo, List<OrderItemData> orderItems2, Double total) {
         this.id = orderItemPojo.getId();
         this.createdAt = orderItemPojo.getCreatedAt();
         this.updatedAt = orderItemPojo.getUpdatedAt();
-        List<OrderItemData> orderItemDatas = new java.util.ArrayList<>();
-        for (OrderItemPojo orderItem : orderItems2) {
-            orderItemDatas.add(new OrderItemData(orderItem));
-        }
-        this.orderItems = orderItemDatas;
+        this.orderItems = orderItems2;
         this.totalAmount = total;
+
     }
 
     private int id;
