@@ -3,6 +3,32 @@ function getOrderUrl() {
   return baseUrl + "/api/orders";
 }
 
+function convertFormToOrderItems(data) {
+  const output = [];
+  const barcodes = [];
+  const quantities = [];
+  const sellingPrices = [];
+
+  data.forEach((entry) => {
+    if (entry.name === "barcode") {
+      barcodes.push(entry.value);
+    }
+    if (entry.name === "quantity") {
+      quantities.push(entry.value);
+    }
+    if (entry.name === "sellingPrice") {
+      sellingPrices.push(entry.value);
+    }
+  });
+  for (let i = 0; i < barcodes.length; i++) {
+    output.push({
+      barcode: barcodes[i],
+      quantity: quantities[i],
+      sellingPrice: sellingPrices[i],
+    });
+  }
+  return output;
+}
 function updateOrder(event) {
   event.preventDefault();
   $("#edit-order-modal").modal("toggle");
@@ -12,9 +38,9 @@ function updateOrder(event) {
   var url = getOrderUrl() + "/" + id;
   //Set the values to update
   var $form = $("#edit-order-form");
-  var json = toJson($form);
+  var data = convertFormToOrderItems($form.serializeArray());
   console.log(url);
-  console.log(json);
+  console.log(data);
 
   $.ajax({
     url: url,
@@ -24,7 +50,7 @@ function updateOrder(event) {
       "Content-Type": "application/json",
     },
     success: function (response) {
-      getOrderList();
+      $.notify("Order updated successfully", "success");
     },
     error: handleAjaxError,
   });
@@ -90,10 +116,12 @@ function populateEditOrderModalForm(data) {
   const orderItems = data.orderItems;
   const orderDateStr = convertTimeStampToDateTime(data.createdAt);
   const orderId = data.id;
-  $("#edit-order-form input[name=id]").val(orderId);
-  $("#order-id").text(orderId);
-  $("#order-date").text(orderDateStr);
+  console.log(orderId);
+  console.log(orderDateStr);
   const $form = $("#edit-order-form-div");
+  $("#edit-order-form input[name=id]").val(orderId);
+  $("#edit-order-form").find("#order-id").text(orderId);
+  $("#edit-order-form").find("#order-date").text(orderDateStr);
   $form.empty();
   for (let i = 0; i < orderItems.length; i++) {
     const orderItem = orderItems[i];
