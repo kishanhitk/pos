@@ -1,12 +1,12 @@
 package com.increff.employee.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
 import com.increff.employee.dao.OrderDao;
-import com.increff.employee.dao.OrderItemDao;
 import com.increff.employee.model.OrderData;
 import com.increff.employee.model.OrderItemData;
 import com.increff.employee.model.OrderItemForm;
@@ -24,8 +24,6 @@ public class OrderService {
 
     @Autowired
     private OrderDao orderDao;
-    @Autowired
-    private OrderItemDao orderItemDao;
     @Autowired
     private OrderItemService orderItemService;
     @Autowired
@@ -45,7 +43,7 @@ public class OrderService {
             OrderItemPojo orderItemPojo = convertUtil.convert(orderItem);
             orderItemPojo.setOrderID(order.getId());
             orderItemPojo.setProductId(product.getId());
-            orderItemDao.insert(orderItemPojo);
+            orderItemService.insert(orderItemPojo);
             inventoryService.reduce(orderItemPojo.getProductId(), orderItemPojo.getQuantity());
         }
     }
@@ -72,9 +70,29 @@ public class OrderService {
         return order;
     }
 
-    public void update(OrderPojo p) {
-        // TODO Auto-generated method stub
+    public void update(int orderId, List<OrderItemForm> orderItems) throws ApiException {
+        revertInventory(orderId);
+        List<OrderItemPojo> newOrderItems = new ArrayList<OrderItemPojo>();
+        for (OrderItemForm orderItem : orderItems) {
+            ProductPojo product = productService.getProductByBarcode(orderItem.getBarcode());
+            if (product == null) {
+                throw new ApiException("Product with barcode " + orderItem.getBarcode() + " not found");
+            }
+            OrderItemPojo orderItemPojo = convertUtil.convert(orderItem);
+            orderItemPojo.setOrderID(orderId);
+            orderItemPojo.setProductId(product.getId());
+            newOrderItems.add(orderItemPojo);
+            inventoryService.reduce(orderItemPojo.getProductId(), orderItemPojo.getQuantity());
+        }
+        orderItemService.deleteByOrderId(orderId);
+        orderItemService.insertMutiple(newOrderItems);
+    }
 
+    public void revertInventory(int orderId) throws ApiException {
+        List<OrderItemPojo> orderItemPojoList = orderItemService.selectByOrderId(orderId);
+        for (OrderItemPojo orderItemPojo : orderItemPojoList) {
+            inventoryService.increase(orderItemPojo.getProductId(), orderItemPojo.getQuantity());
+        }
     }
 
     public void delete(int id) {
@@ -87,7 +105,7 @@ public class OrderService {
     }
 
     public List<OrderItemPojo> getOrderItemByOrder(int id) {
-        return orderItemDao.selectByOrderId(id);
+        return orderItemService.selectByOrderId(id);
     }
 
 }

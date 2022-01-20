@@ -18,8 +18,8 @@ public class OrderItemDao extends AbstractDao {
     private EntityManager em;
 
     @Transactional
-    public void insert(OrderItemPojo p) {
-        em.persist(p);
+    public void insert(OrderItemPojo newOrderItems) {
+        em.persist(newOrderItems);
     }
 
     public OrderItemPojo select(int id) {
@@ -41,5 +41,15 @@ public class OrderItemDao extends AbstractDao {
     @Transactional
     public void update(OrderItemPojo p) {
         em.merge(p);
+    }
+
+    public void deleteByOrderId(int orderId) {
+        TypedQuery<OrderItemPojo> query = getQuery("select p from OrderItemPojo p where orderId=:orderId",
+                OrderItemPojo.class);
+        query.setParameter("orderId", orderId);
+        List<OrderItemPojo> list = query.getResultList();
+        for (OrderItemPojo p : list) {
+            em.remove(p);
+        }
     }
 }

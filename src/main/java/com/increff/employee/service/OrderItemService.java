@@ -33,4 +33,23 @@ public class OrderItemService {
         }).collect(Collectors.toList());
     }
 
+    public void deleteByOrderId(int orderId) {
+        orderItemDao.deleteByOrderId(orderId);
+    }
+
+    public void insertMutiple(List<OrderItemPojo> newOrderItems) {
+        for (OrderItemPojo orderItemPojo : newOrderItems) {
+            orderItemDao.insert(orderItemPojo);
+        }
+    }
+
+    public void insert(OrderItemPojo orderItemPojo) {
+        orderItemDao.insert(orderItemPojo);
+    }
+
+    public List<OrderItemPojo> selectByOrderId(int id) {
+        return orderItemDao.selectByOrderId(id);
+
+    }
+
 }

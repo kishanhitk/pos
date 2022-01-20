@@ -48,4 +48,10 @@ public class OrderApiController {
     public OrderData getOrderDetails(@PathVariable int id) throws ApiException {
         return service.getOrderDetails(id);
     }
+
+    @ApiOperation(value = "Update order by id")
+    @RequestMapping(path = "/api/orders/{id}", method = RequestMethod.PUT)
+    public void update(@PathVariable int id, @RequestBody List<OrderItemForm> orderItems) throws ApiException {
+        service.update(id, orderItems);
+    }
 }

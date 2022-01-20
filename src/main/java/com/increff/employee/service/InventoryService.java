@@ -62,4 +62,10 @@ public class InventoryService {
         return p;
     }
 
+    public void increase(Integer productId, Integer quantity) {
+        InventoryPojo p = dao.select(productId);
+        p.setQuantity(p.getQuantity() + quantity);
+        dao.update(p);
+    }
+
 }
