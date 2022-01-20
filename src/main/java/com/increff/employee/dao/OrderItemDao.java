@@ -43,6 +43,7 @@ public class OrderItemDao extends AbstractDao {
         em.merge(p);
     }
 
+    @Transactional
     public void deleteByOrderId(int orderId) {
         TypedQuery<OrderItemPojo> query = getQuery("select p from OrderItemPojo p where orderId=:orderId",
                 OrderItemPojo.class);

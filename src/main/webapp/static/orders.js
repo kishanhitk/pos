@@ -31,7 +31,6 @@ function convertFormToOrderItems(data) {
 }
 function updateOrder(event) {
   event.preventDefault();
-  $("#edit-order-modal").modal("toggle");
   console.log("update order");
   //Get the ID
   var id = $("#edit-order-form input[name=id]").val();
@@ -39,18 +38,17 @@ function updateOrder(event) {
   //Set the values to update
   var $form = $("#edit-order-form");
   var data = convertFormToOrderItems($form.serializeArray());
-  console.log(url);
   console.log(data);
-
   $.ajax({
     url: url,
     type: "PUT",
-    data: json,
+    data: JSON.stringify(data),
     headers: {
       "Content-Type": "application/json",
     },
     success: function (response) {
       $.notify("Order updated successfully", "success");
+      $("#edit-order-modal").modal("toggle");
     },
     error: handleAjaxError,
   });
@@ -116,8 +114,6 @@ function populateEditOrderModalForm(data) {
   const orderItems = data.orderItems;
   const orderDateStr = convertTimeStampToDateTime(data.createdAt);
   const orderId = data.id;
-  console.log(orderId);
-  console.log(orderDateStr);
   const $form = $("#edit-order-form-div");
   $("#edit-order-form input[name=id]").val(orderId);
   $("#edit-order-form").find("#order-id").text(orderId);

@@ -33,6 +33,9 @@ public class OrderService {
 
     @Transactional(rollbackOn = ApiException.class)
     public void add(List<OrderItemForm> orderItems) throws ApiException {
+        if (orderItems.size() == 0) {
+            throw new ApiException("No items to add");
+        }
         OrderPojo order = new OrderPojo();
         orderDao.insert(order);
         for (OrderItemForm orderItem : orderItems) {
@@ -71,6 +74,9 @@ public class OrderService {
     }
 
     public void update(int orderId, List<OrderItemForm> orderItems) throws ApiException {
+        if (orderItems.size() == 0) {
+            throw new ApiException("Order items can not be empty");
+        }
         revertInventory(orderId);
         List<OrderItemPojo> newOrderItems = new ArrayList<OrderItemPojo>();
         for (OrderItemForm orderItem : orderItems) {
