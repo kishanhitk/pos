@@ -4,14 +4,17 @@ function getOrderUrl() {
 }
 
 function updateOrder(event) {
+  event.preventDefault();
   $("#edit-order-modal").modal("toggle");
+  console.log("update order");
   //Get the ID
-  var id = $("#order-edit-form input[name=id]").val();
+  var id = $("#edit-order-form input[name=id]").val();
   var url = getOrderUrl() + "/" + id;
-
   //Set the values to update
-  var $form = $("#order-edit-form");
+  var $form = $("#edit-order-form");
   var json = toJson($form);
+  console.log(url);
+  console.log(json);
 
   $.ajax({
     url: url,
@@ -87,6 +90,7 @@ function populateEditOrderModalForm(data) {
   const orderItems = data.orderItems;
   const orderDateStr = convertTimeStampToDateTime(data.createdAt);
   const orderId = data.id;
+  $("#edit-order-form input[name=id]").val(orderId);
   $("#order-id").text(orderId);
   $("#order-date").text(orderDateStr);
   const $form = $("#edit-order-form-div");
@@ -99,24 +103,27 @@ function populateEditOrderModalForm(data) {
       rowId +
       '" class="row">' +
       '<div class="col-3">' +
-      '<input type="text" class="form-control" name="barcode" value="' +
+      `<label for="barcode-${rowId}">Barcode</label>` +
+      `<input type="text" class="form-control" id="barcode-${rowId}" name="barcode" value="` +
       orderItem.barcode +
       '" readonly>' +
       "</div>" +
       '<div class="col-3">' +
-      '<input type="text" class="form-control" name="quantity" value="' +
+      `<label for="quantity-${rowId}">Quantity</label>` +
+      `<input type="number" class="form-control" id="quantity-${rowId}" name="quantity" value="` +
       orderItem.quantity +
-      '" readonly>' +
+      '">' +
       "</div>" +
       '<div class="col-3">' +
-      '<input type="text" class="form-control" name="sellingPrice" value="' +
+      `<label for="sellingPrice-${rowId}">Price</label>` +
+      `<input type="number" step="0.01" class="form-control" id="sellingPrice-${rowId}" name="sellingPrice" value="` +
       orderItem.sellingPrice +
       '" readonly>' +
       "</div>" +
-      '<div class="col-3">' +
+      '<div class="col-3 mt-4">' +
       '<button class="btn btn-danger delete-row" onclick="deleteRow(' +
       orderItem.id +
-      ')" type="button" id="' +
+      ')" type="button" id="delete' +
       rowId +
       '">X</button>' +
       "</div>" +
@@ -178,11 +185,43 @@ function displayOrder(data) {
   }
   $("#order-details-modal").modal("toggle");
 }
+function addRow() {
+  // grab form
+  const $form = $("#edit-order-form-div");
+  const rowId = Math.floor(Math.random() * 10000000);
+  const row =
+    '<div id="row-' +
+    rowId +
+    '" class="row">' +
+    '<div class="col-3">' +
+    `<label for="barcode-${rowId}">Barcode</label>` +
+    `<input type="text" class="form-control" id="barcode-${rowId}" required name="barcode" >` +
+    "</div>" +
+    '<div class="col-3">' +
+    `<label for="quantity-${rowId}">Quantity</label>` +
+    `<input type="number" class="form-control" id="quantity-${rowId}" required name="quantity">` +
+    "</div>" +
+    '<div class="col-3">' +
+    `<label for="sellingPrice-${rowId}">Price</label>` +
+    `<input type="number" step="0.01" class="form-control" id="sellingPrice-${rowId}" required name="sellingPrice" >` +
+    "</div>" +
+    '<div class="col-3 mt-4">' +
+    '<button class="btn btn-danger delete-row" onclick="deleteRow(' +
+    rowId +
+    ')" type="button" id="delete' +
+    rowId +
+    '">X</button>' +
+    "</div>" +
+    "</div>";
+  $form.append(row);
+}
 
 //INITIALIZATION CODE
 function init() {
   $("#update-order").click(updateOrder);
   $("#refresh-data").click(getOrderList);
+  $("#edit-order-form").submit(updateOrder);
+  $("#add-row").click(addRow);
 }
 
 $(document).ready(init);
