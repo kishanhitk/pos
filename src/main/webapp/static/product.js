@@ -152,13 +152,13 @@ function displayProductList(data) {
       e.id +
       "</td>" +
       "<td>" +
+      e.barcode +
+      "</td>" +
+      "<td>" +
       e.name +
       "</td>" +
       "<td>" +
       e.mrp +
-      "</td>" +
-      "<td>" +
-      e.barcode +
       "</td>" +
       "<td>" +
       buttonHtml +
