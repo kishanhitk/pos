@@ -16,20 +16,20 @@
             <div class="col-12">
                 <form id="filter-form">
                     <div class="form-row">
+                        <!-- !Temporarily disabled because it was causing issues with the table -->
+                        <div class="form-group col-2">
+                            <label for="inputBrand">Brand</label>
+                            <select type="text" class="custom-select" name="brand" id="inputBrand" required
+                                placeholder="Select Brand">
+                        </div>
                         <div class="form-group col-2">
                             <label for="inputBarcode">Starting Date</label>
-                            <input id="startingdatepicker" name="startingDate" required />
+                            <input id="startingdatepicker" name="startDate" required />
                         </div>
                         <div class="form-group col-2">
                             <label for="inputQuantity">Ending Date</label>
-                            <input id="endingdatepicker" name="endingDate" required />
+                            <input id="endingdatepicker" name="endDate" required />
                         </div>
-                        <!-- !Temporarily disabled because it was causing issues with the table -->
-                        <!-- <div class="form-group col-2">
-                            <label for="inputBrandCategory">Brand</label>
-                            <select type="text" class="form-control" name="brandCategory" id="inputBrandCategory"
-                                required placeholder="Select Brand Category">
-                        </div> -->
                     </div>
                     <button type="submit" class="btn btn-primary" id="refresh-data">Fetch</button>
                 </form>

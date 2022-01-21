@@ -17,14 +17,15 @@ function getSalesReport() {
   //   e.preventDefault();
   var $form = $("#filter-form");
   var json = toJson($form);
-  console.log(json);
   var url = getSalesReportUrl();
   var params = {
     brand: "amul",
     startDate: "2020/01/01",
     endDate: "2024/01/31",
   };
-  $.get(url, params, function (returnedData) {
+  console.log(JSON.parse(json));
+  console.log(params);
+  $.get(url, JSON.parse(json), function (returnedData) {
     displaySalesReportList(returnedData);
   }).fail(function (response) {
     handleAjaxError(response);
@@ -54,12 +55,12 @@ function displaySalesReportList(data) {
 }
 
 function addDataToBrandCategoryDropdown(data, formId) {
-  var $brand = $(`${formId} select[name=brandCategory]`);
+  var $brand = $(`${formId} select[name=brand]`);
   $brand.empty();
-  $brand.append('<option value="">Select Brand</option>');
-  for (var i in data) {
-    var e = data[i];
-    var option = '<option value="' + e.id + '">' + e.brand + "</option>";
+  var set = new Set(data.map((item) => item.brand));
+  console.log(set);
+  for (let i of set) {
+    let option = '<option value="' + i + '">' + i + "</option>";
     $brand.append(option);
   }
 }
@@ -71,6 +72,7 @@ function populateBrandCategoryDropDown() {
     type: "GET",
     success: function (data) {
       addDataToBrandCategoryDropdown(data, "#filter-form");
+      getSalesReport();
     },
     error: handleAjaxError,
   });
@@ -80,9 +82,15 @@ function populateBrandCategoryDropDown() {
 function init() {
   $("#refresh-data").click(getSalesReport);
   $("#startingdatepicker").datepicker({
+    // Set one month before today
+    value: new Date(
+      new Date().setMonth(new Date().getMonth() - 1)
+    ).toLocaleDateString(),
     uiLibrary: "bootstrap4",
   });
   $("#endingdatepicker").datepicker({
+    // Set todays date as default date
+    value: new Date().toLocaleDateString(),
     uiLibrary: "bootstrap4",
   });
   $("#filter-form").submit(filterSalesReport);
