@@ -155,9 +155,6 @@ function displayBrandCategoryReportList(data) {
     var row =
       "<tr>" +
       "<td>" +
-      e.id +
-      "</td>" +
-      "<td>" +
       e.brand +
       "</td>" +
       "<td>" +
