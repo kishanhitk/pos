@@ -67,7 +67,6 @@ function placeOrder(e) {
     data: JSON.stringify(data),
     contentType: "application/json",
     success: function (data) {
-      console.log(data);
       $.notify("Order Placed Successfully", "success");
       window.location.href = getOrderListPageUrl();
     },

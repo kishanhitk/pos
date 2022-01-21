@@ -22,6 +22,7 @@ function addProduct(event) {
       "Content-Type": "application/json",
     },
     success: function (response) {
+      $.notify("Product Added", "success");
       getProductList();
     },
     error: handleAjaxError,
@@ -48,6 +49,7 @@ function updateProduct(event) {
       "Content-Type": "application/json",
     },
     success: function (response) {
+      $.notify("Inventory Updated", "success");
       getProductList();
     },
     error: handleAjaxError,
@@ -101,6 +103,7 @@ function uploadRows() {
   updateUploadDialog();
   //If everything processed then return
   if (processCount == fileData.length) {
+    getProductList();
     return;
   }
 

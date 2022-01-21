@@ -19,6 +19,7 @@ function addInventory(event) {
     },
     success: function (response) {
       getInventoryList();
+      $.notify("Inventory Added", "success");
     },
     error: handleAjaxError,
   });
@@ -45,6 +46,7 @@ function updateInventory(event) {
     },
     success: function (response) {
       getInventoryList();
+      $.notify("Inventory Updated", "success");
     },
     error: handleAjaxError,
   });
@@ -97,6 +99,7 @@ function uploadRows() {
   updateUploadDialog();
   //If everything processed then return
   if (processCount == fileData.length) {
+    getInventoryList();
     return;
   }
 
