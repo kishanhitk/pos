@@ -12,8 +12,13 @@ function toJson($form) {
 }
 
 function handleAjaxError(response) {
-  var response = JSON.parse(response.responseText);
-  $.notify(response.message, "error");
+  try {
+    var response = JSON.parse(response.responseText);
+    $.notify(response.message, "error");
+  } catch (error) {
+    console.log(error);
+    $.notify("Something went wrong!", "error");
+  }
 }
 
 function readFileData(file, callback) {
