@@ -2,7 +2,10 @@ function getOrderUrl() {
   var baseUrl = $("meta[name=baseUrl]").attr("content");
   return baseUrl + "/api/orders";
 }
-
+function getOrderListPageUrl() {
+  var baseUrl = $("meta[name=baseUrl]").attr("content");
+  return baseUrl + "/ui/orders";
+}
 function addRow() {
   // grab form
   const id = Math.floor(Math.random() * 10000000);
@@ -66,6 +69,7 @@ function placeOrder(e) {
     success: function (data) {
       console.log(data);
       $.notify("Order Placed Successfully", "success");
+      window.location.href = getOrderListPageUrl();
     },
     error: function (data) {
       handleAjaxError(data);
