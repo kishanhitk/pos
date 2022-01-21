@@ -19,6 +19,7 @@ function addBrandCategory(event) {
     },
     success: function (response) {
       getBrandCategoryList();
+      $form.trigger("reset");
       $.notify("Brand Category Added", "success");
     },
     error: (resp) => {

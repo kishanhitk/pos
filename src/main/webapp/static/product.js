@@ -22,6 +22,7 @@ function addProduct(event) {
       "Content-Type": "application/json",
     },
     success: function (response) {
+      $form.trigger("reset");
       $.notify("Product Added", "success");
       getProductList();
     },
