@@ -153,9 +153,6 @@ function displayProductList(data) {
     var row =
       "<tr>" +
       "<td>" +
-      e.id +
-      "</td>" +
-      "<td>" +
       e.barcode +
       "</td>" +
       "<td>" +
