@@ -12,12 +12,13 @@ function toJson($form) {
 }
 
 function handleAjaxError(response) {
+  $(".notifyjs-corner").empty();
   try {
     var response = JSON.parse(response.responseText);
-    $.notify(response.message, "error");
+    $.notify(response.message, { type: "error", autoHide: false });
   } catch (error) {
     console.log(error);
-    $.notify("Something went wrong!", "error");
+    $.notify("Something went wrong!", { type: "error", autoHide: false });
   }
 }
 
