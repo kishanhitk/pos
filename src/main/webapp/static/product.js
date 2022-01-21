@@ -221,7 +221,7 @@ function displayProduct(data) {
 function addDataToBrandCategoryDropdown(data, formId) {
   var $brand = $(`${formId} select[name=brandCategory]`);
   $brand.empty();
-  $brand.append('<option value="">Select Brand</option>');
+  $brand.append('<option value="">Select Brand Category</option>');
   for (var i in data) {
     var e = data[i];
     var option =
