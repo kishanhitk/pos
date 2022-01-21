@@ -12,24 +12,16 @@
 
 		<h3>Home</h3>
 
-		<!-- Top row with form-->
-		<div class="row">
+		<div class="row text-center mt-4">
 			<div class="col-2">
-				<a th:href="@{/ui/employee}" title="Employees"> <i class="fas fa-users"></i> </a>
+				<a class="fas fa-shopping-cart fa-5x" th:href="@{/ui/orders}" title="Order"></a>.
+				<br> Orders
 			</div>
 			<div class="col-2">
-				<a th:href="@{/ui/admin}" title="Admin"> <i class="fas fa-cog"></i> </a>
+				<a class="fas fa-table fa-5x" th:href="@{/ui/reports}" title="Reports"></a>
+				<br> Reports
 			</div>
-			<div class="col-2">
-				<a th:href="@{/ui/orders}" title="Order">
-					<i class="fas fa-shopping-cart"></i>
-				</a>
-			</div>
-			<div class="col-2">
-				<a th:href="@{/ui/reports}" title="Reports">
-					<i class="fas fa-table"></i>
-				</a>
-			</div>
+
 		</div>
 
 
