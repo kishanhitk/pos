@@ -18,13 +18,6 @@ function getSalesReport() {
   var $form = $("#filter-form");
   var json = toJson($form);
   var url = getSalesReportUrl();
-  var params = {
-    brand: "amul",
-    startDate: "2020/01/01",
-    endDate: "2024/01/31",
-  };
-  console.log(JSON.parse(json));
-  console.log(params);
   $.get(url, JSON.parse(json), function (returnedData) {
     displaySalesReportList(returnedData);
   }).fail(function (response) {
