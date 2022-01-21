@@ -18,7 +18,7 @@ function handleAjaxError(response) {
     $.notify(response.message, { type: "error", autoHide: false });
   } catch (error) {
     console.log(error);
-    $.notify("Something went wrong!", { type: "error", autoHide: false });
+    $.notify("Something went wrong!", "error");
   }
 }
 
