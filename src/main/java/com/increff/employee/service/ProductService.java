@@ -88,6 +88,6 @@ public class ProductService {
     }
 
     private void normalize(ProductPojo p) {
-        p.setName(StringUtil.toLowerCase(p.getName()));
+        p.setName(StringUtil.toLowerCase(p.getName()).trim());
     }
 }

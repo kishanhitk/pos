@@ -67,8 +67,8 @@ public class BrandCategoryService {
     }
 
     protected static void normalize(BrandCategoryPojo p) {
-        p.setBrand(StringUtil.toLowerCase(p.getBrand()));
-        p.setCategory(StringUtil.toLowerCase(p.getCategory()));
+        p.setBrand(StringUtil.toLowerCase(p.getBrand()).trim());
+        p.setCategory(StringUtil.toLowerCase(p.getCategory()).trim());
     }
 
     public List<BrandCategoryPojo> getByBrandName(String brand) {
