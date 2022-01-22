@@ -49,6 +49,7 @@ public class OrderDto {
         }
     }
 
+    @Transactional(readOnly = true)
     public List<OrderData> getAllOrders() throws ApiException {
         List<OrderPojo> orderPojos = orderService.getAll();
         List<OrderData> orderDatas = new ArrayList<OrderData>();
@@ -100,6 +101,7 @@ public class OrderDto {
         orderItemService.insertMutiple(newOrderItems);
     }
 
+    @Transactional(rollbackFor = ApiException.class)
     public void revertInventory(int orderId) throws ApiException {
         List<OrderItemPojo> orderItemPojoList = orderItemService.selectByOrderId(orderId);
         for (OrderItemPojo orderItemPojo : orderItemPojoList) {
@@ -112,5 +114,4 @@ public class OrderDto {
             throw new ApiException("Order items cannot be empty");
         }
     }
-
 }
