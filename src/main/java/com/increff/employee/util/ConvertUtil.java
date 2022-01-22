@@ -4,10 +4,13 @@ import java.util.UUID;
 
 import com.increff.employee.model.BrandCategoryData;
 import com.increff.employee.model.BrandCategoryForm;
+import com.increff.employee.model.InventoryData;
+import com.increff.employee.model.InventoryForm;
 import com.increff.employee.model.OrderItemForm;
 import com.increff.employee.model.ProductData;
 import com.increff.employee.model.ProductForm;
 import com.increff.employee.pojo.BrandCategoryPojo;
+import com.increff.employee.pojo.InventoryPojo;
 import com.increff.employee.pojo.OrderItemPojo;
 import com.increff.employee.pojo.ProductPojo;
 
@@ -52,6 +55,23 @@ public class ConvertUtil {
         d.setMrp(p.getMrp());
         d.setId(p.getId());
         d.setBarcode(p.getBarcode());
+        return d;
+    }
+
+    public static InventoryPojo convertInventoryFormToInventoryPojo(InventoryForm form) {
+        InventoryPojo p = new InventoryPojo();
+        p.setProductId(form.getProductId());
+        p.setQuantity(form.getQuantity());
+        return p;
+
+    }
+
+    public static InventoryData convertInventoryPojoToInventoryData(InventoryPojo p) {
+        InventoryData d = new InventoryData();
+        d.setProductId(p.getProductId());
+        d.setQuantity(p.getQuantity());
+        d.setCreatedAt(p.getCreatedAt());
+        d.setUpdatedAt(p.getUpdatedAt());
         return d;
     }
 }

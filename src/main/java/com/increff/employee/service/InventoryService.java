@@ -17,9 +17,6 @@ public class InventoryService {
 
     @Transactional(rollbackOn = ApiException.class)
     public void add(InventoryPojo p) throws ApiException {
-        if (p.getQuantity() < 0) {
-            throw new ApiException("Quantity can not be less than 0.");
-        }
         dao.insert(p);
     }
 
@@ -44,13 +41,11 @@ public class InventoryService {
     }
 
     @Transactional(rollbackOn = ApiException.class)
-    public void update(Integer id, InventoryPojo p) throws ApiException {
-        if (p.getQuantity() < 0) {
-            throw new ApiException("Quantity can not be less than 0.");
-        }
+    public InventoryPojo update(Integer id, InventoryPojo p) throws ApiException {
         InventoryPojo ex = getCheck(id);
         ex.setQuantity(p.getQuantity());
         dao.update(ex);
+        return ex;
     }
 
     @Transactional(rollbackOn = ApiException.class)
@@ -66,6 +61,10 @@ public class InventoryService {
         InventoryPojo p = dao.selectByProductId(productId);
         p.setQuantity(p.getQuantity() + quantity);
         dao.update(p);
+    }
+
+    public InventoryPojo getByProductId(int productId) {
+        return dao.selectByProductId(productId);
     }
 
 }

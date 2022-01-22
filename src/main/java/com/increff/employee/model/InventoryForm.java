@@ -8,7 +8,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class InventoryForm {
-    private int id;
+    private int productId;
     private int quantity;
-
 }

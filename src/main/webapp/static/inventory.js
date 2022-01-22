@@ -110,12 +110,10 @@ function uploadRows() {
   var json = JSON.stringify(row);
   console.log(json);
   var url = getInventoryUrl();
-  url = url + "/" + row.id;
   //Make ajax call
   $.ajax({
     url: url,
-    //!Using PUT because inventory data is already created during adding product
-    type: "PUT",
+    type: "POST",
     data: json,
     headers: {
       "Content-Type": "application/json",
