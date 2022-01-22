@@ -1,4 +1,4 @@
-package com.increff.employee.service;
+package com.increff.employee.dto;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,12 +13,18 @@ import com.increff.employee.pojo.InventoryPojo;
 import com.increff.employee.pojo.OrderItemPojo;
 import com.increff.employee.pojo.OrderPojo;
 import com.increff.employee.pojo.ProductPojo;
+import com.increff.employee.service.ApiException;
+import com.increff.employee.service.BrandCategoryService;
+import com.increff.employee.service.InventoryService;
+import com.increff.employee.service.OrderItemService;
+import com.increff.employee.service.OrderService;
+import com.increff.employee.service.ProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
-public class ReportService {
+@Component
+public class ReportDto {
 
     @Autowired
     private ProductService productService;
@@ -31,6 +37,7 @@ public class ReportService {
 
     @Autowired
     private OrderService orderService;
+
     @Autowired
     private OrderItemService orderItemService;
 
@@ -69,12 +76,6 @@ public class ReportService {
         Date endingDate = new Date(endDate);
         List<SalesReportData> salesReportData = new ArrayList<SalesReportData>();
         List<BrandCategoryPojo> brandCategoryList = brandCategoryService.getByBrandName(brand);
-        // Steps:
-        // 1. Get all the orders between startingDate and endingDate
-        // 2. Get all the order items of the orders
-        // 3. Get the product of the order items
-        // 4. Get the brandCategory of the products
-        // 5. Get the list of brandCategory
         List<OrderPojo> orderList = orderService.getAllBetween(startingDate, endingDate);
         List<OrderItemPojo> orderItemList = new ArrayList<OrderItemPojo>();
         for (OrderPojo order : orderList) {

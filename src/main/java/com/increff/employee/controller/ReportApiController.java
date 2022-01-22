@@ -2,11 +2,11 @@ package com.increff.employee.controller;
 
 import java.util.List;
 
+import com.increff.employee.dto.ReportDto;
 import com.increff.employee.model.InventoryReportData;
 import com.increff.employee.model.SalesReportData;
 import com.increff.employee.pojo.BrandCategoryPojo;
 import com.increff.employee.service.ApiException;
-import com.increff.employee.service.ReportService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,18 +22,18 @@ import io.swagger.annotations.ApiOperation;
 public class ReportApiController {
 
     @Autowired
-    private ReportService service;
+    private ReportDto dto;
 
     @ApiOperation(value = "Get inventory detail of brandcategory")
     @RequestMapping(path = "api/reports/inventory", method = RequestMethod.GET)
     public List<InventoryReportData> getInventoryReport() throws ApiException {
-        return service.inventoryReport();
+        return dto.inventoryReport();
     }
 
     @ApiOperation(value = "Get brandcategory detail")
     @RequestMapping(path = "api/reports/brand", method = RequestMethod.GET)
     public List<BrandCategoryPojo> getBrandCategoryReport() throws ApiException {
-        return service.getBrandCategoryReport();
+        return dto.getBrandCategoryReport();
     }
 
     @ApiOperation(value = "Get sales detail of brandcategory")
@@ -44,6 +44,6 @@ public class ReportApiController {
             @RequestParam(value = "endDate", required = false) String endDate) throws ApiException
 
     {
-        return service.getCategoryWiseSalesReport(brand, startDate, endDate);
+        return dto.getCategoryWiseSalesReport(brand, startDate, endDate);
     }
 }
