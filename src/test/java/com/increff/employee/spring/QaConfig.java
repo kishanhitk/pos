@@ -1,4 +1,4 @@
-package com.increff.employee.service;
+package com.increff.employee.spring;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScan.Filter;
@@ -6,8 +6,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
-
-import com.increff.employee.spring.SpringConfig;
 
 @Configuration
 @ComponentScan(//
@@ -18,6 +16,5 @@ import com.increff.employee.spring.SpringConfig;
 		@PropertySource(value = "classpath:./com/increff/employee/test.properties", ignoreResourceNotFound = true) //
 })
 public class QaConfig {
-
 
 }

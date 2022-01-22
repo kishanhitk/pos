@@ -1,4 +1,4 @@
-package com.increff.employee.service;
+package com.increff.employee.spring;
 
 import javax.transaction.Transactional;
 

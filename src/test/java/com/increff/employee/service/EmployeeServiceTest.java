@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.increff.employee.pojo.EmployeePojo;
+import com.increff.employee.spring.AbstractUnitTest;
 
 public class EmployeeServiceTest extends AbstractUnitTest {
 
