@@ -75,17 +75,27 @@ function populateBrandCategoryDropDown() {
 function init() {
   $("#refresh-data").click(getSalesReport);
   $("#startingdatepicker").datepicker({
-    // Set one month before today
-    value: new Date(
-      new Date().setMonth(new Date().getMonth() - 1)
-    ).toLocaleDateString(),
     uiLibrary: "bootstrap4",
+    maxDate: function () {
+      return $("#endingdatepicker").val();
+    },
   });
   $("#endingdatepicker").datepicker({
-    // Set todays date as default date
-    value: new Date().toLocaleDateString(),
+    minDate: function () {
+      return $("#startingdatepicker").val();
+    },
     uiLibrary: "bootstrap4",
   });
+  // Set ending date as today's date
+  $("#endingdatepicker").datepicker().value(new Date().toLocaleDateString());
+  // Set starting date as 30 days before today's date
+  $("#startingdatepicker")
+    .datepicker()
+    .value(
+      new Date(
+        new Date().setDate(new Date().getDate() - 30)
+      ).toLocaleDateString()
+    );
   $("#filter-form").submit(filterSalesReport);
 }
 
