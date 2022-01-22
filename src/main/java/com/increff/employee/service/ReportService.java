@@ -31,6 +31,8 @@ public class ReportService {
 
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private OrderItemService orderItemService;
 
     // Get inventory detail of brandcategory
     @Transactional
@@ -76,7 +78,7 @@ public class ReportService {
         List<OrderPojo> orderList = orderService.getAllBetween(startingDate, endingDate);
         List<OrderItemPojo> orderItemList = new ArrayList<OrderItemPojo>();
         for (OrderPojo order : orderList) {
-            List<OrderItemPojo> orderItemListTemp = orderService.getOrderItemByOrder(order.getId());
+            List<OrderItemPojo> orderItemListTemp = orderItemService.selectByOrderId(order.getId());
             orderItemList.addAll(orderItemListTemp);
         }
         List<ProductPojo> productList = new ArrayList<ProductPojo>();

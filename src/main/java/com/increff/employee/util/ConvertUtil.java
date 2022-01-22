@@ -1,17 +1,21 @@
 package com.increff.employee.util;
 
+import java.util.List;
 import java.util.UUID;
 
 import com.increff.employee.model.BrandCategoryData;
 import com.increff.employee.model.BrandCategoryForm;
 import com.increff.employee.model.InventoryData;
 import com.increff.employee.model.InventoryForm;
+import com.increff.employee.model.OrderData;
+import com.increff.employee.model.OrderItemData;
 import com.increff.employee.model.OrderItemForm;
 import com.increff.employee.model.ProductData;
 import com.increff.employee.model.ProductForm;
 import com.increff.employee.pojo.BrandCategoryPojo;
 import com.increff.employee.pojo.InventoryPojo;
 import com.increff.employee.pojo.OrderItemPojo;
+import com.increff.employee.pojo.OrderPojo;
 import com.increff.employee.pojo.ProductPojo;
 
 public class ConvertUtil {
@@ -72,6 +76,28 @@ public class ConvertUtil {
         d.setQuantity(p.getQuantity());
         d.setCreatedAt(p.getCreatedAt());
         d.setUpdatedAt(p.getUpdatedAt());
+        return d;
+    }
+
+    public static OrderItemData convertOrderItemPojoToOrderItemData(OrderItemPojo pojo, String barcode) {
+        OrderItemData data = new OrderItemData();
+        data.setId(pojo.getId());
+        data.setOrderId(pojo.getOrderID());
+        data.setProductId(pojo.getProductId());
+        data.setQuantity(pojo.getQuantity());
+        data.setSellingPrice(pojo.getSellingPrice());
+        data.setCreatedAt(pojo.getCreatedAt());
+        data.setUpdatedAt(pojo.getUpdatedAt());
+        data.setBarcode(barcode);
+        return data;
+    }
+
+    public static OrderData convertOrderPojoToOrderData(OrderPojo p, List<OrderItemData> orderItems) {
+        OrderData d = new OrderData();
+        d.setCreatedAt(p.getCreatedAt());
+        d.setId(p.getId());
+        d.setUpdatedAt(p.getUpdatedAt());
+        d.setOrderItems(orderItems);
         return d;
     }
 }

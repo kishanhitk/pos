@@ -32,7 +32,7 @@ public class OrderApiController {
 
     @ApiOperation(value = "Get all orders")
     @RequestMapping(path = "/api/orders", method = RequestMethod.GET)
-    public List<OrderData> getAll() {
+    public List<OrderData> getAll() throws ApiException {
         return dto.getAllOrders();
     }
 
@@ -45,6 +45,6 @@ public class OrderApiController {
     @ApiOperation(value = "Update order by id")
     @RequestMapping(path = "/api/orders/{id}", method = RequestMethod.PUT)
     public void update(@PathVariable int id, @RequestBody List<OrderItemForm> orderItems) throws ApiException {
-        dto.update(id, orderItems);
+        dto.updateOrder(id, orderItems);
     }
 }

@@ -33,8 +33,9 @@ public class OrderDao extends AbstractDao {
         return query.getResultList();
     }
 
-    public void update(OrderPojo p) {
+    public OrderPojo update(OrderPojo p) {
         em.merge(p);
+        return p;
     }
 
     public List<OrderPojo> selectAllBetween(Date startingDate, Date endingDate) {
