@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import com.increff.employee.dao.OrderDao;
 import com.increff.employee.model.OrderData;
 import com.increff.employee.model.OrderItemData;
@@ -32,28 +30,13 @@ public class OrderService {
     // TODO: Make mutiple service calls to COntroller layer | Use only dao in
     // service layer | Add transacational in controller if needed
 
-    @Transactional(rollbackOn = ApiException.class)
-    public void add(List<OrderItemForm> orderItems) throws ApiException {
-        if (orderItems.size() == 0) {
-            throw new ApiException("No items to add");
-        }
-        OrderPojo order = new OrderPojo();
-        orderDao.insert(order);
-        for (OrderItemForm orderItem : orderItems) {
-            ProductPojo product = productService.getProductByBarcode(orderItem.getBarcode());
-            if (product == null) {
-                throw new ApiException("Product with barcode " + orderItem.getBarcode() + " not found");
-            }
-            OrderItemPojo orderItemPojo = ConvertUtil.convertOrderItemFormToOrderItemPojo(orderItem);
-            orderItemPojo.setOrderID(order.getId());
-            orderItemPojo.setProductId(product.getId());
-            orderItemService.insert(orderItemPojo);
-            inventoryService.reduce(orderItemPojo.getProductId(), orderItemPojo.getQuantity());
-        }
-    }
-
     public List<OrderPojo> getAll() {
         return orderDao.selectAll();
+    }
+
+    public OrderPojo createNewOrder() {
+        OrderPojo order = new OrderPojo();
+        return orderDao.insert(order);
     }
 
     public OrderData getOrderDetails(int id) throws ApiException {
