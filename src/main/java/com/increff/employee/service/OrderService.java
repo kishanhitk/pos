@@ -30,6 +30,8 @@ public class OrderService {
     private InventoryService inventoryService;
     @Autowired
     private ProductService productService;
+    // TODO: Make mutiple service calls to COntroller layer | Use only dao in
+    // service layer | Add transacational in controller if needed
 
     @Transactional(rollbackOn = ApiException.class)
     public void add(List<OrderItemForm> orderItems) throws ApiException {
@@ -99,11 +101,6 @@ public class OrderService {
         for (OrderItemPojo orderItemPojo : orderItemPojoList) {
             inventoryService.increase(orderItemPojo.getProductId(), orderItemPojo.getQuantity());
         }
-    }
-
-    public void delete(int id) {
-        // TODO Auto-generated method stub
-
     }
 
     public List<OrderPojo> getAllBetween(Date startingDate, Date endingDate) {

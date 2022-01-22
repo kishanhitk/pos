@@ -27,5 +27,5 @@ public class BrandCategoryPojo extends AbstractPojo {
 
     @Column(nullable = false)
     private String category;
-
+    // TODO : Add BrandCategoryPojo constraint
 }

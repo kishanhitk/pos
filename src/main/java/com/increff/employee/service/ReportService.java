@@ -92,7 +92,7 @@ public class ReportService {
         for (OrderItemPojo orderItem : orderItemList) {
             int productId = orderItem.getProductId();
             ProductPojo product = productList.stream().filter(p -> p.getId() == productId).findFirst().get();
-            int brandCategoryId = product.getBrandCategory();
+            int brandCategoryId = product.getBrandCategoryId();
             for (SalesReportData salesReportItemDataItem : salesReportData) {
                 if (salesReportItemDataItem.getBrandCategoryId() == brandCategoryId) {
                     salesReportItemDataItem

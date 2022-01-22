@@ -61,7 +61,7 @@ public class ProductApiController {
 
     private static ProductPojo convert(ProductForm form) {
         ProductPojo p = new ProductPojo();
-        p.setBrandCategory(form.getBrandCategory());
+        p.setBrandCategoryId(form.getBrandCategory());
         p.setName(form.getName());
         p.setMrp(form.getMrp());
         p.setBarcode(UUID.randomUUID().toString());
@@ -70,7 +70,7 @@ public class ProductApiController {
 
     private static ProductData convert(ProductPojo p) {
         ProductData d = new ProductData();
-        d.setBrandCategory(p.getBrandCategory());
+        d.setBrandCategory(p.getBrandCategoryId());
         d.setName(p.getName());
         d.setMrp(p.getMrp());
         d.setId(p.getId());

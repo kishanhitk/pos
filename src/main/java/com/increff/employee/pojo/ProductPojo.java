@@ -16,6 +16,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity()
 @Table(name = "Products")
+// TODO:Table name smallcase
 public class ProductPojo extends AbstractPojo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,5 +32,6 @@ public class ProductPojo extends AbstractPojo {
     private Double mrp;
 
     @Column(nullable = false)
-    private Integer brandCategory;
+    private Integer brandCategoryId;
+
 }

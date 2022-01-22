@@ -12,7 +12,7 @@ public abstract class AbstractDao {
 	protected <T> T getSingle(TypedQuery<T> query) {
 		return query.getResultList().stream().findFirst().orElse(null);
 	}
-	
+	// TODO: addd insert fn here
 	protected <T> TypedQuery<T> getQuery(String jpql, Class<T> clazz) {
 		return em.createQuery(jpql, clazz);
 	}

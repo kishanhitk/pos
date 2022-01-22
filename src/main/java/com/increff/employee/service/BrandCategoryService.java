@@ -2,7 +2,7 @@ package com.increff.employee.service;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
+// import javax.transaction.Transactional;
 
 import com.increff.employee.dao.BrandCategoryDao;
 import com.increff.employee.pojo.BrandCategoryPojo;
@@ -10,6 +10,8 @@ import com.increff.employee.util.StringUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+// TODO: Replace Transactional from Spring | O it on all services
 
 @Service
 public class BrandCategoryService {
@@ -17,7 +19,8 @@ public class BrandCategoryService {
     @Autowired
     private BrandCategoryDao dao;
 
-    @Transactional(rollbackOn = ApiException.class)
+    @Transactional(rollbackFor = ApiException.class)
+    // TODO: Rollback not needed here
     public void add(BrandCategoryPojo p) throws ApiException {
         normalize(p);
         // Throw exception if brand or category is empty
@@ -33,17 +36,18 @@ public class BrandCategoryService {
         dao.delete(id);
     }
 
-    @Transactional(rollbackOn = ApiException.class)
+    @Transactional(rollbackFor = ApiException.class)
+    // TODO: Rollback not needed here
     public BrandCategoryPojo get(int id) throws ApiException {
         return getCheck(id);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<BrandCategoryPojo> getAll() {
         return dao.selectAll();
     }
 
-    @Transactional(rollbackOn = ApiException.class)
+    @Transactional(rollbackFor = ApiException.class)
     public BrandCategoryPojo update(int id, BrandCategoryPojo p) throws ApiException {
         normalize(p);
         p.setId(id);
@@ -66,7 +70,8 @@ public class BrandCategoryService {
         return p;
     }
 
-    protected static void normalize(BrandCategoryPojo p) {
+    // TODO: change all normalize to protected
+    private static void normalize(BrandCategoryPojo p) {
         p.setBrand(StringUtil.toLowerCase(p.getBrand()).trim());
         p.setCategory(StringUtil.toLowerCase(p.getCategory()).trim());
     }

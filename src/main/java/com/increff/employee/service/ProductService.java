@@ -24,7 +24,7 @@ public class ProductService {
 
     @Transactional(rollbackOn = ApiException.class)
     public void add(ProductPojo p) throws ApiException {
-        BrandCategoryPojo brandCategory = brandCategoryService.get(p.getBrandCategory());
+        BrandCategoryPojo brandCategory = brandCategoryService.get(p.getBrandCategoryId());
         if (brandCategory == null) {
             throw new ApiException("BrandCategory not found");
         }
@@ -69,8 +69,8 @@ public class ProductService {
         if (p.getName() != null) {
             ex.setName(p.getName());
         }
-        if (p.getBrandCategory() != null) {
-            ex.setBrandCategory(p.getBrandCategory());
+        if (p.getBrandCategoryId() != null) {
+            ex.setBrandCategoryId(p.getBrandCategoryId());
         }
         if (p.getMrp() != null) {
             ex.setMrp(p.getMrp());

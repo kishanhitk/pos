@@ -23,6 +23,7 @@ public class OrderItemPojo extends AbstractPojo {
 
     private Integer orderID;
     private Integer productId;
+    // TODO: Add uniquew constraint on orderID + productId
     private Integer quantity;
     private Double sellingPrice;
 }

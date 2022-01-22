@@ -18,6 +18,7 @@ public class InventoryPojo extends AbstractPojo {
     @Id
     @Column(nullable = false)
     private Integer id;
+    // TODO: Should have its own ID too
 
     @Column(nullable = false)
     private Integer quantity;

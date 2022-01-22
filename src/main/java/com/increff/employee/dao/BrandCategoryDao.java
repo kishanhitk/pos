@@ -23,6 +23,7 @@ public class BrandCategoryDao extends AbstractDao {
         em.persist(p);
     }
 
+    // TODO:Remove unused code
     public int delete(int id) {
         Query query = em.createQuery("delete from BrandCategoryPojo p where id=:id");
         query.setParameter("id", id);
@@ -56,6 +57,7 @@ public class BrandCategoryDao extends AbstractDao {
 
     @Transactional
     public BrandCategoryPojo update(BrandCategoryPojo p) {
+        // TODO: Use variable for query
         TypedQuery<BrandCategoryPojo> query = getQuery("select p from BrandCategoryPojo p where id=:id",
                 BrandCategoryPojo.class);
         query.setParameter("id", p.getId());
