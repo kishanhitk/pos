@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class OrderService {
-    ConvertUtil convertUtil = new ConvertUtil();
 
     @Autowired
     private OrderDao orderDao;
@@ -45,7 +44,7 @@ public class OrderService {
             if (product == null) {
                 throw new ApiException("Product with barcode " + orderItem.getBarcode() + " not found");
             }
-            OrderItemPojo orderItemPojo = convertUtil.convert(orderItem);
+            OrderItemPojo orderItemPojo = ConvertUtil.convertOrderItemFormToOrderItemPojo(orderItem);
             orderItemPojo.setOrderID(order.getId());
             orderItemPojo.setProductId(product.getId());
             orderItemService.insert(orderItemPojo);
@@ -86,7 +85,7 @@ public class OrderService {
             if (product == null) {
                 throw new ApiException("Product with barcode " + orderItem.getBarcode() + " not found");
             }
-            OrderItemPojo orderItemPojo = convertUtil.convert(orderItem);
+            OrderItemPojo orderItemPojo = ConvertUtil.convertOrderItemFormToOrderItemPojo(orderItem);
             orderItemPojo.setOrderID(orderId);
             orderItemPojo.setProductId(product.getId());
             newOrderItems.add(orderItemPojo);

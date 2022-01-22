@@ -2,8 +2,6 @@ package com.increff.employee.service;
 
 import java.util.List;
 
-// import javax.transaction.Transactional;
-
 import com.increff.employee.dao.BrandCategoryDao;
 import com.increff.employee.pojo.BrandCategoryPojo;
 import com.increff.employee.util.StringUtil;
@@ -19,24 +17,16 @@ public class BrandCategoryService {
     @Autowired
     private BrandCategoryDao dao;
 
-    @Transactional(rollbackFor = ApiException.class)
+    @Transactional()
     // TODO: Rollback not needed here
-    public void add(BrandCategoryPojo p) throws ApiException {
+    public BrandCategoryPojo add(BrandCategoryPojo p) throws ApiException {
         normalize(p);
-        // Throw exception if brand or category is empty
-        if (StringUtil.isEmpty(p.getBrand()) || StringUtil.isEmpty(p.getCategory())) {
-            throw new ApiException("Brand or Category cannot be empty");
-        }
-        checkByBrandCategoryName(p);
+        getCheckByBrandCategoryName(p.getBrand(), p.getCategory());
         dao.insert(p);
+        return p;
     }
 
-    @Transactional
-    public void delete(int id) {
-        dao.delete(id);
-    }
-
-    @Transactional(rollbackFor = ApiException.class)
+    @Transactional(readOnly = true)
     // TODO: Rollback not needed here
     public BrandCategoryPojo get(int id) throws ApiException {
         return getCheck(id);
@@ -50,14 +40,18 @@ public class BrandCategoryService {
     @Transactional(rollbackFor = ApiException.class)
     public BrandCategoryPojo update(int id, BrandCategoryPojo p) throws ApiException {
         normalize(p);
-        p.setId(id);
-        return dao.update(p);
+        getCheckByBrandCategoryName(p.getBrand(), p.getCategory());
+        BrandCategoryPojo brandCategoryPojo = getCheck(id);
+        brandCategoryPojo.setCategory(p.getCategory());
+        brandCategoryPojo.setBrand(p.getBrand());
+        dao.update(brandCategoryPojo);
+        return brandCategoryPojo;
     }
 
-    public void checkByBrandCategoryName(BrandCategoryPojo p) throws ApiException {
-        BrandCategoryPojo ex = dao.getByBrandCategoryName(p.getBrand(), p.getCategory());
+    public void getCheckByBrandCategoryName(String brandName, String categoryName) throws ApiException {
+        BrandCategoryPojo ex = dao.getByBrandCategoryName(brandName, categoryName);
         if (ex != null) {
-            throw new ApiException("Brand and Category already exists");
+            throw new ApiException("Brand and Category combination already exists");
         }
     }
 
@@ -71,7 +65,7 @@ public class BrandCategoryService {
     }
 
     // TODO: change all normalize to protected
-    private static void normalize(BrandCategoryPojo p) {
+    protected static void normalize(BrandCategoryPojo p) {
         p.setBrand(StringUtil.toLowerCase(p.getBrand()).trim());
         p.setCategory(StringUtil.toLowerCase(p.getCategory()).trim());
     }
