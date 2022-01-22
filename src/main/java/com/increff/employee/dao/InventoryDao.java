@@ -22,14 +22,6 @@ public class InventoryDao extends AbstractDao {
         em.persist(p);
     }
 
-    public void delete(int id) {
-        em.remove(select(id));
-    }
-
-    public InventoryPojo select(int id) {
-        return em.find(InventoryPojo.class, id);
-    }
-
     public List<InventoryPojo> selectAll() {
         TypedQuery<InventoryPojo> query = getQuery("select p from InventoryPojo p", InventoryPojo.class);
         return query.getResultList();
@@ -38,5 +30,12 @@ public class InventoryDao extends AbstractDao {
     @Transactional
     public void update(InventoryPojo p) {
         em.merge(p);
+    }
+
+    public InventoryPojo selectByProductId(int id) {
+        TypedQuery<InventoryPojo> query = getQuery("select p from InventoryPojo p where p.productId = :id",
+                InventoryPojo.class);
+        query.setParameter("id", id);
+        return query.getSingleResult();
     }
 }

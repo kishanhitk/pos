@@ -55,7 +55,7 @@ public class InventoryService {
 
     @Transactional(rollbackOn = ApiException.class)
     public InventoryPojo getCheck(int id) throws ApiException {
-        InventoryPojo p = dao.select(id);
+        InventoryPojo p = dao.selectByProductId(id);
         if (p == null) {
             throw new ApiException("Inventory with given id not found");
         }
@@ -63,7 +63,7 @@ public class InventoryService {
     }
 
     public void increase(Integer productId, Integer quantity) {
-        InventoryPojo p = dao.select(productId);
+        InventoryPojo p = dao.selectByProductId(productId);
         p.setQuantity(p.getQuantity() + quantity);
         dao.update(p);
     }

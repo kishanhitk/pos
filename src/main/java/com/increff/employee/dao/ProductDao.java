@@ -19,8 +19,9 @@ public class ProductDao extends AbstractDao {
     private EntityManager em;
 
     @Transactional
-    public void insert(ProductPojo p) {
+    public ProductPojo insert(ProductPojo p) {
         em.persist(p);
+        return p;
     }
 
     @Transactional
