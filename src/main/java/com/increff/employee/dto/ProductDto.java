@@ -1,10 +1,11 @@
 package com.increff.employee.dto;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.increff.employee.model.ProductData;
 import com.increff.employee.model.ProductForm;
+import com.increff.employee.pojo.BrandCategoryPojo;
 import com.increff.employee.pojo.InventoryPojo;
 import com.increff.employee.pojo.ProductPojo;
 import com.increff.employee.service.ApiException;
@@ -43,14 +44,23 @@ public class ProductDto {
     }
 
     @Transactional(readOnly = true)
-    public List<ProductData> getAll() {
+    public List<ProductData> getAll() throws ApiException {
         List<ProductPojo> productPojos = productService.getAll();
-        return productPojos.stream().map(ConvertUtil::convertProductPojoToProductData).collect(Collectors.toList());
+        List<ProductData> productDatas = new ArrayList<ProductData>();
+        for (ProductPojo productPojo : productPojos) {
+            BrandCategoryPojo brandCategoryPojo = brandCategoryService.get(productPojo.getBrandCategoryId());
+            ProductData productData = ConvertUtil.convertProductPojoToProductData(productPojo, brandCategoryPojo);
+            productDatas.add(productData);
+        }
+        return productDatas;
     }
 
     @Transactional(readOnly = true)
     public ProductData get(Integer id) throws ApiException {
-        return ConvertUtil.convertProductPojoToProductData(productService.getCheck(id));
+        ProductPojo productPojo = productService.get(id);
+        BrandCategoryPojo brandCategoryPojo = brandCategoryService.get(productPojo.getBrandCategoryId());
+        ProductData productData = ConvertUtil.convertProductPojoToProductData(productPojo, brandCategoryPojo);
+        return productData;
     }
 
     @Transactional(rollbackFor = ApiException.class)

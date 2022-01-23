@@ -52,13 +52,15 @@ public class ConvertUtil {
         return p;
     }
 
-    public static ProductData convertProductPojoToProductData(ProductPojo p) {
+    public static ProductData convertProductPojoToProductData(ProductPojo p, BrandCategoryPojo brandCategoryPojo) {
         ProductData d = new ProductData();
         d.setBrandCategory(p.getBrandCategoryId());
         d.setName(p.getName());
         d.setMrp(p.getMrp());
         d.setId(p.getId());
         d.setBarcode(p.getBarcode());
+        d.setBrand(brandCategoryPojo.getBrand());
+        d.setCategory(brandCategoryPojo.getCategory());
         return d;
     }
 

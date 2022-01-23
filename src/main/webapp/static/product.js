@@ -50,7 +50,7 @@ function updateProduct(event) {
       "Content-Type": "application/json",
     },
     success: function (response) {
-      $.notify("Inventory Updated", "success");
+      $.notify("Product Details Updated", "success");
       getProductList();
     },
     error: handleAjaxError,
@@ -163,6 +163,12 @@ function displayProductList(data) {
       e.mrp +
       "</td>" +
       "<td>" +
+      e.brand +
+      "</td>" +
+      "<td>" +
+      e.category +
+      "</td>" +
+      "<td>" +
       buttonHtml +
       "</td>" +
       "</tr>";
@@ -213,16 +219,19 @@ function displayUploadData() {
 }
 
 function displayProduct(data) {
+  console.log(data);
   $("#product-edit-form input[name=name]").val(data.name);
   $("#product-edit-form input[name=mrp]").val(data.mrp);
   $("#product-edit-form input[name=id]").val(data.id);
+  $("#product-edit-form select[name=brandCategory]")
+    .val(data.brandCategory)
+    .change();
   $("#edit-product-modal").modal("toggle");
 }
 
 function addDataToBrandCategoryDropdown(data, formId) {
   var $brand = $(`${formId} select[name=brandCategory]`);
   $brand.empty();
-  $brand.append('<option value="">Select Brand Category</option>');
   for (var i in data) {
     var e = data[i];
     var option =
