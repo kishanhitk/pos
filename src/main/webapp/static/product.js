@@ -9,6 +9,7 @@ function getBrandCategoryUrl() {
 }
 //BUTTON ACTIONS
 function addProduct(event) {
+  event.preventDefault();
   //Set the values to update
   var $form = $("#product-form");
   var json = toJson($form);
@@ -261,7 +262,7 @@ function populateBrandCategoryDropDown() {
 
 //INITIALIZATION CODE
 function init() {
-  $("#add-product").click(addProduct);
+  $("#product-form").submit(addProduct);
   $("#update-product").click(updateProduct);
   $("#refresh-data").click(getProductList);
   $("#upload-data").click(displayUploadData);
