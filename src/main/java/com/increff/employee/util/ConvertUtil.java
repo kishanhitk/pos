@@ -72,12 +72,14 @@ public class ConvertUtil {
 
     }
 
-    public static InventoryData convertInventoryPojoToInventoryData(InventoryPojo p) {
+    public static InventoryData convertInventoryPojoToInventoryData(InventoryPojo p, ProductPojo productPojo) {
         InventoryData d = new InventoryData();
         d.setProductId(p.getProductId());
         d.setQuantity(p.getQuantity());
         d.setCreatedAt(p.getCreatedAt());
         d.setUpdatedAt(p.getUpdatedAt());
+        d.setProductBarcode(productPojo.getBarcode());
+        d.setProductName(productPojo.getName());
         return d;
     }
 

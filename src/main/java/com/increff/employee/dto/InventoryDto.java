@@ -1,11 +1,15 @@
 package com.increff.employee.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.increff.employee.model.InventoryData;
 import com.increff.employee.model.InventoryForm;
 import com.increff.employee.pojo.InventoryPojo;
+import com.increff.employee.pojo.ProductPojo;
 import com.increff.employee.service.ApiException;
 import com.increff.employee.service.InventoryService;
+import com.increff.employee.service.ProductService;
 import com.increff.employee.util.ConvertUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +21,8 @@ public class InventoryDto {
 
     @Autowired
     private InventoryService inventoryService;
+    @Autowired
+    private ProductService productService;
 
     @Transactional(rollbackFor = ApiException.class)
     public InventoryPojo addInventory(InventoryForm form) throws ApiException {
@@ -27,13 +33,23 @@ public class InventoryDto {
     }
 
     @Transactional(readOnly = true)
-    public List<InventoryPojo> getAll() {
-        return inventoryService.getAll();
+    public List<InventoryData> getAll() {
+        List<InventoryPojo> inventoryPojos = inventoryService.getAll();
+        List<InventoryData> inventoryDataList = new ArrayList<InventoryData>();
+        for (InventoryPojo inventoryPojo : inventoryPojos) {
+            ProductPojo productPojo = productService.get(inventoryPojo.getProductId());
+            InventoryData inventoryData = ConvertUtil.convertInventoryPojoToInventoryData(inventoryPojo, productPojo);
+            inventoryDataList.add(inventoryData);
+        }
+        return inventoryDataList;
     }
 
     @Transactional(readOnly = true)
-    public InventoryPojo get(Integer id) throws ApiException {
-        return inventoryService.get(id);
+    public InventoryData get(Integer id) throws ApiException {
+        InventoryPojo inventoryPojo = inventoryService.get(id);
+        ProductPojo productPojo = productService.get(inventoryPojo.getProductId());
+        InventoryData inventoryData = ConvertUtil.convertInventoryPojoToInventoryData(inventoryPojo, productPojo);
+        return inventoryData;
     }
 
     @Transactional(rollbackFor = ApiException.class)

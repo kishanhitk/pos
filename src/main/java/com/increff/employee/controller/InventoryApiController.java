@@ -3,6 +3,7 @@ package com.increff.employee.controller;
 import java.util.List;
 
 import com.increff.employee.dto.InventoryDto;
+import com.increff.employee.model.InventoryData;
 import com.increff.employee.model.InventoryForm;
 import com.increff.employee.pojo.InventoryPojo;
 import com.increff.employee.service.ApiException;
@@ -32,13 +33,13 @@ public class InventoryApiController {
 
     @ApiOperation(value = "Get all Inventorys")
     @RequestMapping(path = "/api/inventory", method = RequestMethod.GET)
-    public List<InventoryPojo> getAll() {
+    public List<InventoryData> getAll() {
         return dto.getAll();
     }
 
     @ApiOperation(value = "Get Inventory by id")
     @RequestMapping(path = "/api/inventory/{id}", method = RequestMethod.GET)
-    public InventoryPojo get(@PathVariable Integer id) throws ApiException {
+    public InventoryData get(@PathVariable Integer id) throws ApiException {
         return dto.get(id);
     }
 

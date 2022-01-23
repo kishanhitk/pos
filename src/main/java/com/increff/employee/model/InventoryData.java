@@ -12,4 +12,6 @@ import lombok.Setter;
 public class InventoryData extends InventoryForm {
     private Timestamp createdAt;
     private Timestamp updatedAt;
+    private String productName;
+    private String productBarcode;
 }
