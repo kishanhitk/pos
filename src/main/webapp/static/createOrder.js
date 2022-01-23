@@ -2,6 +2,11 @@ function getOrderUrl() {
   var baseUrl = $("meta[name=baseUrl]").attr("content");
   return baseUrl + "/api/orders";
 }
+function getProductUrl() {
+  var baseUrl = $("meta[name=baseUrl]").attr("content");
+  return baseUrl + "/api/products";
+}
+
 function getOrderListPageUrl() {
   var baseUrl = $("meta[name=baseUrl]").attr("content");
   return baseUrl + "/ui/orders";
@@ -79,6 +84,23 @@ function placeOrder(e) {
 function deleteRow() {
   var id = $(this).attr("id");
   $("#row-" + id).remove();
+}
+
+function fetchProductDetailsByBarcode(rowId) {
+  var row = $("#row-" + rowId);
+  var barcode = row.find("#inputBarcode" + rowId).val();
+  var url = getProductUrl() + "/barcode/" + barcode;
+  $.ajax({
+    url: url,
+    type: "GET",
+    success: function (data) {
+      if (data) {
+        row.find("#inputSellingPrice" + rowId).val(data.mrp);
+        row.find("#inputName" + rowId).val(data.name);
+      }
+    },
+    error: handleAjaxError,
+  });
 }
 
 function init() {
