@@ -103,6 +103,11 @@ function fetchProductDetailsByBarcode(rowId) {
   });
 }
 
+function resetProductDetails(rowId) {
+  var row = $("#row-" + rowId);
+  row.find("#inputSellingPrice" + rowId).val("");
+  row.find("#inputName" + rowId).val("");
+}
 function init() {
   $("#add-row").click(addRow);
   $("#order-form").submit(placeOrder);
