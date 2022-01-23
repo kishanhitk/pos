@@ -29,7 +29,11 @@ public class ProductService {
 
     @Transactional(rollbackFor = ApiException.class)
     public ProductPojo getProductByBarcode(String barcode) throws ApiException {
-        return productDao.getProductByBarcode(barcode);
+        ProductPojo productPojo = productDao.getProductByBarcode(barcode);
+        if (productPojo == null) {
+            throw new ApiException("Product with barcode " + barcode + " does not exist");
+        }
+        return productPojo;
     }
 
     // Get product by brand Category id
