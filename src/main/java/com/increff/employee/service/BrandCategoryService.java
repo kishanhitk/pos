@@ -17,7 +17,6 @@ public class BrandCategoryService {
     private BrandCategoryDao dao;
 
     @Transactional()
-    // TODO: Rollback not needed here
     public BrandCategoryPojo add(BrandCategoryPojo p) throws ApiException {
         normalize(p);
         getCheckByBrandCategoryName(p.getBrand(), p.getCategory());
@@ -26,7 +25,6 @@ public class BrandCategoryService {
     }
 
     @Transactional(readOnly = true)
-    // TODO: Rollback not needed here
     public BrandCategoryPojo get(int id) throws ApiException {
         return getCheck(id);
     }
@@ -47,6 +45,7 @@ public class BrandCategoryService {
         return brandCategoryPojo;
     }
 
+    @Transactional(readOnly = true)
     public void getCheckByBrandCategoryName(String brandName, String categoryName) throws ApiException {
         BrandCategoryPojo ex = dao.getByBrandCategoryName(brandName, categoryName);
         if (ex != null) {
@@ -54,7 +53,7 @@ public class BrandCategoryService {
         }
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public BrandCategoryPojo getCheck(Integer id) throws ApiException {
         BrandCategoryPojo p = dao.select(id);
         if (p == null) {
@@ -63,7 +62,6 @@ public class BrandCategoryService {
         return p;
     }
 
-    // TODO: change all normalize to protected
     protected static void normalize(BrandCategoryPojo p) {
         p.setBrand(StringUtil.toLowerCase(p.getBrand()).trim());
         p.setCategory(StringUtil.toLowerCase(p.getCategory()).trim());

@@ -42,7 +42,7 @@ public class ReportDto {
     private OrderItemService orderItemService;
 
     // Get inventory detail of brandcategory
-    @Transactional
+    @Transactional(readOnly = true)
     public List<InventoryReportData> inventoryReport() throws ApiException {
         List<InventoryReportData> inventoryReportData = new ArrayList<InventoryReportData>();
         List<BrandCategoryPojo> brandCategoryList = brandCategoryService.getAll();
@@ -63,13 +63,13 @@ public class ReportDto {
         return inventoryReportData;
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<BrandCategoryPojo> getBrandCategoryReport() throws ApiException {
         List<BrandCategoryPojo> brandCategoryList = brandCategoryService.getAll();
         return brandCategoryList;
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<SalesReportData> getCategoryWiseSalesReport(String brand, String startDate, String endDate)
             throws ApiException {
         Date startingDate = new Date(startDate);

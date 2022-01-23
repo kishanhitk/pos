@@ -42,15 +42,18 @@ public class ProductDto {
         return product;
     }
 
+    @Transactional(readOnly = true)
     public List<ProductData> getAll() {
         List<ProductPojo> productPojos = productService.getAll();
         return productPojos.stream().map(ConvertUtil::convertProductPojoToProductData).collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public ProductData get(Integer id) throws ApiException {
         return ConvertUtil.convertProductPojoToProductData(productService.getCheck(id));
     }
 
+    @Transactional(rollbackFor = ApiException.class)
     public ProductPojo update(Integer id, ProductForm form) throws ApiException {
         validateForm(form);
         ProductPojo productPojo = ConvertUtil.convertProductFormToProductPojo(form);

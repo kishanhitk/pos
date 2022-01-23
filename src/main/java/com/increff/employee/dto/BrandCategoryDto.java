@@ -13,6 +13,7 @@ import com.increff.employee.util.StringUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class BrandCategoryDto {
@@ -20,23 +21,27 @@ public class BrandCategoryDto {
     @Autowired
     private BrandCategoryService brandCategoryService;
 
+    @Transactional(readOnly = true)
     public BrandCategoryPojo addBrandCategory(BrandCategoryForm form) throws ApiException {
         validateData(form);
         BrandCategoryPojo brandPojo = ConvertUtil.convertBrandCategoryFormtoBrandCategoryPojo(form);
         return brandCategoryService.add(brandPojo);
     }
 
+    @Transactional(readOnly = true)
     public BrandCategoryData getBrandCategoryById(int id) throws ApiException {
         BrandCategoryPojo brandPojo = brandCategoryService.get(id);
         return ConvertUtil.convertBrandCategoryPojotoBrandCategoryData(brandPojo);
     }
 
+    @Transactional(rollbackFor = ApiException.class)
     public BrandCategoryPojo updateBrandCategory(int id, BrandCategoryForm form) throws ApiException {
         validateData(form);
         BrandCategoryPojo brandPojo = ConvertUtil.convertBrandCategoryFormtoBrandCategoryPojo(form);
         return brandCategoryService.update(id, brandPojo);
     }
 
+    @Transactional(readOnly = true)
     public List<BrandCategoryData> getAllBrandCategories() {
         List<BrandCategoryPojo> list = brandCategoryService.getAll();
         return list.stream().map(o -> ConvertUtil.convertBrandCategoryPojotoBrandCategoryData(o))

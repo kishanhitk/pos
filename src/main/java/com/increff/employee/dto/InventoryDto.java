@@ -10,6 +10,7 @@ import com.increff.employee.util.ConvertUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class InventoryDto {
@@ -17,6 +18,7 @@ public class InventoryDto {
     @Autowired
     private InventoryService inventoryService;
 
+    @Transactional(rollbackFor = ApiException.class)
     public InventoryPojo addInventory(InventoryForm form) throws ApiException {
         validateForm(form);
         InventoryPojo inventoryPojo = inventoryService.getByProductId(form.getProductId());
@@ -24,14 +26,17 @@ public class InventoryDto {
         return inventoryService.update(inventoryPojo.getId(), inventoryPojo);
     }
 
+    @Transactional(readOnly = true)
     public List<InventoryPojo> getAll() {
         return inventoryService.getAll();
     }
 
+    @Transactional(readOnly = true)
     public InventoryPojo get(Integer id) throws ApiException {
         return inventoryService.get(id);
     }
 
+    @Transactional(rollbackFor = ApiException.class)
     public InventoryPojo update(Integer id, InventoryForm form) throws ApiException {
         validateForm(form);
         InventoryPojo inventoryPojo = ConvertUtil.convertInventoryFormToInventoryPojo(form);
