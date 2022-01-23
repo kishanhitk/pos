@@ -80,6 +80,7 @@ public class ConvertUtil {
         d.setUpdatedAt(p.getUpdatedAt());
         d.setProductBarcode(productPojo.getBarcode());
         d.setProductName(productPojo.getName());
+        d.setId(p.getId());
         return d;
     }
 

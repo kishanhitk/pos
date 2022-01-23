@@ -143,12 +143,15 @@ function displayInventoryList(data) {
     var e = data[i];
     var buttonHtml =
       ' <button type="button" class="btn btn-outline-primary" onclick="displayEditInventory(' +
-      e.id +
+      e.productId +
       ')">Edit</button>';
     var row =
       "<tr>" +
       "<td>" +
-      e.id +
+      e.productBarcode +
+      "</td>" +
+      "<td>" +
+      e.productName +
       "</td>" +
       "<td>" +
       e.quantity +
@@ -210,7 +213,7 @@ function getBrandCategoryUrl() {
 
 function displayInventory(data) {
   $("#inventory-edit-form input[name=quantity]").val(data.quantity);
-  $("#inventory-edit-form input[name=id]").val(data.id);
+  $("#inventory-edit-form input[name=id]").val(data.productId);
   $("#edit-inventory-modal").modal("toggle");
 }
 

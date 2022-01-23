@@ -15,9 +15,9 @@
         <!-- Top row with form-->
         <div class="row">
             <div class="col-12">
-                <button type="button" class="btn btn-primary" id="refresh-data">Refresh</button>
+                <button type="button" class="btn btn-outline-primary" id="refresh-data">Refresh Data</button>
                 &nbsp;
-                <button type="button" class="btn btn-primary" id="upload-data">Upload</button>
+                <button type="button" class="btn btn-success" id="upload-data">Upload TSV</button>
             </div>
         </div>
 
@@ -33,13 +33,15 @@
                 <table class="table table-striped" id="inventory-table">
                     <thead>
                         <tr>
-                            <th scope="col">Inventory ID</th>
+                            <th scope="col">Product Barcode</th>
+                            <th scope="col">Product Name</th>
                             <th scope="col">Quantity</th>
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
+                            <td>1</td>
                             <td>1</td>
                             <td>30</td>
                             <td>Update</td>

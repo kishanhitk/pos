@@ -10,6 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class InventoryData extends InventoryForm {
+    private int id;
     private Timestamp createdAt;
     private Timestamp updatedAt;
     private String productName;
