@@ -6,6 +6,7 @@ function getBrandCategoryReportUrl() {
 //BUTTON ACTIONS
 function addBrandCategory(event) {
   //Set the values to update
+  event.preventDefault();
   var $form = $("#brandCategory-form");
   var json = toJson($form);
   var url = getBrandCategoryReportUrl();
@@ -220,7 +221,7 @@ function displayBrandCategory(data) {
 
 //INITIALIZATION CODE
 function init() {
-  $("#add-brandCategory").click(addBrandCategory);
+  $("#brandCategory-form").submit(addBrandCategory);
   $("#update-brandCategory").click(updateBrandCategory);
   $("#refresh-data").click(getBrandCategoryList);
   $("#upload-data").click(displayUploadData);
