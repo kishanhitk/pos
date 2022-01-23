@@ -21,7 +21,7 @@ public class BrandCategoryDto {
     @Autowired
     private BrandCategoryService brandCategoryService;
 
-    @Transactional(readOnly = true)
+    @Transactional(rollbackFor = ApiException.class)
     public BrandCategoryPojo addBrandCategory(BrandCategoryForm form) throws ApiException {
         validateData(form);
         BrandCategoryPojo brandPojo = ConvertUtil.convertBrandCategoryFormtoBrandCategoryPojo(form);
