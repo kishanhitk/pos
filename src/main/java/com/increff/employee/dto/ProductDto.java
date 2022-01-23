@@ -78,4 +78,11 @@ public class ProductDto {
             throw new ApiException("MRP cannot be less than or equal to zero.");
         }
     }
+
+    public ProductData getByBarcode(String barcode) throws ApiException {
+        ProductPojo productPojo = productService.getProductByBarcode(barcode);
+        BrandCategoryPojo brandCategoryPojo = brandCategoryService.get(productPojo.getBrandCategoryId());
+        ProductData productData = ConvertUtil.convertProductPojoToProductData(productPojo, brandCategoryPojo);
+        return productData;
+    }
 }
