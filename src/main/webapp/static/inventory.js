@@ -214,6 +214,8 @@ function getBrandCategoryUrl() {
 function displayInventory(data) {
   $("#inventory-edit-form input[name=quantity]").val(data.quantity);
   $("#inventory-edit-form input[name=id]").val(data.productId);
+  $("#edit-inventory-modal").find("#product-name").text(data.productName);
+  $("#edit-inventory-modal").find("#product-barcode").text(data.productBarcode);
   $("#edit-inventory-modal").modal("toggle");
 }
 
