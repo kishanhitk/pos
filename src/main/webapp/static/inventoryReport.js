@@ -36,10 +36,13 @@ function displayInventoryReportList(data) {
     $tbody.append(row);
   }
 }
-
+function downloadInventoryReport() {
+  generatePdf("#inventory-report-table", "Inventory Report");
+}
 //INITIALIZATION CODE
 function init() {
   $("#refresh-data").click(getInventoryReport);
+  $("#download-data").click(downloadInventoryReport);
 }
 
 $(document).ready(init);

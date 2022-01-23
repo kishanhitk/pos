@@ -77,3 +77,19 @@ function convertTimeStampToDateTime(timestamp) {
     date.getSeconds()
   );
 }
+function generatePdf(selector, outputFileName) {
+  html2canvas($(selector)[0], {
+    onrendered: function (canvas) {
+      var data = canvas.toDataURL();
+      var docDefinition = {
+        content: [
+          {
+            image: data,
+            width: 500,
+          },
+        ],
+      };
+      pdfMake.createPdf(docDefinition).download(outputFileName);
+    },
+  });
+}
