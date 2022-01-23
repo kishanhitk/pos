@@ -15,8 +15,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity()
-@Table(name = "Products")
-// TODO:Table name smallcase
+@Table(name = "products")
 public class ProductPojo extends AbstractPojo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

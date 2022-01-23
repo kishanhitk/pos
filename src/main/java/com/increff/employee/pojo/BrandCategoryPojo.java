@@ -15,7 +15,7 @@ import lombok.Setter;
 @Setter()
 @NoArgsConstructor()
 @Entity()
-@Table(name = "BrandCategory")
+@Table(name = "brand_categories")
 public class BrandCategoryPojo extends AbstractPojo {
 
     @Id

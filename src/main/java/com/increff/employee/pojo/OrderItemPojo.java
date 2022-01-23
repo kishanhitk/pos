@@ -14,7 +14,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity()
-@Table(name = "OrderItem")
+@Table(name = "order_items")
 public class OrderItemPojo extends AbstractPojo {
 
     @Id

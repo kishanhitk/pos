@@ -15,7 +15,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity()
-@Table(name = "Inventory")
+@Table(name = "inventories")
 public class InventoryPojo extends AbstractPojo {
 
     @Id
