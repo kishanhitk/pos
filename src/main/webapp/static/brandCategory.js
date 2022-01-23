@@ -107,6 +107,7 @@ function uploadRows() {
   updateUploadDialog();
   //If everything processed then refresh the list
   if (processCount == fileData.length) {
+    $.notify("Upload Complete", "info");
     getBrandCategoryList();
     return;
   }

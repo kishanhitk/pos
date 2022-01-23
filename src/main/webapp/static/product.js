@@ -104,6 +104,7 @@ function uploadRows() {
   updateUploadDialog();
   //If everything processed then return
   if (processCount == fileData.length) {
+    $.notify("Upload Complete", "info");
     getProductList();
     return;
   }

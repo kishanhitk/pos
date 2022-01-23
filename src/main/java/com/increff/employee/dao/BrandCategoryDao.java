@@ -22,8 +22,6 @@ public class BrandCategoryDao extends AbstractDao {
         em.persist(p);
     }
 
-    // TODO:Remove unused code
-
     public BrandCategoryPojo getByBrandCategoryName(String Brand, String Name) {
         TypedQuery<BrandCategoryPojo> query = em.createQuery(
                 "select p from BrandCategoryPojo p where p.brand=:brand and p.category=:category",
