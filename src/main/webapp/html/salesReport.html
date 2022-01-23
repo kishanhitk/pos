@@ -14,7 +14,7 @@
 
         <div class="container">
             <form id="filter-form">
-                <div class="form-row">
+                <div class="row">
                     <div class="form-group col-md-4">
                         <label for="inputBrand" class="required">Brand</label>
                         <select class="form-control" name="brand" id="inputBrand" required placeholder="Select Brand">
@@ -29,8 +29,9 @@
                         <label for="inputQuantity">Ending Date</label>
                         <input id="endingdatepicker" name="endDate" required />
                     </div>
-                    <button type="submit" class="btn btn-primary" id="refresh-data">Fetch</button>
                 </div>
+                <button type="submit" class="btn btn-primary" id="refresh-data">Fetch</button>
+                <button class="btn btn-success ml-2" id="download-data">Download</button>
             </form>
         </div>
 

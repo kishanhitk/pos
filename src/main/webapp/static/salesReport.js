@@ -71,6 +71,10 @@ function populateBrandCategoryDropDown() {
   });
 }
 
+function downloadSalesReport() {
+  generatePdf("#sales-report-table", "Sales Report");
+}
+
 //INITIALIZATION CODE
 function init() {
   $("#refresh-data").click(getSalesReport);
@@ -97,6 +101,7 @@ function init() {
       ).toLocaleDateString()
     );
   $("#filter-form").submit(filterSalesReport);
+  $("#download-data").click(downloadSalesReport);
 }
 
 $(document).ready(init);

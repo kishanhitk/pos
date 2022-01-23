@@ -37,9 +37,13 @@ function displaybrandReportList(data) {
   }
 }
 
+function downloadBrandReport() {
+  generatePdf("#brandCategory-table", "Brand Report");
+}
 //INITIALIZATION CODE
 function init() {
   $("#refresh-data").click(getbrandReport);
+  $("#download-data").click(downloadBrandReport);
 }
 
 $(document).ready(init);
