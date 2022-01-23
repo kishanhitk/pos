@@ -16,8 +16,8 @@ import lombok.Setter;
 @Setter()
 @NoArgsConstructor()
 @Entity()
-@Table(name = "brand_categories", uniqueConstraints = {
-        @UniqueConstraint(columnNames = { "brand", "category" }) })
+// @Table(name = "brand_categories", uniqueConstraints = {
+// @UniqueConstraint(columnNames = { "brand", "category" }) })
 public class BrandCategoryPojo extends AbstractPojo {
 
     @Id

@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,11 +23,6 @@ public class BrandCategoryDao extends AbstractDao {
     }
 
     // TODO:Remove unused code
-    public int delete(int id) {
-        Query query = em.createQuery("delete from BrandCategoryPojo p where id=:id");
-        query.setParameter("id", id);
-        return query.executeUpdate();
-    }
 
     public BrandCategoryPojo getByBrandCategoryName(String Brand, String Name) {
         TypedQuery<BrandCategoryPojo> query = em.createQuery(
