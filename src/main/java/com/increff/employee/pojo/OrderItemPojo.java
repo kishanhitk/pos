@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity()
-@Table(name = "order_items")
+@Table(name = "order_items", uniqueConstraints = {
+        @UniqueConstraint(columnNames = { "orderID", "productId" }) })
 public class OrderItemPojo extends AbstractPojo {
 
     @Id
@@ -23,7 +25,6 @@ public class OrderItemPojo extends AbstractPojo {
 
     private Integer orderID;
     private Integer productId;
-    // TODO: Add uniquew constraint on orderID + productId
     private Integer quantity;
     private Double sellingPrice;
 }
