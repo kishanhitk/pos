@@ -2,14 +2,13 @@ package com.increff.employee.service;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.increff.employee.dao.EmployeeDao;
 import com.increff.employee.pojo.EmployeePojo;
 import com.increff.employee.util.StringUtil;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class EmployeeService {
@@ -17,10 +16,10 @@ public class EmployeeService {
 	@Autowired
 	private EmployeeDao dao;
 
-	@Transactional(rollbackOn = ApiException.class)
+	@Transactional(rollbackFor = ApiException.class)
 	public void add(EmployeePojo p) throws ApiException {
 		normalize(p);
-		if(StringUtil.isEmpty(p.getName())) {
+		if (StringUtil.isEmpty(p.getName())) {
 			throw new ApiException("name cannot be empty");
 		}
 		dao.insert(p);
@@ -31,7 +30,7 @@ public class EmployeeService {
 		dao.delete(id);
 	}
 
-	@Transactional(rollbackOn = ApiException.class)
+	@Transactional(rollbackFor = ApiException.class)
 	public EmployeePojo get(int id) throws ApiException {
 		return getCheck(id);
 	}
@@ -41,7 +40,7 @@ public class EmployeeService {
 		return dao.selectAll();
 	}
 
-	@Transactional(rollbackOn  = ApiException.class)
+	@Transactional(rollbackFor = ApiException.class)
 	public void update(int id, EmployeePojo p) throws ApiException {
 		normalize(p);
 		EmployeePojo ex = getCheck(id);

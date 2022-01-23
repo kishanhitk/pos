@@ -2,7 +2,7 @@ package com.increff.employee.service;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.increff.employee.dao.InventoryDao;
 import com.increff.employee.pojo.InventoryPojo;
@@ -15,7 +15,7 @@ public class InventoryService {
     @Autowired
     private InventoryDao dao;
 
-    @Transactional(rollbackOn = ApiException.class)
+    @Transactional(rollbackFor = ApiException.class)
     public void add(InventoryPojo p) throws ApiException {
         dao.insert(p);
     }
@@ -26,7 +26,7 @@ public class InventoryService {
     }
 
     // Reduce inventory quantity
-    @Transactional(rollbackOn = ApiException.class)
+    @Transactional(rollbackFor = ApiException.class)
     public void reduce(int id, int quantity) throws ApiException {
         InventoryPojo ex = getCheck(id);
         if (ex.getQuantity() < quantity) {
@@ -40,7 +40,7 @@ public class InventoryService {
         return getCheck(id);
     }
 
-    @Transactional(rollbackOn = ApiException.class)
+    @Transactional(rollbackFor = ApiException.class)
     public InventoryPojo update(Integer id, InventoryPojo p) throws ApiException {
         InventoryPojo ex = getCheck(id);
         ex.setQuantity(p.getQuantity());
@@ -48,7 +48,7 @@ public class InventoryService {
         return ex;
     }
 
-    @Transactional(rollbackOn = ApiException.class)
+    @Transactional(rollbackFor = ApiException.class)
     public InventoryPojo getCheck(int id) throws ApiException {
         InventoryPojo p = dao.selectByProductId(id);
         if (p == null) {

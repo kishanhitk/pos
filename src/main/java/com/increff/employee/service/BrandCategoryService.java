@@ -9,7 +9,6 @@ import com.increff.employee.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-// TODO: Replace Transactional from Spring | O it on all services
 
 @Service
 public class BrandCategoryService {
