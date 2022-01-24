@@ -14,23 +14,33 @@ function getOrderListPageUrl() {
 function addRow() {
   // grab form
   const id = Math.floor(Math.random() * 10000000);
-  $("#order-form-div").append(`<div class="form-row" id="row-${id}">
-  <div class="form-group col-4">
-  <label for="inputBarcode${id}">Barcode</label>
-  <input type="text" class="form-control" required id="inputBarcode${id}" name="barcode"
-  placeholder="Enter Product Barcode">
+  $("#order-form-div").append(`<div class="row" id="row-${id}">
+  <div class="form-group col-5">
+  <div class="input-group">
+      <input type="text" class="form-control" id="inputBarcode${id}" required name="barcode"
+          placeholder="Enter Product Barcode">
+      <div class="input-group-append">
+          <button class="btn btn-primary" type="button" id="fetch-details" onchange="resetProductDetails(${id})"
+              onclick="fetchProductDetailsByBarcode(${id})">Fetch
+              Details</button>
+      </div>
   </div>
-  <div class="form-group col-3">
-  <label for="inputQuantity${id}">Barcode</label>
+</div>
+<div class="form-group col-2">
+  <input type="text" class="form-control" id="inputName${id}" required name="name" disabled
+      placeholder="Product Name">
+</div>
+<div class="form-group col-2">
   <input type="number" class="form-control" required id="inputQuantity${id}" name="quantity" placeholder="Quantity">
-  </div>
-  <div class="form-group col-3">
-  <label for="inputSellingPrice${id}">Barcode</label>
-  <input type="number" step="0.01" class="form-control"  required id="inputSellingPrice${id}" name="sellingPrice"
-  placeholder="Selling Price">
-  </div>
-  <button class="btn btn-danger delete-row col-1" type="button" id=${id}>X</button>
-  </div>`);
+</div>
+<div class="form-group col-2">
+  <input type="number" step="0.01" class="form-control" required id="inputSellingPrice${id}" name="sellingPrice"
+      placeholder="Selling Price">
+</div>
+<div class="form-group col-1">
+  <button class="btn btn-danger delete-row" type="button" id=${id}>X</button>
+</div>
+</div>`);
   $(".delete-row").on("click", deleteRow);
 }
 function convertToOrderItems(data) {
