@@ -82,8 +82,7 @@ function placeOrder(e) {
     data: JSON.stringify(data),
     contentType: "application/json",
     success: function (data) {
-      $.notify("Order Placed Successfully", "success");
-      window.location.href = getOrderListPageUrl();
+      $("#success-modal").modal("show");
     },
     error: function (data) {
       handleAjaxError(data);
