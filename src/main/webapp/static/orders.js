@@ -126,7 +126,7 @@ function populateEditOrderModalForm(data) {
       '<div id="row-' +
       rowId +
       '" class="row">' +
-      '<div class="col-3">' +
+      '<div class="col-4">' +
       `<label for="barcode-${rowId}">Barcode</label>` +
       `<input type="text" class="form-control" id="barcode-${rowId}" name="barcode" value="` +
       orderItem.barcode +
@@ -144,7 +144,7 @@ function populateEditOrderModalForm(data) {
       orderItem.sellingPrice +
       '" readonly>' +
       "</div>" +
-      '<div class="col-3 mt-4">' +
+      '<div class="col-2 mt-4">' +
       '<button class="btn btn-danger delete-row" onclick="deleteRow(' +
       orderItem.id +
       ')" type="button" id="delete' +
@@ -217,7 +217,7 @@ function addRow() {
     '<div id="row-' +
     rowId +
     '" class="row">' +
-    '<div class="col-3">' +
+    '<div class="col-5">' +
     `<label for="barcode-${rowId}">Barcode</label>` +
     `<input type="text" class="form-control" id="barcode-${rowId}" required name="barcode" >` +
     "</div>" +
@@ -229,7 +229,7 @@ function addRow() {
     `<label for="sellingPrice-${rowId}">Price</label>` +
     `<input type="number" step="0.01" class="form-control" id="sellingPrice-${rowId}" required name="sellingPrice" >` +
     "</div>" +
-    '<div class="col-3 mt-4">' +
+    '<div class="col-2 mt-4">' +
     '<button class="btn btn-danger delete-row" onclick="deleteRow(' +
     rowId +
     ')" type="button" id="delete' +

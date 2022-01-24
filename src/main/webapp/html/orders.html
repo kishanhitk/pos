@@ -50,9 +50,9 @@
         </div>
 
         <!-- Order Details Modal -->
-        <div class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
-            id="order-details-modal">
-            <div class="modal-dialog" role="document">
+        <div class="modal fade bd-example-modal-lg" data-backdrop="static" data-keyboard="false" tabindex="-1"
+            role="dialog" id="order-details-modal">
+            <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Order Details</h5>
@@ -72,27 +72,24 @@
                                 <p id="order-date"></p>
                             </div>
                         </div>
-                        <form class="form-inline" id="order-edit-form">
-                            <table class="table table-striped" id="order-items-table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Product ID</th>
-                                        <th scope="col">Quantity</th>
-                                        <th scope="col">Selling Price</th>
-                                        <th scope="col">Total Price</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>12 Jan 2022</td>
-                                        <td>12 Jan 2022</td>
-                                        <td>Edit</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <input type="hidden" name="id">
-                        </form>
+                        <table class="table table-striped" id="order-items-table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Product ID</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Selling Price</th>
+                                    <th scope="col">Total Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>12 Jan 2022</td>
+                                    <td>12 Jan 2022</td>
+                                    <td>Edit</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -101,8 +98,8 @@
             </div>
         </div>
         <!-- Edit Order Modal -->
-        <div class="modal fade " tabindex="-1" role="dialog" id="edit-order-modal">
-            <div class="modal-dialog" role="document">
+        <div class="modal fade bd-example-modal-lg " tabindex="-1" role="dialog" id="edit-order-modal">
+            <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Edit Order</h5>
