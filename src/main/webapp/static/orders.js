@@ -31,14 +31,14 @@ function convertFormToOrderItems(data) {
 }
 function updateOrder(event) {
   event.preventDefault();
-  console.log("update order");
+
   //Get the ID
   var id = $("#edit-order-form input[name=id]").val();
   var url = getOrderUrl() + "/" + id;
   //Set the values to update
   var $form = $("#edit-order-form");
   var data = convertFormToOrderItems($form.serializeArray());
-  console.log(data);
+
   $.ajax({
     url: url,
     type: "PUT",
@@ -168,7 +168,6 @@ function displayOrderDetails(id) {
     type: "GET",
     success: function (data) {
       displayOrder(data);
-      console.log(data);
     },
     error: handleAjaxError,
   });

@@ -24,7 +24,6 @@ function addBrandCategory(event) {
       $.notify("Brand Category Added", "success");
     },
     error: (resp) => {
-      console.log(resp);
       handleAjaxError(resp);
     },
   });
@@ -54,7 +53,6 @@ function updateBrandCategory(event) {
       $.notify("Brand Category Updated", "success");
     },
     error: (response) => {
-      console.log(response);
       handleAjaxError(response);
     },
   });

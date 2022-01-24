@@ -51,7 +51,7 @@ function addDataToBrandCategoryDropdown(data, formId) {
   var $brand = $(`${formId} select[name=brand]`);
   $brand.empty();
   var set = new Set(data.map((item) => item.brand));
-  console.log(set);
+
   for (let i of set) {
     let option = '<option value="' + i + '">' + i + "</option>";
     $brand.append(option);

@@ -37,7 +37,7 @@ function updateInventory(event) {
   //Set the values to update
   var $form = $("#inventory-edit-form");
   var json = toJson($form);
-  console.log(json);
+
   $.ajax({
     url: url,
     type: "PUT",
@@ -110,7 +110,7 @@ function uploadRows() {
   processCount++;
 
   var json = JSON.stringify(row);
-  console.log(json);
+
   var url = getInventoryUrl();
   //Make ajax call
   $.ajax({

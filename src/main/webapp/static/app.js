@@ -1,7 +1,7 @@
 //HELPER METHOD
 function toJson($form) {
   var serialized = $form.serializeArray();
-  console.log(serialized);
+
   var s = "";
   var data = {};
   for (s in serialized) {
@@ -17,7 +17,6 @@ function handleAjaxError(response) {
     var response = JSON.parse(response.responseText);
     $.notify(response.message, { type: "error", autoHide: false });
   } catch (error) {
-    console.log(error);
     $.notify("Something went wrong!", "error");
   }
 }

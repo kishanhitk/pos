@@ -115,7 +115,7 @@ function uploadRows() {
   processCount++;
 
   var json = JSON.stringify(row);
-  console.log(json);
+
   var url = getProductUrl();
 
   //Make ajax call
@@ -221,7 +221,6 @@ function displayUploadData() {
 }
 
 function displayProduct(data) {
-  console.log(data);
   $("#product-edit-form input[name=name]").val(data.name);
   $("#product-edit-form input[name=mrp]").val(data.mrp);
   $("#product-edit-form input[name=id]").val(data.id);

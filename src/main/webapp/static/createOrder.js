@@ -72,10 +72,10 @@ function convertToOrderItems(data) {
 
 function placeOrder(e) {
   e.preventDefault();
-  console.log("place order");
+
   var $form = $("#order-form");
   var data = convertToOrderItems($form.serializeArray());
-  console.log(data);
+
   $.ajax({
     url: getOrderUrl(),
     type: "POST",
