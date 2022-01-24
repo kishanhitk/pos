@@ -217,7 +217,7 @@ function addRow() {
     '<div id="row-' +
     rowId +
     '" class="row">' +
-    '<div class="col-5">' +
+    '<div class="col-4">' +
     `<label for="barcode-${rowId}">Barcode</label>` +
     `<input type="text" class="form-control" id="barcode-${rowId}" required name="barcode" >` +
     "</div>" +
