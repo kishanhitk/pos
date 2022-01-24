@@ -78,10 +78,14 @@ public class ReportDto {
         List<BrandCategoryPojo> brandCategoryList = brandCategoryService.getByBrandName(brand);
         List<OrderPojo> orderList = orderService.getAllBetween(startingDate, endingDate);
         List<OrderItemPojo> orderItemList = new ArrayList<OrderItemPojo>();
+
+        // Get all order items of all orders
         for (OrderPojo order : orderList) {
             List<OrderItemPojo> orderItemListTemp = orderItemService.selectByOrderId(order.getId());
             orderItemList.addAll(orderItemListTemp);
         }
+
+        // Get all product of all order items
         List<ProductPojo> productList = new ArrayList<ProductPojo>();
         for (OrderItemPojo orderItem : orderItemList) {
             ProductPojo product = productService.get(orderItem.getProductId());
@@ -93,10 +97,12 @@ public class ReportDto {
             salesReportData.add(salesReportItemDataItem);
         }
 
+        // Calculate salesReportData
         for (OrderItemPojo orderItem : orderItemList) {
             int productId = orderItem.getProductId();
             ProductPojo product = productList.stream().filter(p -> p.getId() == productId).findFirst().get();
             int brandCategoryId = product.getBrandCategoryId();
+            // Find and update salesReportData
             for (SalesReportData salesReportItemDataItem : salesReportData) {
                 if (salesReportItemDataItem.getBrandCategoryId() == brandCategoryId) {
                     salesReportItemDataItem
