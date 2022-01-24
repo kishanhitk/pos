@@ -113,5 +113,10 @@ public class OrderDto {
         if (orderItems == null || orderItems.isEmpty()) {
             throw new ApiException("Order items cannot be empty");
         }
+        for (OrderItemForm orderItem : orderItems) {
+            if (orderItem.getQuantity() <= 0) {
+                throw new ApiException("Quantity cannot be less than or equal to 0");
+            }
+        }
     }
 }
