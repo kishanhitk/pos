@@ -77,7 +77,6 @@ function downloadSalesReport() {
 
 //INITIALIZATION CODE
 function init() {
-  $("#refresh-data").click(getSalesReport);
   $("#startingdatepicker").datepicker({
     uiLibrary: "bootstrap4",
     maxDate: function () {

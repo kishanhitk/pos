@@ -87,6 +87,7 @@ public class ReportDto {
             ProductPojo product = productService.get(orderItem.getProductId());
             productList.add(product);
         }
+        // Initialize salesReportData
         for (BrandCategoryPojo brandCategory : brandCategoryList) {
             SalesReportData salesReportItemDataItem = new SalesReportData(brandCategory, 0, 0.00);
             salesReportData.add(salesReportItemDataItem);
