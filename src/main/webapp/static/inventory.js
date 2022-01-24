@@ -183,13 +183,14 @@ function resetUploadDialog() {
   $file.val("");
   $("#inventoryFileName").html("Choose File");
   //Reset various counts
+  resetVariablesCounts();
+}
+function resetVariablesCounts() {
   processCount = 0;
   fileData = [];
   errorData = [];
-  //Update counts
   updateUploadDialog();
 }
-
 function updateUploadDialog() {
   $("#rowCount").html("" + fileData.length);
   $("#processCount").html("" + processCount);
@@ -228,7 +229,10 @@ function init() {
   $("#upload-data").click(displayUploadData);
   $("#process-data").click(processData);
   $("#download-errors").click(downloadErrors);
-  $("#inventoryFile").on("change", updateFileName);
+  $("#inventoryFile").on("change", () => {
+    updateFileName();
+    resetVariablesCounts();
+  });
 }
 
 $(document).ready(init);
