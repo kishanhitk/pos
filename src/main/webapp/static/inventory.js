@@ -28,6 +28,7 @@ function addInventory(event) {
 }
 
 function updateInventory(event) {
+  event.preventDefault();
   $("#edit-inventory-modal").modal("toggle");
   //Get the ID
   var id = $("#inventory-edit-form input[name=id]").val();
@@ -222,7 +223,7 @@ function displayInventory(data) {
 //INITIALIZATION CODE
 function init() {
   $("#add-inventory").click(addInventory);
-  $("#update-inventory").click(updateInventory);
+  $("#inventory-edit-form").submit(updateInventory);
   $("#refresh-data").click(getInventoryList);
   $("#upload-data").click(displayUploadData);
   $("#process-data").click(processData);
