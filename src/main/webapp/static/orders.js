@@ -240,12 +240,17 @@ function addRow() {
   $form.append(row);
 }
 
+function downloadInvoice() {
+  generatePdf("#order-items-table", "Order Invoice");
+}
+
 //INITIALIZATION CODE
 function init() {
   $("#update-order").click(updateOrder);
   $("#refresh-data").click(getOrderList);
   $("#edit-order-form").submit(updateOrder);
   $("#add-row").click(addRow);
+  $("#download-invoice").click(downloadInvoice);
 }
 
 $(document).ready(init);
