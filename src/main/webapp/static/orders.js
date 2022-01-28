@@ -80,10 +80,6 @@ function displayOrderList(data) {
       ' <button class="btn btn-primary" onclick="displayOrderDetails(' +
       e.id +
       ')">Details</button>';
-    // +
-    // '<button class="btn btn-outline-primary ml-3" onclick="displayEditOrderForm(' +
-    // e.id +
-    // ')">Edit</button> ';
     var row =
       "<tr>" +
       "<td>" +
