@@ -20,7 +20,7 @@ function addRow() {
       <input type="text" class="form-control" id="inputBarcode${id}" required name="barcode"
           placeholder="Enter Product Barcode">
       <div class="input-group-append">
-          <button class="btn btn-primary" type="button" id="fetch-details" onchange="resetProductDetails(${id})"
+          <button class="btn btn-outline-primary" type="button" id="fetch-details" onchange="resetProductDetails(${id})"
               onclick="fetchProductDetailsByBarcode(${id})">Fetch
               Details</button>
       </div>
