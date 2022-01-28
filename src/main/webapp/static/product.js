@@ -155,19 +155,19 @@ function displayProductList(data) {
     var row =
       "<tr>" +
       "<td>" +
-      e.barcode +
-      "</td>" +
-      "<td>" +
       e.name +
-      "</td>" +
-      "<td>" +
-      e.mrp +
       "</td>" +
       "<td>" +
       e.brand +
       "</td>" +
       "<td>" +
       e.category +
+      "</td>" +
+      "<td>" +
+      e.mrp +
+      "</td>" +
+      "<td>" +
+      e.barcode +
       "</td>" +
       "<td>" +
       buttonHtml +
