@@ -77,7 +77,7 @@ function displayOrderList(data) {
     var e = data[i];
     var orderDateStr = convertTimeStampToDateTime(e.createdAt);
     var buttonHtml =
-      ' <button class="btn btn-primary" onclick="displayOrderDetails(' +
+      ' <button class="btn btn-outline-primary" onclick="displayOrderDetails(' +
       e.id +
       ')">Details</button>';
     var row =
