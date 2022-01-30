@@ -263,7 +263,7 @@ function populateBrandCategoryDropDown() {
 //INITIALIZATION CODE
 function init() {
   $("#product-form").submit(addProduct);
-  $("#update-product").click(updateProduct);
+  $("#product-edit-form").submit(updateProduct);
   $("#refresh-data").click(getProductList);
   $("#upload-data").click(displayUploadData);
   $("#process-data").click(processData);
