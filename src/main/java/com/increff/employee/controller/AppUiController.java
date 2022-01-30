@@ -67,4 +67,9 @@ public class AppUiController extends AbstractUiController {
 		return mav("brandReport.html");
 	}
 
+	@RequestMapping(value = "/ui/cart")
+	public ModelAndView cart() {
+		return mav("cart.html");
+	}
+
 }
