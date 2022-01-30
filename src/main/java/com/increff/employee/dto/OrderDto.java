@@ -3,6 +3,7 @@ package com.increff.employee.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.increff.employee.model.InvoiceData;
 import com.increff.employee.model.OrderData;
 import com.increff.employee.model.OrderItemData;
 import com.increff.employee.model.OrderItemForm;
@@ -33,9 +34,10 @@ public class OrderDto {
     private InventoryService inventoryService;
 
     @Transactional(rollbackFor = ApiException.class)
-    public void addOrder(List<OrderItemForm> orderItems) throws ApiException {
+    public List<InvoiceData> addOrder(List<OrderItemForm> orderItems) throws ApiException {
         validate(orderItems);
         OrderPojo orderPojo = orderService.createNewOrder();
+        List<OrderItemPojo> orderItemPojos = new ArrayList<>();
         for (OrderItemForm orderItem : orderItems) {
             ProductPojo product = productService.getProductByBarcode(orderItem.getBarcode());
             if (product == null) {
@@ -44,9 +46,24 @@ public class OrderDto {
             OrderItemPojo orderItemPojo = ConvertUtil.convertOrderItemFormToOrderItemPojo(orderItem);
             orderItemPojo.setOrderID(orderPojo.getId());
             orderItemPojo.setProductId(product.getId());
+            orderItemPojos.add(orderItemPojo);
             orderItemService.insert(orderItemPojo);
             inventoryService.reduce(orderItemPojo.getProductId(), orderItemPojo.getQuantity());
         }
+        List<InvoiceData> bill = new ArrayList<InvoiceData>();
+        int i = 1;
+        // Convert OrderItemPojo to BillData
+        for (OrderItemPojo o : orderItemPojos) {
+            ProductPojo p = productService.get(o.getProductId());
+            InvoiceData item = new InvoiceData();
+            item.setId(i);
+            item.setName(p.getName());
+            item.setQuantity(o.getQuantity());
+            item.setMrp(o.getSellingPrice());
+            i++;
+            bill.add(item);
+        }
+        return bill;
     }
 
     @Transactional(readOnly = true)
@@ -82,7 +99,7 @@ public class OrderDto {
     }
 
     @Transactional(rollbackFor = ApiException.class)
-    public void updateOrder(int orderId, List<OrderItemForm> orderItems) throws ApiException {
+    public List<InvoiceData> updateOrder(int orderId, List<OrderItemForm> orderItems) throws ApiException {
         validate(orderItems);
         revertInventory(orderId);
         List<OrderItemPojo> newOrderItems = new ArrayList<OrderItemPojo>();
@@ -99,6 +116,20 @@ public class OrderDto {
         }
         orderItemService.deleteByOrderId(orderId);
         orderItemService.insertMutiple(newOrderItems);
+        List<InvoiceData> bill = new ArrayList<InvoiceData>();
+        int i = 1;
+        // Convert OrderItemPojo to BillData
+        for (OrderItemPojo o : newOrderItems) {
+            ProductPojo p = productService.get(o.getProductId());
+            InvoiceData item = new InvoiceData();
+            item.setId(i);
+            item.setName(p.getName());
+            item.setQuantity(o.getQuantity());
+            item.setMrp(o.getSellingPrice());
+            i++;
+            bill.add(item);
+        }
+        return bill;
     }
 
     @Transactional(rollbackFor = ApiException.class)

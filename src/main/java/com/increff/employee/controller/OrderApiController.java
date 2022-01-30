@@ -3,9 +3,11 @@ package com.increff.employee.controller;
 import java.util.List;
 
 import com.increff.employee.dto.OrderDto;
+import com.increff.employee.model.InvoiceData;
 import com.increff.employee.model.OrderData;
 import com.increff.employee.model.OrderItemForm;
 import com.increff.employee.service.ApiException;
+import com.increff.employee.util.PDFUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,8 +28,10 @@ public class OrderApiController {
 
     @ApiOperation(value = "Create an order")
     @RequestMapping(path = "/api/orders", method = RequestMethod.POST)
-    public void add(@RequestBody List<OrderItemForm> orderItems) throws ApiException {
-        dto.addOrder(orderItems);
+    public List<InvoiceData> add(@RequestBody List<OrderItemForm> orderItems) throws Exception {
+        List<InvoiceData> bill = dto.addOrder(orderItems);
+        PDFUtils.generatePDFFromJavaObject(bill.get(0));
+        return bill;
     }
 
     @ApiOperation(value = "Get all orders")
