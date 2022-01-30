@@ -72,7 +72,7 @@ function populateBrandCategoryDropDown() {
 }
 
 function downloadSalesReport() {
-  generatePdf("#sales-report-table", "Sales Report");
+  $("#sales-report-table").tableToCSV("Sales Report");
 }
 
 //INITIALIZATION CODE

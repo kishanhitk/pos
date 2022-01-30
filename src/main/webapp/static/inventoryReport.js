@@ -37,7 +37,7 @@ function displayInventoryReportList(data) {
   }
 }
 function downloadInventoryReport() {
-  generatePdf("#inventory-report-table", "Inventory Report");
+  $("#inventory-report-table").tableToCSV("inventory_report");
 }
 //INITIALIZATION CODE
 function init() {
