@@ -29,7 +29,7 @@
             <!-- Table -->
             <div class="col-12">
                 <table class="table table-striped" id="order-table">
-                    <thead>
+                    <thead class="table-dark">
                         <tr>
                             <th scope="col">ID</th>
                             <th scope="col">Order Time</th>
@@ -50,15 +50,14 @@
         </div>
 
         <!-- Order Details Modal -->
-        <div class="modal fade bd-example-modal-lg" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        <div class="modal fade bd-example-modal-lg" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
             role="dialog" id="order-details-modal">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Order Details</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
                     </div>
                     <div class="modal-body">
                         <!-- Display Order Id and Order Date -->
@@ -73,7 +72,7 @@
                             </div>
                         </div>
                         <table class="table table-striped" id="order-items-table">
-                            <thead>
+                            <thead class="table-dark">
                                 <tr>
                                     <th scope="col">Product ID</th>
                                     <th scope="col">Quantity</th>
@@ -93,8 +92,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-primary" id="download-invoice"
-                            data-dismiss="modal">Download Invoice</button>
-                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                            data-bs-dismiss="modal">Download Invoice</button>
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -105,9 +104,8 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Edit Order</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
                     </div>
                     <form id="edit-order-form">
                         <input type="hidden" name="id">
@@ -130,7 +128,8 @@
                                 product</button>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-outline-secondary"
+                                data-bs-dismiss="modal">Cancel</button>
                             <button type="submit" class="btn btn-outline-primary">Update</button>
                         </div>
                     </form>

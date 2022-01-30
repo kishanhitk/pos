@@ -32,6 +32,7 @@ function addBrandCategory(event) {
 }
 
 function updateBrandCategory(event) {
+  event.preventDefault();
   $("#edit-brandCategory-modal").modal("toggle");
   //Get the ID
   var id = $("#brandCategory-edit-form input[name=id]").val();
@@ -221,7 +222,7 @@ function displayBrandCategory(data) {
 //INITIALIZATION CODE
 function init() {
   $("#brandCategory-form").submit(addBrandCategory);
-  $("#update-brandCategory").click(updateBrandCategory);
+  $("#brandCategory-edit-form").submit(updateBrandCategory);
   $("#refresh-data").click(getBrandCategoryList);
   $("#upload-data").click(displayUploadData);
   $("#process-data").click(processData);
