@@ -38,8 +38,7 @@ public class OrderApiController {
         XMLUtil.createXml(bill);
         PDFUtil.createPDF();
         byte[] encodedBytes = org.apache.commons.io.FileUtils.readFileToByteArray(new File("bill.pdf"));
-        response.setHeader("Content-Disposition", "attachment; filename=\"" + "bill.pdf" + "\"");
-        response.getOutputStream().write(encodedBytes);
+        PDFUtil.createResponse(response, encodedBytes);
     }
 
     @ApiOperation(value = "Get all orders")

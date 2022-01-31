@@ -75,36 +75,8 @@ function displayCartItemsToTable() {
   $(".delete-row").on("click", deleteRow);
 }
 
-function convertToOrderItems(data) {
-  const output = [];
-  const barcodes = [];
-  const quantities = [];
-  const sellingPrices = [];
-
-  data.forEach((entry) => {
-    if (entry.name === "barcode") {
-      barcodes.push(entry.value);
-    }
-    if (entry.name === "quantity") {
-      quantities.push(entry.value);
-    }
-    if (entry.name === "sellingPrice") {
-      sellingPrices.push(entry.value);
-    }
-  });
-  for (let i = 0; i < barcodes.length; i++) {
-    output.push({
-      barcode: barcodes[i],
-      quantity: quantities[i],
-      sellingPrice: sellingPrices[i],
-    });
-  }
-  return output;
-}
-
-function placeOrder(e) {
+function placeOrder() {
   console.log("place order");
-  console.log(cartItems);
   $.ajax({
     url: getOrderUrl(),
     type: "POST",
