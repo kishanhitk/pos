@@ -48,7 +48,7 @@ public class OrderDto {
             orderItemPojo.setProductId(product.getId());
             orderItemPojos.add(orderItemPojo);
             orderItemService.insert(orderItemPojo);
-            inventoryService.reduce(orderItemPojo.getProductId(), orderItemPojo.getQuantity());
+            inventoryService.reduce(orderItem.getBarcode(), orderItemPojo.getProductId(), orderItemPojo.getQuantity());
         }
         List<InvoiceData> bill = new ArrayList<InvoiceData>();
         int i = 1;
@@ -112,7 +112,7 @@ public class OrderDto {
             orderItemPojo.setOrderID(orderId);
             orderItemPojo.setProductId(product.getId());
             newOrderItems.add(orderItemPojo);
-            inventoryService.reduce(orderItemPojo.getProductId(), orderItemPojo.getQuantity());
+            inventoryService.reduce(orderItem.getBarcode(), orderItemPojo.getProductId(), orderItemPojo.getQuantity());
         }
         orderItemService.deleteByOrderId(orderId);
         orderItemService.insertMutiple(newOrderItems);

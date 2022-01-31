@@ -27,10 +27,10 @@ public class InventoryService {
 
     // Reduce inventory quantity
     @Transactional(rollbackFor = ApiException.class)
-    public void reduce(int id, int quantity) throws ApiException {
+    public void reduce(String barcode, int id, int quantity) throws ApiException {
         InventoryPojo ex = getCheck(id);
         if (ex.getQuantity() < quantity) {
-            throw new ApiException("Quantity not available for product, id:" + id);
+            throw new ApiException("Quantity not available for product, barcode:" + barcode);
         }
         ex.setQuantity(ex.getQuantity() - quantity);
         dao.update(ex);

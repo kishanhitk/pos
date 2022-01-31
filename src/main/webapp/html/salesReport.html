@@ -12,28 +12,30 @@
         <h3>Sales Report</h3>
         <!-- Blank Row -->
 
-        <div class="container">
-            <form id="filter-form">
-                <div class="row">
-                    <div class="form-group col-md-4">
-                        <label for="inputBrand" class="required">Brand</label>
-                        <select class="form-control" name="brand" id="inputBrand" required placeholder="Select Brand">
-                            <option value="amul">amul</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="inputBarcode">Starting Date</label>
-                        <input id="startingdatepicker" name="startDate" required />
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="inputQuantity">Ending Date</label>
-                        <input id="endingdatepicker" name="endDate" required />
-                    </div>
+        <form id="filter-form">
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label for="inputBrand" class="required">Brand</label>
+                    <select class="form-select" name="brand" id="inputBrand" required placeholder="Select Brand">
+                        <option value="amul">amul</option>
+                    </select>
                 </div>
-                <button type="submit" class="btn btn-outline-primary">Fetch</button>
-                <button class="btn btn-outline-success ml-2" id="download-data">Download</button>
-            </form>
-        </div>
+                <div class="form-group col-md-3">
+                    <label for="inputBarcode" class="form-label">Starting Date</label>
+                    <input id="startingdatepicker" name="startDate" required />
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="inputQuantity" class="form-label">Ending Date</label>
+                    <input id="endingdatepicker" name="endDate" required />
+                </div>
+                <div class="form-group col d-flex align-items-end">
+                    <button type="submit" class="btn btn-outline-primary">Fetch</button>
+                </div>
+                <div class="form-group col d-flex align-items-end">
+                    <button class="btn btn-outline-success ml-2" id="download-data">Download</button>
+                </div>
+            </div>
+        </form>
 
         <div class="row">
             &nbsp;
@@ -45,6 +47,7 @@
                 <table class="table table-striped" id="sales-report-table">
                     <thead class="table-dark">
                         <tr>
+                            <th scope="col">Brand</th>
                             <th scope="col">Category</th>
                             <th scope="col">Quantity</th>
                             <th scope="col">Revenue</th>

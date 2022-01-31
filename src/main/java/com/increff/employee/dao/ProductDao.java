@@ -69,4 +69,14 @@ public class ProductDao extends AbstractDao {
     public ProductPojo update(ProductPojo p) {
         return em.merge(p);
     }
+
+    public ProductPojo getProductByNameBrandCategoryIdMrp(String name, Integer brandCategoryId, Double mrp) {
+        TypedQuery<ProductPojo> query = getQuery(
+                "select p from ProductPojo p where p.name=:name and p.brandCategoryId=:brandCategoryId and p.mrp=:mrp",
+                ProductPojo.class);
+        query.setParameter("name", name);
+        query.setParameter("brandCategoryId", brandCategoryId);
+        query.setParameter("mrp", mrp);
+        return getSingle(query);
+    }
 }

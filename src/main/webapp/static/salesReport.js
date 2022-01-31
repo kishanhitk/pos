@@ -34,6 +34,9 @@ function displaySalesReportList(data) {
     var row =
       "<tr>" +
       "<td>" +
+      e.brand +
+      "</td>" +
+      "<td>" +
       e.category +
       "</td>" +
       "<td>" +
@@ -78,16 +81,21 @@ function downloadSalesReport() {
 //INITIALIZATION CODE
 function init() {
   $("#startingdatepicker").datepicker({
-    uiLibrary: "bootstrap4",
+    uiLibrary: "bootstrap5",
     maxDate: function () {
-      return $("#endingdatepicker").val();
+      // Add 1 day to #endingdatepicker date
+      var d = new Date($("#endingdatepicker").val());
+      d.setDate(d.getDate() - 1);
+      return d;
     },
   });
   $("#endingdatepicker").datepicker({
     minDate: function () {
-      return $("#startingdatepicker").val();
+      var d = new Date($("#startingdatepicker").val());
+      d.setDate(d.getDate() + 1);
+      return d;
     },
-    uiLibrary: "bootstrap4",
+    uiLibrary: "bootstrap5",
   });
   // Set ending date as today's date
   $("#endingdatepicker").datepicker().value(new Date().toLocaleDateString());
