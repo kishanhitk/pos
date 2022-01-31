@@ -12,26 +12,47 @@ function getOrderListPageUrl() {
   return baseUrl + "/ui/orders";
 }
 
-cartItems = [];
+let cartItems = [];
 
 function addToCart(event) {
   event.preventDefault();
   const $form = $("#cart-item-form");
-  const data = toJson($form);
-  cartItems.push(data);
+  const data = JSON.parse(toJson($form));
+
+  console.log(data);
+  console.log(cartItems);
+  const barcode = data.barcode;
+  // Update existing item
+  const existingItem = cartItems.find((item) => {
+    return item.barcode === barcode;
+  });
+  if (existingItem) {
+    existingItem.quantity =
+      Number(existingItem.quantity) + Number(data.quantity);
+    existingItem.sellingPrice =
+      Number(existingItem.sellingPrice) + Number(data.sellingPrice);
+  } else {
+    // Add new item
+    cartItems.push({
+      barcode: barcode,
+      quantity: Number(data.quantity),
+      sellingPrice: Number(data.sellingPrice),
+    });
+  }
   //   Clear the form
   $form.trigger("reset");
   displayCartItemsToTable();
-  console.log(cartItems);
 }
 
 function displayCartItemsToTable() {
+  if (cartItems.length > 0) {
+    $("#place-order").show();
+  }
   const $table = $("#cart-items-table");
   $table.empty();
   $table.append(`<thead class="table-dark">
     <tr>
         <th>Barcode</th>
-        <th>Name</th>
         <th>Quantity</th>
         <th>Selling Price</th>
         <th>Total</th>
@@ -40,16 +61,14 @@ function displayCartItemsToTable() {
 </thead>`);
   $table.append(`<tbody>`);
   cartItems.forEach((item) => {
-    item = JSON.parse(item);
-    $table.append(`<tr>
+    $table.append(`<tr id=${item.barcode}>
         <td>${item.barcode}</td>
-        <td>${item.name}</td>
         <td>${item.quantity}</td>
         <td>${item.sellingPrice}</td>
         <td>${item.quantity * item.sellingPrice}</td>
-        <td><button class="delete-row btn btn-outline-danger" data-row-id="${
+        <td><button class="delete-row btn btn-outline-danger" onclick="deleteRow(${
           item.barcode
-        }">Delete</button></td>
+        })">Delete</button></td>
     </tr>`);
   });
   $table.append(`</tbody>`);
@@ -84,17 +103,15 @@ function convertToOrderItems(data) {
 }
 
 function placeOrder(e) {
-  e.preventDefault();
-
-  var $form = $("#order-form");
-  var data = convertToOrderItems($form.serializeArray());
-
+  console.log("place order");
+  console.log(cartItems);
   $.ajax({
     url: getOrderUrl(),
     type: "POST",
-    data: JSON.stringify(data),
+    data: JSON.stringify(cartItems),
     contentType: "application/json",
     success: function (data) {
+      console.log(data);
       $("#success-modal").modal("show");
     },
     error: function (data) {
@@ -103,9 +120,14 @@ function placeOrder(e) {
   });
 }
 
-function deleteRow() {
-  var id = $(this).attr("id");
-  $("#row-" + id).remove();
+function deleteRow(barcode) {
+  console.log(barcode);
+  console.log(cartItems);
+  cartItems = cartItems.filter((item) => {
+    return item.barcode != barcode;
+  });
+  console.log(cartItems);
+  displayCartItemsToTable();
 }
 
 function fetchProductDetailsByBarcode(rowId) {
@@ -132,8 +154,8 @@ function resetProductDetails(rowId) {
 }
 function init() {
   $("#cart-item-form").submit(addToCart);
-  //   $("#add-row").click(addRow);
-  $("#order-form").submit(placeOrder);
+  $("#place-order").hide();
+  $("#place-order").click(placeOrder);
   $(".delete-row").on("click", deleteRow);
 }
 

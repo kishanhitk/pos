@@ -30,16 +30,19 @@
                     </div>
                     <div class="form-group col-2">
                         <label for="inputQuantity0">Quantity</label>
-                        <input type="number" class="form-control" id="inputQuantity0" required name="quantity"
+                        <input type="number" class="form-control" id="inputQuantity0" required name="quantity" min="1"
                             placeholder="Quantity">
                     </div>
                     <div class="form-group col-2">
                         <label for="inputSellingPric0e">Selling Price</label>
-                        <input type="number" step="0.01" class="form-control" required id="inputSellingPrice0"
+                        <input type="number" step="0.01" class="form-control" required id="inputSellingPrice0" min="0"
                             name="sellingPrice" placeholder="Selling Price">
                     </div>
                     <div class="form-group col d-flex align-items-end">
                         <button type="submit" class="btn btn-outline-success">Add</button>
+                    </div>
+                    <div class="form-group col d-flex align-items-end">
+                        <button type="button" id="place-order" class="btn btn-outline-primary">Place Order</button>
                     </div>
                 </div>
             </div>
@@ -61,14 +64,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Amul Cool</td>
-                        <td>30</td>
-                        <td>abc</td>
-                        <td>abc</td>
-                        <td>Edit</td>
-                    </tr>
-
                 </tbody>
             </table>
 
