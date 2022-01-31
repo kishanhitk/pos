@@ -19,8 +19,6 @@ function addToCart(event) {
   const $form = $("#cart-item-form");
   const data = JSON.parse(toJson($form));
 
-  console.log(data);
-  console.log(cartItems);
   const barcode = data.barcode;
   // Update existing item
   const existingItem = cartItems.find((item) => {
@@ -76,7 +74,6 @@ function displayCartItemsToTable() {
 }
 
 function placeOrder() {
-  console.log("place order");
   $.ajax({
     url: getOrderUrl(),
     type: "POST",
@@ -92,12 +89,10 @@ function placeOrder() {
 }
 
 function deleteRow(barcode) {
-  console.log(barcode);
-  console.log(cartItems);
   cartItems = cartItems.filter((item) => {
     return item.barcode != barcode;
   });
-  console.log(cartItems);
+
   displayCartItemsToTable();
 }
 
