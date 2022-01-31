@@ -64,13 +64,12 @@ function displayCartItemsToTable() {
         <td>${item.quantity}</td>
         <td>${item.sellingPrice}</td>
         <td>${item.quantity * item.sellingPrice}</td>
-        <td><button class="delete-row btn btn-outline-danger" onclick="deleteRow(${
+        <td><button class="delete-row btn btn-outline-danger" onclick='deleteRow("${
           item.barcode
-        })">Delete</button></td>
+        }")'>Delete</button></td>
     </tr>`);
   });
   $table.append(`</tbody>`);
-  $(".delete-row").on("click", deleteRow);
 }
 
 function placeOrder() {
@@ -90,7 +89,7 @@ function placeOrder() {
 
 function deleteRow(barcode) {
   cartItems = cartItems.filter((item) => {
-    return item.barcode != barcode;
+    return item.barcode !== barcode;
   });
 
   displayCartItemsToTable();
