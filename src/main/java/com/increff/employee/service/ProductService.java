@@ -19,6 +19,11 @@ public class ProductService {
     @Transactional(rollbackFor = ApiException.class)
     public ProductPojo add(ProductPojo p) throws ApiException {
         normalize(p);
+        ProductPojo existing = productDao.getProductByNameBrandCategoryIdMrp(p.getName(), p.getBrandCategoryId(),
+                p.getMrp());
+        if (existing != null) {
+            throw new ApiException("Product with given details already exists");
+        }
         return productDao.insert(p);
     }
 
