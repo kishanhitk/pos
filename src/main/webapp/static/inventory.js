@@ -149,13 +149,13 @@ function displayInventoryList(data) {
     var row =
       "<tr>" +
       "<td>" +
-      e.productBarcode +
-      "</td>" +
-      "<td>" +
       e.productName +
       "</td>" +
       "<td>" +
       e.quantity +
+      "</td>" +
+      "<td>" +
+      e.productBarcode +
       "</td>" +
       "<td>" +
       buttonHtml +
