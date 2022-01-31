@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<bill>
+    <date>31-01-2022</date>
+    <time>11:27:51</time>
+    <item>
+        <id>1</id>
+        <name>chprs</name>
+        <quantity>1</quantity>
+        <mrp>1.0</mrp>
+    </item>
+    <total>1.0 Rs.</total>
+</bill>
