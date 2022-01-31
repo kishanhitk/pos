@@ -21,31 +21,36 @@ import org.apache.fop.apps.FopFactory;
 import org.apache.fop.apps.MimeConstants;
 
 public class PDFUtil {
-    public static byte[] createPDF() throws FOPException, TransformerException, IOException {
-        File xmlfile = new File("billDataXML.xml");
-        File xsltfile = new File("template.xsl");
-
-        File pdffile = new File("resultPDF.pdf");
+    public static void createPDF() throws FOPException, TransformerException, IOException {
+        // the XSL FO file
+        File xsltFile = new File("template.xsl");
+        // the XML file which provides the input
+        StreamSource xmlSource = new StreamSource(new File("billDataXML.xml"));
+        // create an instance of fop factory
         FopFactory fopFactory = FopFactory.newInstance();
+        // a user agent is needed for transformation
         FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
-        OutputStream out = new java.io.FileOutputStream(pdffile);
-        out = new java.io.ByteArrayOutputStream();
+        // Setup output
+        OutputStream out;
+        out = new java.io.FileOutputStream("bill.pdf");
+        try {
+            // Construct fop with desired output format
+            Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, foUserAgent, out);
 
-        Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, foUserAgent, out);
-        TransformerFactory factory = TransformerFactory.newInstance();
-        Transformer transformer = factory.newTransformer(new StreamSource(xsltfile));
-        transformer.setParameter("versionParam", "2.0");
-        Source src = new StreamSource(xmlfile);
-        Result res = new SAXResult(fop.getDefaultHandler());
-        transformer.transform(src, res);
-        out.close();
-        out.flush();
-        byte[] byteArray = ((java.io.ByteArrayOutputStream) out).toByteArray();
+            // Setup XSLT
+            TransformerFactory factory = TransformerFactory.newInstance();
+            Transformer transformer = factory.newTransformer(new StreamSource(xsltFile));
 
-        byte[] encodedBytes = java.util.Base64.getEncoder().encode(byteArray);
+            // Resulting SAX events (the generated FO) must be piped through to FOP
+            Result res = new SAXResult(fop.getDefaultHandler());
 
-        return encodedBytes;
-
+            // Start XSLT transformation and FOP processing
+            // That's where the XML is first transformed to XSL-FO and then
+            // PDF is created
+            transformer.transform(xmlSource, res);
+        } finally {
+            out.close();
+        }
     }
 
     public static void createResponse(HttpServletResponse response, byte[] encodedBytes) throws IOException {
@@ -55,11 +60,23 @@ public class PDFUtil {
         response.addHeader("Cache-Control", "max-age=0");
         response.setHeader("Content-disposition", "attachment;filename=" + pdfFileName);
         response.setContentType("application/pdf");
-
         response.setContentLength(encodedBytes.length);
         ServletOutputStream servletOutputStream = response.getOutputStream();
         servletOutputStream.write(encodedBytes);
         servletOutputStream.flush();
         servletOutputStream.close();
+    }
+
+    public static byte[] getPDF() {
+        byte[] encodedBytes = null;
+        try {
+            createPDF();
+            File file = new File("bill.pdf");
+            byte[] bytes = new byte[(int) file.length()];
+            encodedBytes = java.util.Base64.getEncoder().encode(bytes);
+        } catch (FOPException | TransformerException | IOException e) {
+            e.printStackTrace();
+        }
+        return encodedBytes;
     }
 }

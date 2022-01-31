@@ -111,7 +111,6 @@ function placeOrder(e) {
     data: JSON.stringify(cartItems),
     contentType: "application/json",
     success: function (data) {
-      console.log(data);
       $("#success-modal").modal("show");
     },
     error: function (data) {

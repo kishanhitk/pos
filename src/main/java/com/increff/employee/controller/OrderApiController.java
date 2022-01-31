@@ -1,5 +1,6 @@
 package com.increff.employee.controller;
 
+import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -31,13 +32,14 @@ public class OrderApiController {
 
     @ApiOperation(value = "Create an order")
     @RequestMapping(path = "/api/orders", method = RequestMethod.POST)
-    public List<InvoiceData> add(@RequestBody List<OrderItemForm> orderItems,
+    public void add(@RequestBody List<OrderItemForm> orderItems,
             HttpServletResponse response) throws Exception {
         List<InvoiceData> bill = dto.addOrder(orderItems);
         XMLUtil.createXml(bill);
-        byte[] encodedBytes = PDFUtil.createPDF();
-        PDFUtil.createResponse(response, encodedBytes);
-        return bill;
+        PDFUtil.createPDF();
+        byte[] encodedBytes = org.apache.commons.io.FileUtils.readFileToByteArray(new File("bill.pdf"));
+        response.setHeader("Content-Disposition", "attachment; filename=\"" + "bill.pdf" + "\"");
+        response.getOutputStream().write(encodedBytes);
     }
 
     @ApiOperation(value = "Get all orders")
