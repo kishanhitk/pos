@@ -3,10 +3,7 @@ package com.increff.employee.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.increff.employee.model.InvoiceData;
-import com.increff.employee.model.OrderData;
-import com.increff.employee.model.OrderItemData;
-import com.increff.employee.model.OrderItemForm;
+import com.increff.employee.model.*;
 import com.increff.employee.pojo.OrderItemPojo;
 import com.increff.employee.pojo.OrderPojo;
 import com.increff.employee.pojo.ProductPojo;
@@ -34,7 +31,7 @@ public class OrderDto {
     private InventoryService inventoryService;
 
     @Transactional(rollbackFor = ApiException.class)
-    public List<InvoiceData> addOrder(List<OrderItemForm> orderItems) throws ApiException {
+    public BillData addOrder(List<OrderItemForm> orderItems) throws ApiException {
         validate(orderItems);
         OrderPojo orderPojo = orderService.createNewOrder();
         List<OrderItemPojo> orderItemPojos = new ArrayList<>();
@@ -50,6 +47,8 @@ public class OrderDto {
             orderItemService.insert(orderItemPojo);
             inventoryService.reduce(orderItem.getBarcode(), orderItemPojo.getProductId(), orderItemPojo.getQuantity());
         }
+        BillData billData = new BillData();
+
         List<InvoiceData> bill = new ArrayList<InvoiceData>();
         int i = 1;
         // Convert OrderItemPojo to BillData
@@ -63,7 +62,9 @@ public class OrderDto {
             i++;
             bill.add(item);
         }
-        return bill;
+        billData.setItems(bill);
+        billData.setId(orderPojo.getId());
+        return billData;
     }
 
     @Transactional(readOnly = true)

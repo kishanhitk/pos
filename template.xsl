@@ -39,6 +39,24 @@
                 <fo:table-column column-width="50%" />
                 <fo:table-body>
                     <fo:table-row>
+                        <fo:table-cell padding-top="50pt">
+                            <fo:block font-size="20pt" font-family="sans-serif" color="black" text-align="center">
+                                Order Id
+                            </fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell padding-top="50pt">
+                            <fo:block font-size="20pt" font-family="sans-serif" color="red" text-align="center">
+                                <xsl:value-of select="orderId" />
+                            </fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+                </fo:table-body>
+            </fo:table>
+            <fo:table table-layout="fixed" width="100%">
+                <fo:table-column column-width="50%" />
+                <fo:table-column column-width="50%" />
+                <fo:table-body>
+                    <fo:table-row>
                         <fo:table-cell>
                             <fo:block font-size="12pt" font-family="sans-serif" color="black" text-align="left" padding-top="3pt">
                                 Date :
@@ -129,6 +147,7 @@
                     </fo:table-row>
                 </fo:table-body>
             </fo:table>
+
         </fo:block>
     </xsl:template>
     <xsl:template match="id">

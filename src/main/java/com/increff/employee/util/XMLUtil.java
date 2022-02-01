@@ -15,12 +15,13 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import com.increff.employee.model.BillData;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import com.increff.employee.model.InvoiceData;
 
 public class XMLUtil {
-    public static void createXml(List<InvoiceData> billDataItems)
+    public static void createXml(BillData billData)
             throws ParserConfigurationException, TransformerException {
         String xmlFilePath = "billDataXML.xml";
 
@@ -43,7 +44,12 @@ public class XMLUtil {
         Element time = document.createElement("time");
         time.appendChild(document.createTextNode(getTime()));
         root.appendChild(time);
+
+        Element orderId = document.createElement("orderId");
+        orderId.appendChild(document.createTextNode(String.valueOf(billData.getId())));
+        root.appendChild(orderId);
         // Create elements from BillData list
+        List<InvoiceData> billDataItems = billData.getItems();
         for (i = 0; i < billDataItems.size(); i++) {
             Element item = document.createElement("item");
             root.appendChild(item);

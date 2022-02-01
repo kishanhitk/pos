@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import com.increff.employee.dto.OrderDto;
+import com.increff.employee.model.BillData;
 import com.increff.employee.model.InvoiceData;
 import com.increff.employee.model.OrderData;
 import com.increff.employee.model.OrderItemForm;
@@ -34,8 +35,8 @@ public class OrderApiController {
     @RequestMapping(path = "/api/orders", method = RequestMethod.POST)
     public void add(@RequestBody List<OrderItemForm> orderItems,
             HttpServletResponse response) throws Exception {
-        List<InvoiceData> bill = dto.addOrder(orderItems);
-        XMLUtil.createXml(bill);
+        BillData billData = dto.addOrder(orderItems);
+        XMLUtil.createXml(billData);
         PDFUtil.createPDF();
         byte[] encodedBytes = org.apache.commons.io.FileUtils.readFileToByteArray(new File("bill.pdf"));
         PDFUtil.createResponse(response, encodedBytes);
