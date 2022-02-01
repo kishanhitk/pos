@@ -24,13 +24,13 @@ function displaybrandReportList(data) {
     var row =
       "<tr>" +
       "<td>" +
-      e.id +
-      "</td>" +
-      "<td>" +
       e.brand +
       "</td>" +
       "<td>" +
       e.category +
+      "</td>" +
+      "<td>" +
+      e.id +
       "</td>" +
       "</tr>";
     $tbody.append(row);
