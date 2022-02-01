@@ -13,14 +13,16 @@ function toJson($form) {
 
 function handleAjaxError(response) {
   $(".notifyjs-corner").empty();
-
   if (response.status >= 500) {
     $.notify("Server error", "error");
     return;
   }
-
-  var response = JSON.parse(response.responseText);
-  $.notify(response.message, { type: "error", autoHide: false });
+  try {
+    var response = JSON.parse(response.responseText);
+    $.notify(response.message, { type: "error", autoHide: false });
+  } catch (error) {
+    $.notify("Internal Error", "error");
+  }
 }
 
 function readFileData(file, callback) {

@@ -109,6 +109,7 @@ function uploadRows() {
   if (processCount == fileData.length) {
     $.notify("Upload Complete", "info");
     getBrandCategoryList();
+    $("#error-data").show();
     return;
   }
 
@@ -227,6 +228,7 @@ function init() {
   $("#upload-data").click(displayUploadData);
   $("#process-data").click(processData);
   $("#download-errors").click(downloadErrors);
+  $("#error-data").hide();
   $("#brandCategoryFile").on("change", () => {
     updateFileName();
     resetVariablesCounts();
