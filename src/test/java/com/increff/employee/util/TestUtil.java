@@ -1,6 +1,7 @@
 package com.increff.employee.util;
 
 import com.increff.employee.model.BrandCategoryForm;
+import com.increff.employee.model.InventoryForm;
 import com.increff.employee.model.ProductForm;
 
 public class TestUtil {
@@ -16,6 +17,13 @@ public class TestUtil {
         form.setBrandCategory(id);
         form.setName(string);
         form.setMrp(d);
+        return form;
+    }
+
+    public static InventoryForm getInventoryForm(Integer id, int i) {
+        InventoryForm form = new InventoryForm();
+        form.setProductId(id);
+        form.setQuantity(i);
         return form;
     }
 }
