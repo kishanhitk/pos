@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.google.protobuf.TextFormat.ParseException;
+import com.increff.employee.model.BillData;
 import com.increff.employee.model.BrandCategoryForm;
 import com.increff.employee.model.InventoryForm;
 import com.increff.employee.model.InvoiceData;
@@ -37,7 +38,8 @@ public class OrderDtoTest extends AbstractUnitTest {
         // get array of items
         OrderItemForm[] orderItemForms = getOrderItemArray();
         // create order
-        List<InvoiceData> billDatas = orderDto.addOrder(Arrays.asList(orderItemForms));
+        BillData billData = orderDto.addOrder(Arrays.asList(orderItemForms));
+        List<InvoiceData> billDatas = billData.getItems();
         // test values
         assertEquals(2, billDatas.size());
         assertEquals("bubbly", billDatas.get(0).name);
