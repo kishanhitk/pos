@@ -102,6 +102,10 @@ function uploadRows() {
   if (processCount == fileData.length) {
     $.notify("Upload Complete", "info");
     getInventoryList();
+    $("#error-data").show();
+    if (errorData.length == 0) {
+      $("#download-errors").hide();
+    }
     return;
   }
 
@@ -205,6 +209,8 @@ function updateFileName() {
 
 function displayUploadData() {
   resetUploadDialog();
+  $("#error-data").hide();
+
   $("#upload-inventory-modal").modal("toggle");
 }
 

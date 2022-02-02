@@ -213,6 +213,7 @@ function updateFileName() {
 
 function displayUploadData() {
   resetUploadDialog();
+  $("#error-data").hide();
   $("#upload-brandCategory-modal").modal("toggle");
 }
 

@@ -107,6 +107,10 @@ function uploadRows() {
   if (processCount == fileData.length) {
     $.notify("Upload Complete", "info");
     getProductList();
+    $("#error-data").show();
+    if (errorData.length == 0) {
+      $("#download-errors").hide();
+    }
     return;
   }
 
@@ -217,6 +221,7 @@ function updateFileName() {
 
 function displayUploadData() {
   resetUploadDialog();
+  $("#error-data").hide();
   $("#upload-product-modal").modal("toggle");
 }
 
@@ -269,6 +274,7 @@ function init() {
   $("#upload-data").click(displayUploadData);
   $("#process-data").click(processData);
   $("#download-errors").click(downloadErrors);
+  $("#error-data").show();
   $("#productFile").on("change", () => {
     updateFileName();
     resetVariablesCounts();
