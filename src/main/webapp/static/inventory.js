@@ -28,6 +28,7 @@ function addInventory(event) {
 }
 
 function updateInventory(event) {
+  event.preventDefault();
   $("#edit-inventory-modal").modal("toggle");
   //Get the ID
   var id = $("#inventory-edit-form input[name=id]").val();
@@ -36,7 +37,7 @@ function updateInventory(event) {
   //Set the values to update
   var $form = $("#inventory-edit-form");
   var json = toJson($form);
-  console.log(json);
+
   $.ajax({
     url: url,
     type: "PUT",
@@ -99,7 +100,12 @@ function uploadRows() {
   updateUploadDialog();
   //If everything processed then return
   if (processCount == fileData.length) {
+    $.notify("Upload Complete", "info");
     getInventoryList();
+    $("#error-data").show();
+    if (errorData.length == 0) {
+      $("#download-errors").hide();
+    }
     return;
   }
 
@@ -108,14 +114,12 @@ function uploadRows() {
   processCount++;
 
   var json = JSON.stringify(row);
-  console.log(json);
+
   var url = getInventoryUrl();
-  url = url + "/" + row.id;
   //Make ajax call
   $.ajax({
     url: url,
-    //!Using PUT because inventory data is already created during adding product
-    type: "PUT",
+    type: "POST",
     data: json,
     headers: {
       "Content-Type": "application/json",
@@ -144,15 +148,18 @@ function displayInventoryList(data) {
     var e = data[i];
     var buttonHtml =
       ' <button type="button" class="btn btn-outline-primary" onclick="displayEditInventory(' +
-      e.id +
+      e.productId +
       ')">Edit</button>';
     var row =
       "<tr>" +
       "<td>" +
-      e.id +
+      e.productName +
       "</td>" +
       "<td>" +
       e.quantity +
+      "</td>" +
+      "<td>" +
+      e.productBarcode +
       "</td>" +
       "<td>" +
       buttonHtml +
@@ -180,13 +187,14 @@ function resetUploadDialog() {
   $file.val("");
   $("#inventoryFileName").html("Choose File");
   //Reset various counts
+  resetVariablesCounts();
+}
+function resetVariablesCounts() {
   processCount = 0;
   fileData = [];
   errorData = [];
-  //Update counts
   updateUploadDialog();
 }
-
 function updateUploadDialog() {
   $("#rowCount").html("" + fileData.length);
   $("#processCount").html("" + processCount);
@@ -201,6 +209,8 @@ function updateFileName() {
 
 function displayUploadData() {
   resetUploadDialog();
+  $("#error-data").hide();
+
   $("#upload-inventory-modal").modal("toggle");
 }
 
@@ -211,19 +221,24 @@ function getBrandCategoryUrl() {
 
 function displayInventory(data) {
   $("#inventory-edit-form input[name=quantity]").val(data.quantity);
-  $("#inventory-edit-form input[name=id]").val(data.id);
+  $("#inventory-edit-form input[name=id]").val(data.productId);
+  $("#edit-inventory-modal").find("#product-name").text(data.productName);
+  $("#edit-inventory-modal").find("#product-barcode").text(data.productBarcode);
   $("#edit-inventory-modal").modal("toggle");
 }
 
 //INITIALIZATION CODE
 function init() {
   $("#add-inventory").click(addInventory);
-  $("#update-inventory").click(updateInventory);
+  $("#inventory-edit-form").submit(updateInventory);
   $("#refresh-data").click(getInventoryList);
   $("#upload-data").click(displayUploadData);
   $("#process-data").click(processData);
   $("#download-errors").click(downloadErrors);
-  $("#inventoryFile").on("change", updateFileName);
+  $("#inventoryFile").on("change", () => {
+    updateFileName();
+    resetVariablesCounts();
+  });
 }
 
 $(document).ready(init);

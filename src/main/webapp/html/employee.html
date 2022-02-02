@@ -28,11 +28,11 @@
 							<input type="text" class="form-control" name="age" id="inputAge" placeholder="enter age">
 						</div>
 					</div>
-					<button type="button" class="btn btn-primary" id="add-employee">Add</button>
+					<button type="button" class="btn btn-outline-primary" id="add-employee">Add</button>
 					&nbsp;
-					<button type="button" class="btn btn-primary" id="refresh-data">Refresh</button>
+					<button type="button" class="btn btn-outline-primary" id="refresh-data">Refresh</button>
 					&nbsp;
-					<button type="button" class="btn btn-primary" id="upload-data">Upload</button>
+					<button type="button" class="btn btn-outline-primary" id="upload-data">Upload</button>
 				</form>
 			</div>
 		</div>
@@ -52,7 +52,7 @@
 							<th scope="col">ID</th>
 							<th scope="col">Name</th>
 							<th scope="col">Age</th>
-							<th scope="col">Actions</th>
+							<th scope="col">Action</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -81,13 +81,13 @@
 		</div>
 
 		<!-- Employee Edit Modal -->
-		<div class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+		<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
 			id="edit-employee-modal">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title">Edit Employee</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
@@ -109,8 +109,8 @@
 						</form>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-						<button type="button" class="btn btn-primary" id="update-employee">Update</button>
+						<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+						<button type="button" class="btn btn-outline-primary" id="update-employee">Update</button>
 					</div>
 				</div>
 			</div>
@@ -118,14 +118,14 @@
 
 
 		<!-- Employee Edit Modal -->
-		<div class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+		<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
 			id="upload-employee-modal">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 
 					<div class="modal-header">
 						<h5 class="modal-title">Upload Employee</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
@@ -144,9 +144,10 @@
 					</div>
 
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-						<button type="button" class="btn btn-primary" id="process-data">Upload</button>
-						<button type="button" class="btn btn-warning" id="download-errors">Download Errors</button>
+						<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+						<button type="button" class="btn btn-outline-primary" id="process-data">Upload</button>
+						<button type="button" class="btn btn-outline-warning" id="download-errors">Download
+							Errors</button>
 					</div>
 				</div>
 			</div>

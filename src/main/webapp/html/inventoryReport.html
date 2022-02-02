@@ -10,7 +10,7 @@
 
     <div class="container">
         <h3>Inventory Report</h3>
-        <button class="btn btn-primary ml-auto mt-2" id="refresh-data">Refresh</button>
+        <button class="btn btn-outline-success mt-2" id="download-data">Download CSV</button>
         <!-- Blank Row -->
         <div class="row">
             &nbsp;
@@ -19,9 +19,8 @@
             <!-- Table -->
             <div class="col-12">
                 <table class="table table-striped" id="inventory-report-table">
-                    <thead>
+                    <thead class="table-dark">
                         <tr>
-                            <th scope="col">ID</th>
                             <th scope="col">Brand</th>
                             <th scope="col">Category</th>
                             <th scope="col">Quantity</th>
@@ -29,7 +28,6 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>1</td>
                             <td>Amul</td>
                             <td>Dairy</td>
                             <td>1</td>

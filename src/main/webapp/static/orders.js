@@ -31,14 +31,14 @@ function convertFormToOrderItems(data) {
 }
 function updateOrder(event) {
   event.preventDefault();
-  console.log("update order");
+
   //Get the ID
   var id = $("#edit-order-form input[name=id]").val();
   var url = getOrderUrl() + "/" + id;
   //Set the values to update
   var $form = $("#edit-order-form");
   var data = convertFormToOrderItems($form.serializeArray());
-  console.log(data);
+
   $.ajax({
     url: url,
     type: "PUT",
@@ -77,11 +77,9 @@ function displayOrderList(data) {
     var e = data[i];
     var orderDateStr = convertTimeStampToDateTime(e.createdAt);
     var buttonHtml =
-      ' <button class="btn btn-primary" onclick="displayOrderDetails(' +
+      ' <button class="btn btn-outline-primary" onclick="displayOrderDetails(' +
       e.id +
-      ')">Details</button> <button class="btn btn-outline-primary" onclick="displayEditOrderForm(' +
-      e.id +
-      ')">Edit</button> ';
+      ')">Details</button>';
     var row =
       "<tr>" +
       "<td>" +
@@ -126,7 +124,7 @@ function populateEditOrderModalForm(data) {
       '<div id="row-' +
       rowId +
       '" class="row">' +
-      '<div class="col-3">' +
+      '<div class="col-4">' +
       `<label for="barcode-${rowId}">Barcode</label>` +
       `<input type="text" class="form-control" id="barcode-${rowId}" name="barcode" value="` +
       orderItem.barcode +
@@ -144,7 +142,7 @@ function populateEditOrderModalForm(data) {
       orderItem.sellingPrice +
       '" readonly>' +
       "</div>" +
-      '<div class="col-3 mt-4">' +
+      '<div class="col-2 mt-4">' +
       '<button class="btn btn-danger delete-row" onclick="deleteRow(' +
       orderItem.id +
       ')" type="button" id="delete' +
@@ -168,7 +166,6 @@ function displayOrderDetails(id) {
     type: "GET",
     success: function (data) {
       displayOrder(data);
-      console.log(data);
     },
     error: handleAjaxError,
   });
@@ -217,7 +214,7 @@ function addRow() {
     '<div id="row-' +
     rowId +
     '" class="row">' +
-    '<div class="col-3">' +
+    '<div class="col-4">' +
     `<label for="barcode-${rowId}">Barcode</label>` +
     `<input type="text" class="form-control" id="barcode-${rowId}" required name="barcode" >` +
     "</div>" +
@@ -229,7 +226,7 @@ function addRow() {
     `<label for="sellingPrice-${rowId}">Price</label>` +
     `<input type="number" step="0.01" class="form-control" id="sellingPrice-${rowId}" required name="sellingPrice" >` +
     "</div>" +
-    '<div class="col-3 mt-4">' +
+    '<div class="col-2 mt-4">' +
     '<button class="btn btn-danger delete-row" onclick="deleteRow(' +
     rowId +
     ')" type="button" id="delete' +
@@ -240,12 +237,17 @@ function addRow() {
   $form.append(row);
 }
 
+function downloadInvoice() {
+  generatePdf("#order-items-table", "Order Invoice");
+}
+
 //INITIALIZATION CODE
 function init() {
   $("#update-order").click(updateOrder);
   $("#refresh-data").click(getOrderList);
   $("#edit-order-form").submit(updateOrder);
   $("#add-row").click(addRow);
+  $("#download-invoice").click(downloadInvoice);
 }
 
 $(document).ready(init);

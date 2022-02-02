@@ -6,7 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import org.springframework.stereotype.Repository;
 
@@ -19,8 +19,9 @@ public class ProductDao extends AbstractDao {
     private EntityManager em;
 
     @Transactional
-    public void insert(ProductPojo p) {
+    public ProductPojo insert(ProductPojo p) {
         em.persist(p);
+        return p;
     }
 
     @Transactional
@@ -45,7 +46,7 @@ public class ProductDao extends AbstractDao {
     // Get product by brand Category id
     @Transactional()
     public List<ProductPojo> getProductByBrandCategory(Integer id) {
-        TypedQuery<ProductPojo> query = em.createQuery("select p from ProductPojo p where brandCategory=:id",
+        TypedQuery<ProductPojo> query = em.createQuery("select p from ProductPojo p where brandCategoryId=:id",
                 ProductPojo.class);
         query.setParameter("id", id);
         List<ProductPojo> list = query.getResultList();
@@ -60,12 +61,22 @@ public class ProductDao extends AbstractDao {
     }
 
     public List<ProductPojo> selectAll() {
-        TypedQuery<ProductPojo> query = getQuery("select p from ProductPojo p", ProductPojo.class);
+        TypedQuery<ProductPojo> query = getQuery("select p from ProductPojo p order by p.name", ProductPojo.class);
         return query.getResultList();
     }
 
     @Transactional
     public ProductPojo update(ProductPojo p) {
         return em.merge(p);
+    }
+
+    public ProductPojo getProductByNameBrandCategoryIdMrp(String name, Integer brandCategoryId, Double mrp) {
+        TypedQuery<ProductPojo> query = getQuery(
+                "select p from ProductPojo p where p.name=:name and p.brandCategoryId=:brandCategoryId and p.mrp=:mrp",
+                ProductPojo.class);
+        query.setParameter("name", name);
+        query.setParameter("brandCategoryId", brandCategoryId);
+        query.setParameter("mrp", mrp);
+        return getSingle(query);
     }
 }

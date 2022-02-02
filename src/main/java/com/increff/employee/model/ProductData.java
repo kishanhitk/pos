@@ -8,7 +8,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class ProductData extends ProductForm {
-
     private Integer id;
     private String barcode;
+    private String brand;
+    private String category;
 }

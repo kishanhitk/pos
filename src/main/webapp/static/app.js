@@ -1,7 +1,7 @@
 //HELPER METHOD
 function toJson($form) {
   var serialized = $form.serializeArray();
-  console.log(serialized);
+
   var s = "";
   var data = {};
   for (s in serialized) {
@@ -13,12 +13,15 @@ function toJson($form) {
 
 function handleAjaxError(response) {
   $(".notifyjs-corner").empty();
+  if (response.status >= 500) {
+    $.notify("Server error", "error");
+    return;
+  }
   try {
     var response = JSON.parse(response.responseText);
     $.notify(response.message, { type: "error", autoHide: false });
   } catch (error) {
-    console.log(error);
-    $.notify("Something went wrong!", "error");
+    $.notify("Internal Error", "error");
   }
 }
 
@@ -76,4 +79,20 @@ function convertTimeStampToDateTime(timestamp) {
     ":" +
     date.getSeconds()
   );
+}
+function generatePdf(selector, outputFileName) {
+  html2canvas($(selector)[0], {
+    onrendered: function (canvas) {
+      var data = canvas.toDataURL();
+      var docDefinition = {
+        content: [
+          {
+            image: data,
+            width: 500,
+          },
+        ],
+      };
+      pdfMake.createPdf(docDefinition).download(outputFileName);
+    },
+  });
 }

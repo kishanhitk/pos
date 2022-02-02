@@ -39,5 +39,3 @@ function convertToOrderItems(data) {
   }
   return output;
 }
-
-console.log(convertToOrderItems(data));

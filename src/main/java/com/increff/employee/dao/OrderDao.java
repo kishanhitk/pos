@@ -6,7 +6,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.increff.employee.pojo.OrderPojo;
 
@@ -19,8 +19,9 @@ public class OrderDao extends AbstractDao {
     private EntityManager em;
 
     @Transactional
-    public void insert(OrderPojo p) {
+    public OrderPojo insert(OrderPojo p) {
         em.persist(p);
+        return p;
     }
 
     public OrderPojo select(int id) {
@@ -32,8 +33,9 @@ public class OrderDao extends AbstractDao {
         return query.getResultList();
     }
 
-    public void update(OrderPojo p) {
+    public OrderPojo update(OrderPojo p) {
         em.merge(p);
+        return p;
     }
 
     public List<OrderPojo> selectAllBetween(Date startingDate, Date endingDate) {

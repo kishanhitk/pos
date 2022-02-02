@@ -24,9 +24,6 @@ function displayInventoryReportList(data) {
     var row =
       "<tr>" +
       "<td>" +
-      e.id +
-      "</td>" +
-      "<td>" +
       e.brand +
       "</td>" +
       "<td>" +
@@ -39,10 +36,13 @@ function displayInventoryReportList(data) {
     $tbody.append(row);
   }
 }
-
+function downloadInventoryReport() {
+  $("#inventory-report-table").tableToCSV("inventory_report");
+}
 //INITIALIZATION CODE
 function init() {
   $("#refresh-data").click(getInventoryReport);
+  $("#download-data").click(downloadInventoryReport);
 }
 
 $(document).ready(init);

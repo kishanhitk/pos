@@ -34,6 +34,9 @@ function displaySalesReportList(data) {
     var row =
       "<tr>" +
       "<td>" +
+      e.brand +
+      "</td>" +
+      "<td>" +
       e.category +
       "</td>" +
       "<td>" +
@@ -51,7 +54,7 @@ function addDataToBrandCategoryDropdown(data, formId) {
   var $brand = $(`${formId} select[name=brand]`);
   $brand.empty();
   var set = new Set(data.map((item) => item.brand));
-  console.log(set);
+
   for (let i of set) {
     let option = '<option value="' + i + '">' + i + "</option>";
     $brand.append(option);
@@ -71,20 +74,28 @@ function populateBrandCategoryDropDown() {
   });
 }
 
+function downloadSalesReport() {
+  $("#sales-report-table").tableToCSV("Sales Report");
+}
+
 //INITIALIZATION CODE
 function init() {
-  $("#refresh-data").click(getSalesReport);
   $("#startingdatepicker").datepicker({
-    uiLibrary: "bootstrap4",
+    uiLibrary: "bootstrap5",
     maxDate: function () {
-      return $("#endingdatepicker").val();
+      // Add 1 day to #endingdatepicker date
+      var d = new Date($("#endingdatepicker").val());
+      d.setDate(d.getDate() - 1);
+      return d;
     },
   });
   $("#endingdatepicker").datepicker({
     minDate: function () {
-      return $("#startingdatepicker").val();
+      var d = new Date($("#startingdatepicker").val());
+      d.setDate(d.getDate() + 1);
+      return d;
     },
-    uiLibrary: "bootstrap4",
+    uiLibrary: "bootstrap5",
   });
   // Set ending date as today's date
   $("#endingdatepicker").datepicker().value(new Date().toLocaleDateString());
@@ -97,6 +108,7 @@ function init() {
       ).toLocaleDateString()
     );
   $("#filter-form").submit(filterSalesReport);
+  $("#download-data").click(downloadSalesReport);
 }
 
 $(document).ready(init);

@@ -4,9 +4,8 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import org.springframework.stereotype.Repository;
 
@@ -23,16 +22,9 @@ public class BrandCategoryDao extends AbstractDao {
         em.persist(p);
     }
 
-    // TODO:Remove unused code
-    public int delete(int id) {
-        Query query = em.createQuery("delete from BrandCategoryPojo p where id=:id");
-        query.setParameter("id", id);
-        return query.executeUpdate();
-    }
-
     public BrandCategoryPojo getByBrandCategoryName(String Brand, String Name) {
         TypedQuery<BrandCategoryPojo> query = em.createQuery(
-                "select p from BrandCategoryPojo p where p.brand=:brand and p.category=:category",
+                "select p from BrandCategoryPojo p where p.brand=:brand and p.category=:category ",
                 BrandCategoryPojo.class);
         query.setParameter("brand", Brand);
         query.setParameter("category", Name);
@@ -44,29 +36,22 @@ public class BrandCategoryDao extends AbstractDao {
     }
 
     public BrandCategoryPojo select(int id) {
-        TypedQuery<BrandCategoryPojo> query = getQuery("select p from BrandCategoryPojo p where id=:id",
+        TypedQuery<BrandCategoryPojo> query = getQuery("select p from BrandCategoryPojo p where id=:id ",
                 BrandCategoryPojo.class);
         query.setParameter("id", id);
         return getSingle(query);
     }
 
     public List<BrandCategoryPojo> selectAll() {
-        TypedQuery<BrandCategoryPojo> query = getQuery("select p from BrandCategoryPojo p", BrandCategoryPojo.class);
+        TypedQuery<BrandCategoryPojo> query = getQuery("select p from BrandCategoryPojo p order by p.brand, p.category",
+                BrandCategoryPojo.class);
         return query.getResultList();
     }
 
     @Transactional
     public BrandCategoryPojo update(BrandCategoryPojo p) {
         // TODO: Use variable for query
-        TypedQuery<BrandCategoryPojo> query = getQuery("select p from BrandCategoryPojo p where id=:id",
-                BrandCategoryPojo.class);
-        query.setParameter("id", p.getId());
-        BrandCategoryPojo old = getSingle(query);
-        if (p.getBrand() != null)
-            old.setBrand(p.getBrand());
-        if (p.getCategory() != null)
-            old.setCategory(p.getCategory());
-        return em.merge(old);
+        return em.merge(p);
     }
 
     public List<BrandCategoryPojo> getByBrandName(String brand) {

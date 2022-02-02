@@ -8,7 +8,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class ProductForm {
-
     private String name;
     private int brandCategory;
     private Double mrp;

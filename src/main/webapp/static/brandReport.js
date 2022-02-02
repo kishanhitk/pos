@@ -24,22 +24,26 @@ function displaybrandReportList(data) {
     var row =
       "<tr>" +
       "<td>" +
-      e.id +
-      "</td>" +
-      "<td>" +
       e.brand +
       "</td>" +
       "<td>" +
       e.category +
+      "</td>" +
+      "<td>" +
+      e.id +
       "</td>" +
       "</tr>";
     $tbody.append(row);
   }
 }
 
+function downloadBrandReport() {
+  $("#brandCategory-table").tableToCSV("brand_report");
+}
 //INITIALIZATION CODE
 function init() {
   $("#refresh-data").click(getbrandReport);
+  $("#download-data").click(downloadBrandReport);
 }
 
 $(document).ready(init);

@@ -1,9 +1,11 @@
 package com.increff.employee.pojo;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Column;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,12 +15,15 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity()
-@Table(name = "Inventory")
+@Table(name = "inventories")
 public class InventoryPojo extends AbstractPojo {
+
     @Id
-    @Column(nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    // TODO: Should have its own ID too
+
+    @Column(nullable = false, unique = true)
+    private Integer productId;
 
     @Column(nullable = false)
     private Integer quantity;

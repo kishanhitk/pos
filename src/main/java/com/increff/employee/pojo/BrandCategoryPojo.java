@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,8 @@ import lombok.Setter;
 @Setter()
 @NoArgsConstructor()
 @Entity()
-@Table(name = "BrandCategory")
+@Table(name = "brand_categories", uniqueConstraints = {
+        @UniqueConstraint(columnNames = { "brand", "category" }) })
 public class BrandCategoryPojo extends AbstractPojo {
 
     @Id
@@ -27,5 +29,4 @@ public class BrandCategoryPojo extends AbstractPojo {
 
     @Column(nullable = false)
     private String category;
-    // TODO : Add BrandCategoryPojo constraint
 }

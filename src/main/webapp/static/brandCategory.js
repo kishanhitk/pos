@@ -6,6 +6,7 @@ function getBrandCategoryReportUrl() {
 //BUTTON ACTIONS
 function addBrandCategory(event) {
   //Set the values to update
+  event.preventDefault();
   var $form = $("#brandCategory-form");
   var json = toJson($form);
   var url = getBrandCategoryReportUrl();
@@ -23,7 +24,6 @@ function addBrandCategory(event) {
       $.notify("Brand Category Added", "success");
     },
     error: (resp) => {
-      console.log(resp);
       handleAjaxError(resp);
     },
   });
@@ -32,6 +32,7 @@ function addBrandCategory(event) {
 }
 
 function updateBrandCategory(event) {
+  event.preventDefault();
   $("#edit-brandCategory-modal").modal("toggle");
   //Get the ID
   var id = $("#brandCategory-edit-form input[name=id]").val();
@@ -53,7 +54,6 @@ function updateBrandCategory(event) {
       $.notify("Brand Category Updated", "success");
     },
     error: (response) => {
-      console.log(response);
       handleAjaxError(response);
     },
   });
@@ -107,7 +107,12 @@ function uploadRows() {
   updateUploadDialog();
   //If everything processed then refresh the list
   if (processCount == fileData.length) {
+    $.notify(`Upload Complete with ${errorData.length} errors`, "info");
     getBrandCategoryList();
+    $("#error-data").show();
+    if (errorData.length == 0) {
+      $("#download-errors").hide();
+    }
     return;
   }
 
@@ -186,13 +191,14 @@ function resetUploadDialog() {
   $file.val("");
   $("#brandCategoryFileName").html("Choose File");
   //Reset various counts
+  resetVariablesCounts();
+}
+function resetVariablesCounts() {
   processCount = 0;
   fileData = [];
   errorData = [];
-  //Update counts
   updateUploadDialog();
 }
-
 function updateUploadDialog() {
   $("#rowCount").html("" + fileData.length);
   $("#processCount").html("" + processCount);
@@ -207,6 +213,7 @@ function updateFileName() {
 
 function displayUploadData() {
   resetUploadDialog();
+  $("#error-data").hide();
   $("#upload-brandCategory-modal").modal("toggle");
 }
 
@@ -219,13 +226,17 @@ function displayBrandCategory(data) {
 
 //INITIALIZATION CODE
 function init() {
-  $("#add-brandCategory").click(addBrandCategory);
-  $("#update-brandCategory").click(updateBrandCategory);
+  $("#brandCategory-form").submit(addBrandCategory);
+  $("#brandCategory-edit-form").submit(updateBrandCategory);
   $("#refresh-data").click(getBrandCategoryList);
   $("#upload-data").click(displayUploadData);
   $("#process-data").click(processData);
   $("#download-errors").click(downloadErrors);
-  $("#brandCategoryFile").on("change", updateFileName);
+  $("#error-data").hide();
+  $("#brandCategoryFile").on("change", () => {
+    updateFileName();
+    resetVariablesCounts();
+  });
 }
 
 $(document).ready(init);

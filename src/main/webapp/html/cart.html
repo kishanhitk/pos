@@ -1,0 +1,100 @@
+<!doctype html>
+
+<html lang="en">
+
+<head th:replace="snippets.html :: name_head"></head>
+
+<body>
+
+    <nav th:replace="snippets.html :: name_app_navbar"></nav>
+
+    <div class="container">
+
+        <h3>Create Order</h3>
+
+        <form id="cart-item-form">
+            <div id="order-form-div">
+                <div class="row" id="row-0">
+                    <div class="form-group col-3">
+                        <label for="inputBarcode0">Barcode</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="inputBarcode0" required name="barcode"
+                                placeholder="Enter Product Barcode">
+                            <!-- <div class="input-group-append">
+                                <button class="btn btn-outline-primary" type="button" id="fetch-details"
+                                    onchange="resetProductDetails('0')"
+                                    onclick="fetchProductDetailsByBarcode('0')">Fetch
+                                    Details</button>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="form-group col-2">
+                        <label for="inputQuantity0">Quantity</label>
+                        <input type="number" class="form-control" id="inputQuantity0" required name="quantity" min="1"
+                            placeholder="Quantity">
+                    </div>
+                    <div class="form-group col-2">
+                        <label for="inputSellingPric0e">Selling Price</label>
+                        <input type="number" step="0.01" class="form-control" required id="inputSellingPrice0" min="0"
+                            name="sellingPrice" placeholder="Selling Price">
+                    </div>
+                    <div class="form-group col d-flex align-items-end">
+                        <button type="submit" class="btn btn-outline-success">Add</button>
+                    </div>
+                    <div class="form-group col d-flex align-items-end">
+                        <button type="button" id="place-order" class="btn btn-outline-primary">Place Order</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+
+        <!-- Table -->
+        <h4 class="mt-5">Cart Item</h4>
+        <div class="col-12">
+            <table class="table table-striped" id="cart-items-table">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Barcode</th>
+                        <th scope="col">Selling Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Total Price</th>
+                        <th scope="col">Action</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+
+
+    <div class="modal fade " data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
+        id="success-modal" style="backdrop-filter: blur(10px);">
+        <div class="modal-dialog text-center" role="document">
+            <div class="modal-content">
+                <div class="modal-header justify-content-center">
+                    <h3 class="modal-title">Thanks!</h3>
+                </div>
+                <div class="modal-body my-4">
+                    <h2>Order Placed Successfully!</h2>
+                    <i class="far fa-check-circle fa-8x text-success my-3" aria-hidden="true"
+                        style="display: block;"></i>
+                    <a href="/pos/ui/orders" class="btn btn-outline-success my-2">View all Orders</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div> <!-- Container end-->
+
+    <footer th:replace="snippets.html :: name_footer"></footer>
+
+    <script th:src="@{/static/cart.js}" />
+    </script>
+
+</body>
+
+</html>
