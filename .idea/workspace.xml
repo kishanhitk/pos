@@ -6,12 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="fb8f1542-a41a-4ba9-be04-5d3c35d882f1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bill.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/bill.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/billDataXML.xml" beforeDir="false" afterPath="$PROJECT_DIR$/billDataXML.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/employee/controller/OrderApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/employee/controller/OrderApiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/employee/dto/OrderDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/employee/dto/OrderDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/increff/employee/util/XMLUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/increff/employee/util/XMLUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/template.xsl" beforeDir="false" afterPath="$PROJECT_DIR$/template.xsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/html/snippets.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/html/snippets.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
