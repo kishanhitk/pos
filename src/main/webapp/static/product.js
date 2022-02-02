@@ -224,6 +224,7 @@ function displayProduct(data) {
   $("#product-edit-form input[name=name]").val(data.name);
   $("#product-edit-form input[name=mrp]").val(data.mrp);
   $("#product-edit-form input[name=id]").val(data.id);
+  $("#product-edit-form").find("#product-barcode").text(data.barcode);
   $("#product-edit-form select[name=brandCategory]")
     .val(data.brandCategory)
     .change();
