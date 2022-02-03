@@ -2,6 +2,10 @@ function getOrderUrl() {
   var baseUrl = $("meta[name=baseUrl]").attr("content");
   return baseUrl + "/api/orders";
 }
+function getInvoiceUrl() {
+  var baseUrl = $("meta[name=baseUrl]").attr("content");
+  return baseUrl + "/api/invoice";
+}
 
 function convertFormToOrderItems(data) {
   const output = [];
@@ -238,7 +242,9 @@ function addRow() {
 }
 
 function downloadInvoice() {
-  generatePdf("#order-items-table", "Order Invoice");
+  const orderId = $("#order-id").text();
+  const url = getInvoiceUrl() + "/" + orderId;
+  window.open(url, "_blank");
 }
 
 //INITIALIZATION CODE

@@ -1,18 +1,14 @@
 package com.increff.employee.controller;
 
-import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
 import com.increff.employee.dto.OrderDto;
 import com.increff.employee.model.BillData;
-import com.increff.employee.model.InvoiceData;
 import com.increff.employee.model.OrderData;
 import com.increff.employee.model.OrderItemForm;
 import com.increff.employee.service.ApiException;
-import com.increff.employee.util.PDFUtil;
-import com.increff.employee.util.XMLUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,13 +29,9 @@ public class OrderApiController {
 
     @ApiOperation(value = "Create an order")
     @RequestMapping(path = "/api/orders", method = RequestMethod.POST)
-    public void add(@RequestBody List<OrderItemForm> orderItems,
+    public BillData add(@RequestBody List<OrderItemForm> orderItems,
             HttpServletResponse response) throws Exception {
-        BillData billData = dto.addOrder(orderItems);
-        XMLUtil.createXml(billData);
-        PDFUtil.createPDF();
-        byte[] encodedBytes = org.apache.commons.io.FileUtils.readFileToByteArray(new File("bill.pdf"));
-        PDFUtil.createResponse(response, encodedBytes);
+        return dto.addOrder(orderItems);
     }
 
     @ApiOperation(value = "Get all orders")
