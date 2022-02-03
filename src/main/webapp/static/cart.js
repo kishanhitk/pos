@@ -79,6 +79,8 @@ function placeOrder() {
     data: JSON.stringify(cartItems),
     contentType: "application/json",
     success: function (data) {
+      console.log(data);
+      $("#order-id-text").text(" Order Id: " + data.id);
       $("#success-modal").modal("show");
     },
     error: function (data) {

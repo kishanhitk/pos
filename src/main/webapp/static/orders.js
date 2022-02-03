@@ -36,6 +36,8 @@ function convertFormToOrderItems(data) {
 function updateOrder(event) {
   event.preventDefault();
 
+$.notify("This feature is coming soon", "info");
+return;
   //Get the ID
   var id = $("#edit-order-form input[name=id]").val();
   var url = getOrderUrl() + "/" + id;
