@@ -79,11 +79,19 @@ function displayOrderList(data) {
   $tbody.empty();
   for (var i in data) {
     var e = data[i];
+    const isConfirmed = e.isConfirmed;
+    console.log(e);
     var orderDateStr = convertTimeStampToDateTime(e.createdAt);
     var buttonHtml =
       ' <button class="btn btn-outline-primary" onclick="displayOrderDetails(' +
       e.id +
       ')">Details</button>';
+    if (!isConfirmed) {
+      buttonHtml +=
+        ' <button class="btn btn-outline-success" onclick="displayEditOrderForm(' +
+        e.id +
+        ')">Edit</button>';
+    }
     var row =
       "<tr>" +
       "<td>" +

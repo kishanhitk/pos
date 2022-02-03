@@ -52,8 +52,9 @@ public class PDFUtil {
         }
     }
 
-    public static void createResponse(HttpServletResponse response, byte[] encodedBytes) throws IOException {
-        String pdfFileName = "invoice.pdf";
+    public static void createResponse(HttpServletResponse response, byte[] encodedBytes, int orderId)
+            throws IOException {
+        String pdfFileName = "order-" + orderId + "-invoice.pdf";
         response.reset();
         response.addHeader("Pragma", "public");
         response.addHeader("Cache-Control", "max-age=0");

@@ -32,6 +32,6 @@ public class InvoiceApiController {
         XMLUtil.createXml(billData);
         PDFUtil.createPDF();
         byte[] encodedBytes = org.apache.commons.io.FileUtils.readFileToByteArray(new File("bill.pdf"));
-        PDFUtil.createResponse(response, encodedBytes);
+        PDFUtil.createResponse(response, encodedBytes, id);
     }
 }

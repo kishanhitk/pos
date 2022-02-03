@@ -94,6 +94,7 @@ public class ConvertUtil {
         data.setCreatedAt(pojo.getCreatedAt());
         data.setUpdatedAt(pojo.getUpdatedAt());
         data.setBarcode(barcode);
+
         return data;
     }
 
@@ -103,6 +104,7 @@ public class ConvertUtil {
         d.setId(p.getId());
         d.setUpdatedAt(p.getUpdatedAt());
         d.setOrderItems(orderItems);
+        d.setIsConfirmed(p.getIsConfirmed());
         return d;
     }
 }
