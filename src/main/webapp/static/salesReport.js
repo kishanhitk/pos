@@ -75,7 +75,14 @@ function populateBrandCategoryDropDown() {
 }
 
 function downloadSalesReport() {
-  $("#sales-report-table").tableToCSV("Sales Report");
+  const startingDate = $("#startingdatepicker").val();
+  const endingDate = $("#endingdatepicker").val();
+  const brand = $("#filter-form select[name=brand]").val();
+
+  console.log(startingDate, endingDate, brand);
+  $("#sales-report-table").tableToCSV(
+    `Sales-Report-${startingDate}-${endingDate}-${brand}`
+  );
 }
 
 //INITIALIZATION CODE
